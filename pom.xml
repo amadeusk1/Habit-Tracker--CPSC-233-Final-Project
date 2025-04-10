@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                ca.ucalgary.ahnaf.farhankhan.groupprojectgui1/ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.HelloApplication
+                                ca.ucalgary.ahnaf.farhankhan.groupprojectgui1/ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainGUI
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
