@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainController">
    <top>
       <MenuBar prefWidth="610.0" BorderPane.alignment="CENTER">
         <menus>
@@ -45,18 +45,23 @@
    <left>
       <VBox alignment="TOP_RIGHT" prefHeight="357.0" prefWidth="155.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="DayChoice" prefHeight="357.0" prefWidth="101.0">
+            <Pane prefHeight="357.0" prefWidth="101.0">
                <children>
                   <MenuButton fx:id="GoalActivityChoice" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" text="Goal/Activity">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                      <MenuItem mnemonicParsing="false" text="Goals" />
+                      <MenuItem mnemonicParsing="false" text="Activity" />
                     </items>
                   </MenuButton>
-                  <MenuButton layoutX="28.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Day" textAlignment="CENTER">
+                  <MenuButton fx:id="DayChoice" layoutX="28.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Day" textAlignment="CENTER">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                        <MenuItem mnemonicParsing="false" text="Monday" />
+                        <MenuItem mnemonicParsing="false" text="Tuesday" />
+                        <MenuItem mnemonicParsing="false" text="Wednesday" />
+                        <MenuItem mnemonicParsing="false" text="Thursday" />
+                        <MenuItem mnemonicParsing="false" text="Friday" />
+                        <MenuItem mnemonicParsing="false" text="Saturday" />
+                        <MenuItem mnemonicParsing="false" text="Sunday" />
                      </items>
                   </MenuButton>
                   <GridPane layoutX="14.0" layoutY="102.0" prefHeight="203.0" prefWidth="122.0">
@@ -98,8 +103,13 @@
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="HrsLoggedOn_Day" />
             <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Specific Day">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="Monday" />
+                <MenuItem mnemonicParsing="false" text="Tuesday" />
+                  <MenuItem mnemonicParsing="false" text="Wednesday" />
+                  <MenuItem mnemonicParsing="false" text="Thursday" />
+                  <MenuItem mnemonicParsing="false" text="Friday" />
+                  <MenuItem mnemonicParsing="false" text="Saturday" />
+                  <MenuItem mnemonicParsing="false" text="Sunday" />
               </items>
             </MenuButton>
             <Button mnemonicParsing="false" prefWidth="130.0" text="Max/Min Activity" />
