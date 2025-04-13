@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -9,8 +8,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -39,9 +43,50 @@
       </MenuBar>
    </top>
    <left>
-      <VBox prefHeight="357.0" prefWidth="126.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_RIGHT" prefHeight="357.0" prefWidth="155.0" BorderPane.alignment="CENTER">
          <children>
-            <ChoiceBox prefWidth="150.0" />
+            <Pane fx:id="DayChoice" prefHeight="357.0" prefWidth="101.0">
+               <children>
+                  <MenuButton fx:id="GoalActivityChoice" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" text="Goal/Activity">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                  </MenuButton>
+                  <MenuButton layoutX="28.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Day" textAlignment="CENTER">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                     </items>
+                  </MenuButton>
+                  <GridPane layoutX="14.0" layoutY="102.0" prefHeight="203.0" prefWidth="122.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Sleep" GridPane.rowIndex="1" />
+                        <Label text="Exercise" GridPane.rowIndex="2" />
+                        <Label text="Study" GridPane.rowIndex="3" />
+                        <Label text="Work" GridPane.rowIndex="4" />
+                        <Label text="Leisure" GridPane.rowIndex="5" />
+                        <TextField fx:id="sleep" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="exercise" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="study" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="work" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="leisure" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                     </children>
+                  </GridPane>
+               </children>
+            </Pane>
          </children></VBox>
    </left>
    <right>
@@ -57,7 +102,7 @@
                 <MenuItem mnemonicParsing="false" text="Action 2" />
               </items>
             </MenuButton>
-            <Button mnemonicParsing="false" prefWidth="130.0" text="MAx/Min Activity" />
+            <Button mnemonicParsing="false" prefWidth="130.0" text="Max/Min Activity" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="WeeklyGoalsAcieved" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="DailyGoalsAchieved" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="No._GoalsAchieved" />
@@ -69,26 +114,18 @@
       <Label BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <SplitPane dividerPositions="0.4523092369477912" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.4523092369477912" prefHeight="357.0" prefWidth="305.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ScrollPane layoutY="-2.0" prefHeight="358.0" prefWidth="186.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="356.0" prefWidth="186.0">
-                           <children>
-                              <Label layoutX="86.0" layoutY="177.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
+                  <ScrollPane layoutY="-2.0" prefHeight="358.0" prefWidth="186.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <ScrollPane layoutX="-1.0" layoutY="1.0" prefHeight="354.0" prefWidth="209.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="212.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="167.0">
                            <children>
                               <Label layoutX="14.0" layoutY="14.0" />
                            </children>
