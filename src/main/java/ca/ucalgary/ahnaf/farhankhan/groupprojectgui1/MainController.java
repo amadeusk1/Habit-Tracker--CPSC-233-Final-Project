@@ -88,8 +88,14 @@ public class MainController {
             int studyV = Integer.parseInt(study.getText());
             int workV = Integer.parseInt(work.getText());
             int leisureV = Integer.parseInt(leisure.getText());
-
+            // check if inputs are positive
+            if (sleepV < 0 || exerciseV < 0 || studyV < 0 || workV < 0 || leisureV < 0) {
+                systemUpdates.setText("All inputs must be positive numbers.");
+                return;
+            }
+            // sum total inputs
             int sumTotal = sleepV + exerciseV + studyV + workV + leisureV;
+
             // if goals is selected
             if ("Goals".equals(selectedGoal)) {
                 if (sumTotal <= 24) {
