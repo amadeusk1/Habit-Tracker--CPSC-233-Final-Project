@@ -59,9 +59,11 @@ public class Goals {
      */
     @Override
     public String toString() {
-        return "Goals{" +
-                "goals=" + goals +
-                '}';
+        return "Sleep: " + getSleep() + " hours" +
+                "\n\nExercise: " + getExercise() + " hours" +
+                "\n\nStudy: " + getStudy() + " hours" +
+                "\n\nWork: " + getWork() + " hours" +
+                "\n\nLeisure: " + getLeisure() + " hours";
     }
 
 

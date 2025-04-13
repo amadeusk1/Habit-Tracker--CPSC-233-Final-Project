@@ -25,6 +25,9 @@ public class MainController {
     private ChoiceBox<String> GoalActivityChoice;
 
     @FXML
+    private Label systemUpdates;
+
+    @FXML
     private Label dayText;
 
     @FXML
@@ -79,28 +82,42 @@ public class MainController {
     void confirmAction(ActionEvent event) {
         // Get the selected values from goals
         String selectedGoal = GoalActivityChoice.getValue();
-        int sleepV = 0, exerciseV = 0, studyV = 0, workV = 0, leisureV = 0;
         try {
-            sleepV = Integer.parseInt(sleep.getText());
-            exerciseV = Integer.parseInt(exercise.getText());
-            studyV = Integer.parseInt(study.getText());
-            workV = Integer.parseInt(work.getText());
-            leisureV = Integer.parseInt(leisure.getText());
+            int sleepV = Integer.parseInt(sleep.getText());
+            int exerciseV = Integer.parseInt(exercise.getText());
+            int studyV = Integer.parseInt(study.getText());
+            int workV = Integer.parseInt(work.getText());
+            int leisureV = Integer.parseInt(leisure.getText());
+
+            int sumTotal = sleepV + exerciseV + studyV + workV + leisureV;
+            // if goals is selected
+            if ("Goals".equals(selectedGoal)) {
+                if (sumTotal <= 24) {
+                    Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
+                    GoalsDisplay.setText(goals.toString());
+                    systemUpdates.setText("Goals logged successfully");
+                } else {
+                    systemUpdates.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
+                }
+            } else if ("Activity".equals(selectedGoal)) {
+                String selectedDay = DayChoice.getValue();
+                if (sumTotal <= 24) {
+                    Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
+                    systemUpdates.setText("Activities logged successfully");
+                } else {
+                    systemUpdates.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
+                }
+
+            } else {
+                systemUpdates.setText("Select Goal / Activity");
+            }
+
 
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a valid integer.");
+            systemUpdates.setText("Invalid input. Please enter a valid integer for all inputs .");
             // Optionally, display an error message to the user, e.g., using an Alert.
         }
-        // if goals is selected
-        if ("Goals".equals(selectedGoal)) {
-            Goals goals = new Goals(sleepV,exerciseV,studyV,workV,leisureV);
-        } else if ("Activity".equals(selectedGoal)) {
-            String selectedDay = DayChoice.getValue();
-            Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
 
-        } else {
-            System.out.println("Select Goal / Habit");
-        }
     }
 
 }
