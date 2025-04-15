@@ -47,7 +47,7 @@
    <left>
       <VBox alignment="TOP_RIGHT" prefHeight="575.0" prefWidth="155.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="572.0" prefWidth="155.0">
+            <Pane prefHeight="646.0" prefWidth="155.0">
                <children>
                   <GridPane layoutX="14.0" layoutY="102.0" prefHeight="203.0" prefWidth="122.0">
                     <columnConstraints>
@@ -75,7 +75,7 @@
                         <TextField fx:id="leisure" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Button fx:id="confirm" layoutX="52.0" layoutY="328.0" mnemonicParsing="false" onAction="#confirmAction" text="Confirm" />
+                  <Button fx:id="confirm" layoutX="33.0" layoutY="328.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="90.0" text="CONFIRM" />
                   <ChoiceBox fx:id="DayChoice" layoutX="76.0" layoutY="51.0" prefHeight="25.0" prefWidth="77.0" />
                   <ChoiceBox fx:id="GoalActivityChoice" layoutX="76.0" layoutY="14.0" prefHeight="25.0" prefWidth="77.0" />
                   <Label layoutX="3.0" layoutY="17.0" prefHeight="17.0" prefWidth="74.0" text="Goal/Activity" />
@@ -85,28 +85,34 @@
          </children></VBox>
    </left>
    <right>
-      <VBox prefHeight="357.0" prefWidth="126.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="557.0" prefWidth="143.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="HrsTotalLogged" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="HrsLoggedOn_Day" />
-            <Button mnemonicParsing="false" prefWidth="130.0" text="Max/Min Activity" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="WeeklyGoalsAcieved" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="DailyGoalsAchieved" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="131.0" text="No._GoalsAchieved" />
-            <Button mnemonicParsing="false" text="List time of activities logged over x hours" />
-            <Button mnemonicParsing="false" text="Time remaining to achieve goals on a specific day" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="TotalHoursLogged" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="TotalHoursLogged/Day" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="Max. &amp; Min. Activity" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="WeeklyGoalsAcieved" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="DailyGoalsAchieved" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="NumberGoalsAchieved" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="List time of activities logged over x hours" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="Time remaining to achieve goals on a specific day" />
          </children></VBox>
    </right>
    <bottom>
       <Label fx:id="systemUpdates" prefHeight="17.0" prefWidth="793.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <SplitPane dividerPositions="0.3959948320413438" prefHeight="557.0" prefWidth="457.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.4408557046979866" prefHeight="557.0" prefWidth="496.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="201.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="555.0" prefWidth="165.0">
                <children>
-                  <TextArea fx:id="GoalsDisplay" layoutY="49.0" prefHeight="216.0" prefWidth="198.0" />
-                  <Label layoutX="3.0" layoutY="19.0" prefHeight="36.0" prefWidth="67.0" text="Goals" textAlignment="CENTER">
+                  <TextArea fx:id="GoalsDisplay" layoutX="14.0" layoutY="377.0" prefHeight="146.0" prefWidth="201.0" />
+                  <Label layoutX="14.0" layoutY="341.0" prefHeight="36.0" prefWidth="86.0" text="Goals:" textAlignment="CENTER" textFill="#29d145">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextArea layoutX="9.0" layoutY="103.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Label layoutX="9.0" layoutY="68.0" prefHeight="36.0" prefWidth="174.0" text="Output Special:" textAlignment="CENTER" textFill="RED">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -117,10 +123,10 @@
                <children>
                   <ScrollPane layoutX="-1.0" layoutY="1.0" prefHeight="555.0" prefWidth="309.0">
                      <content>
-                        <AnchorPane prefHeight="554.0" prefWidth="342.0">
+                        <AnchorPane prefHeight="554.0" prefWidth="325.0">
                            <children>
                               <TextArea layoutX="8.0" layoutY="47.0" prefHeight="262.0" prefWidth="257.0" />
-                              <Label layoutX="6.0" layoutY="16.0" prefHeight="38.0" prefWidth="148.0" text="Output" textAlignment="CENTER">
+                              <Label layoutX="8.0" layoutY="14.0" prefHeight="38.0" prefWidth="148.0" text="File Display:" textAlignment="CENTER" textFill="#8200ff">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
