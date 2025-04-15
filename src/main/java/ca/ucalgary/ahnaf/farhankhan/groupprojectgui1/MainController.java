@@ -134,6 +134,7 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -252,12 +253,26 @@ public class MainController {
         }
     }
 
-
-
     @FXML
     void save(ActionEvent event) {
-
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save a file");
+        fc.setInitialDirectory(new File("."));
+        fc.setInitialFileName("data.csv");
+        File file = fc.showSaveDialog(new Stage());
+        status_label.setTextFill(Color.BLACK);
+        status_label.setText("");
+        if (FileSaver.save(file, data)) {
+            status_label.setTextFill(Color.GREEN);
+            status_label.setText(String.format("Saved to file %s%n", file));
+        } else {
+            status_label.setTextFill(Color.RED);
+            status_label.setText(String.format("Failed to save to file %s%n", file));
+        }
     }
+
+
+
 
 }
 
