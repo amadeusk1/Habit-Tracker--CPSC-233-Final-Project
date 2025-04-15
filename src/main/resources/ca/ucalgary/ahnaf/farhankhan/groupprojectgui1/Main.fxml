@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -88,21 +87,8 @@
    <right>
       <VBox prefHeight="357.0" prefWidth="126.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="All Activities" />
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="All Goals" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="HrsTotalLogged" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="HrsLoggedOn_Day" />
-            <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="126.0" text="Specific Day">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Monday" />
-                <MenuItem mnemonicParsing="false" text="Tuesday" />
-                  <MenuItem mnemonicParsing="false" text="Wednesday" />
-                  <MenuItem mnemonicParsing="false" text="Thursday" />
-                  <MenuItem mnemonicParsing="false" text="Friday" />
-                  <MenuItem mnemonicParsing="false" text="Saturday" />
-                  <MenuItem mnemonicParsing="false" text="Sunday" />
-              </items>
-            </MenuButton>
             <Button mnemonicParsing="false" prefWidth="130.0" text="Max/Min Activity" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" text="WeeklyGoalsAcieved" />
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="DailyGoalsAchieved" />
