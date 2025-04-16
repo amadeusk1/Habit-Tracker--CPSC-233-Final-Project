@@ -92,7 +92,7 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="Max. &amp; Min. Activity" />
             <Button fx:id="WeeklyGoalsAchieved" mnemonicParsing="false" onAction="#handleWeeklyGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="WeeklyGoalsAcieved" />
             <Button fx:id="DailyGoalsAchieved" mnemonicParsing="false" onAction="#handleDailyGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="DailyGoalsAchieved" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="NumberGoalsAchieved" />
+            <Button fx:id="NumberGoalsAchieved" mnemonicParsing="false" onAction="#handleNumberGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="NumberGoalsAchieved" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="List time of activities logged over x hours" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="Time remaining to achieve goals on a specific day" />
          </children></VBox>
