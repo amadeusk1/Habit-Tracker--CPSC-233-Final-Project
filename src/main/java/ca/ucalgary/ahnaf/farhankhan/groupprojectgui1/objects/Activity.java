@@ -44,7 +44,7 @@ public class Activity extends Day implements Comparable<Activity> {
      */
     @Override
     public String toString() {
-        return "Day: " + super.toString() + "\n" +
+        return  super.toString() + "\n" +
                 "\tSleep: " + sleep + " hours\n" +
                 "\tExercise: " + exercise + " hours\n" +
                 "\tStudy: " + study + " hours\n" +

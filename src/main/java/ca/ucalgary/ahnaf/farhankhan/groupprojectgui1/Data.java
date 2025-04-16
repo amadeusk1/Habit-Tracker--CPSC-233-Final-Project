@@ -87,11 +87,17 @@ public class Data {
     public static void displayAllActivities() {
         System.out.println("\n📅 Weekly Activities:");
         for (Day day : days) {
-            System.out.println(day);
+            System.out.println(day.toString());
         }
-        System.out.println();
     }
 
+    public static String displayAllActivitiesGUI() {
+        StringBuilder formated = new StringBuilder();
+        for (Day day : days) {
+            formated.append(day.toString());
+        }
+        return formated.toString();
+    }
 
     public static void setGoals(int goalSleep, int goalExercise, int goalStudy, int goalWork, int goalLeisure) {
     }
