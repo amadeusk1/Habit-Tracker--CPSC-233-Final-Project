@@ -529,7 +529,7 @@ public class MainController {
         String day = getDay();
         if (day.isEmpty()) return; // User cancelled
 
-        // Now show activity input popup
+        // Activity input fields
         TextField sleepField = new TextField();
         TextField exerciseField = new TextField();
         TextField studyField = new TextField();
@@ -573,9 +573,17 @@ public class MainController {
                 int work = Integer.parseInt(workField.getText());
                 int leisure = Integer.parseInt(leisureField.getText());
 
+                int total = sleep + exercise + study + work + leisure;
+
+                if (total > 24) {
+                    showError("Total hours cannot exceed 24. You entered: " + total);
+                    return;
+                }
+
                 Data.storeNewDay(day, sleep, exercise, study, work, leisure);
                 ActivityDisplay.setText(Data.displayAllActivitiesGUI());
                 status_label.setText("Activities updated for " + capitalize(day) + ".");
+
             } catch (NumberFormatException e) {
                 showError("Please enter valid numbers for all activity fields.");
             }
