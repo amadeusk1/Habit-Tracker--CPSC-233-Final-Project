@@ -19,10 +19,7 @@ import javafx.stage.Stage;
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import javafx.scene.paint.Color;
 
@@ -314,7 +311,7 @@ public class MainController {
                 case "friday":
                 case "saturday":
                 case "sunday":
-                    showInfo("You entered " + capitalize(dayOfWeek) + ".");
+                    status_label.setText("You entered " + capitalize(dayOfWeek) + ".");
                     return dayOfWeek;
 
                 default:
@@ -326,14 +323,6 @@ public class MainController {
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Invalid Input");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void showInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Input Accepted");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
@@ -397,8 +386,56 @@ public class MainController {
         SpecialOutputs.setText(result.toString());
     }
 
+    @FXML
+    private void handleNumberGoalsAchieved() {
+        String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
 
+        int GoalSleep = Data.goal.getSleep() * 7;
+        int GoalExercise = Data.goal.getExercise() * 7;
+        int GoalStudy = Data.goal.getStudy() * 7;
+        int GoalWork = Data.goal.getWork() * 7;
+        int GoalLeisure = Data.goal.getLeisure() * 7;
 
+        Map<String, Integer> totalLogged = new HashMap<>();
+        for (String activity : activities) {
+            totalLogged.put(activity, 0);
+        }
+
+        String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
+        for (String day : days) {
+            Map<String, Integer> dayMap = Data.getDayMap(day);
+            if (dayMap != null) {
+                for (String activity : activities) {
+                    totalLogged.put(activity, totalLogged.get(activity) + dayMap.getOrDefault(activity, 0));
+                }
+            }
+        }
+
+        Map<String, Integer> weeklyGoals = new HashMap<>();
+        weeklyGoals.put("sleep", GoalSleep);
+        weeklyGoals.put("exercise", GoalExercise);
+        weeklyGoals.put("study", GoalStudy);
+        weeklyGoals.put("work", GoalWork);
+        weeklyGoals.put("leisure", GoalLeisure);
+
+        int goalsAchieved = 0;
+        int goalsNotAchieved = 0;
+
+        for (String activity : activities) {
+            if (totalLogged.get(activity) >= weeklyGoals.get(activity)) {
+                goalsAchieved++;
+            } else {
+                goalsNotAchieved++;
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("Number of Goals Achieved / Not Achieved This Week:\n");
+        result.append("Goals Achieved: ").append(goalsAchieved).append("\n");
+        result.append("Goals Not Achieved: ").append(goalsNotAchieved);
+
+        SpecialOutputs.setText(result.toString());
+    }
 }
 
 
