@@ -191,6 +191,11 @@ public class MainController {
                 status_label.setText("All inputs must be positive numbers.");
                 return;
             }
+            String selectedDay = DayChoice.getValue();
+            if (selectedDay == null || selectedDay.trim().isEmpty()) {
+                status_label.setText("Please select a valid day for your activity.");
+                return;
+            }
             // sum total inputs
             int sumTotal = sleepV + exerciseV + studyV + workV + leisureV;
 
@@ -205,7 +210,7 @@ public class MainController {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
                 }
             } else if ("Activity".equals(selectedGoal)) {
-                String selectedDay = DayChoice.getValue();
+                //String selectedDay = DayChoice.getValue();
                 if (sumTotal <= 24) {
                     Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
                     storeNewDay(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
