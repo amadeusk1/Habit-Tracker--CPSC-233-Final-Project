@@ -99,6 +99,4 @@ public class Data {
         return formated.toString();
     }
 
-    public static void setGoals(int goalSleep, int goalExercise, int goalStudy, int goalWork, int goalLeisure) {
-    }
 }
