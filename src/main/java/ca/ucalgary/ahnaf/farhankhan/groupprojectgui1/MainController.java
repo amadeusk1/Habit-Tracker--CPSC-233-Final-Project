@@ -153,6 +153,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import javafx.scene.paint.Color;
 
+import static ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data.goal;
 
 
 public class MainController {
@@ -222,21 +223,22 @@ public class MainController {
         File file = fc.showOpenDialog(new Stage());
         load(file);
         menuViewAllActivities();
-        menuViewAllGoals();
+//        menuViewAllGoals();
+        GoalsDisplay.setText(goal.toString());
     }
 
     public static void menuViewAllActivities() {
         Data.displayAllActivities();
     }
 
-    public static void menuViewAllGoals() {
-        System.out.println("\nCurrent Daily Goals:");
-        System.out.println("Sleep: " + Data.goal.getSleep() + " hours per day");
-        System.out.println("Exercise: " + Data.goal.getExercise() + " hours per day");
-        System.out.println("Study: " + Data.goal.getStudy() + " hours per day");
-        System.out.println("Work: " + Data.goal.getStudy() + " hours per day");
-        System.out.println("Leisure: " + Data.goal.getLeisure() + " hours per day");
-    }
+//    public static void menuViewAllGoals() {
+//        System.out.println("\nCurrent Daily Goals:");
+//        System.out.println("Sleep: " + Data.goal.getSleep() + " hours per day");
+//        System.out.println("Exercise: " + Data.goal.getExercise() + " hours per day");
+//        System.out.println("Study: " + Data.goal.getStudy() + " hours per day");
+//        System.out.println("Work: " + Data.goal.getStudy() + " hours per day");
+//        System.out.println("Leisure: " + Data.goal.getLeisure() + " hours per day");
+//    }
 
 
     private void load(File file) {
