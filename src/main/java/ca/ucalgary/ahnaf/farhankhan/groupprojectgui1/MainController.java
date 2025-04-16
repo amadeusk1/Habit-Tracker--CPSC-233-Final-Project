@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javafx.scene.paint.Color;
 
@@ -227,23 +228,23 @@ public class MainController {
     }
 
     @FXML
-    private Button weeklygoalsachieved;
+    private Button WeeklyGoalsAchieved;
 
     @FXML
-    private TextArea specialoutputs;
+    private TextArea SpecialOutputs;
 
     @FXML
     private void handleWeeklyGoalsAchieved() {
         // Check if goals have been set
         if (Data.goal == null) {
-            specialoutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
+            SpecialOutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
             return;
         }
 
         // Check for any zero-value goals to prevent divide-by-zero
         if (Data.goal.getSleep() == 0 || Data.goal.getExercise() == 0 || Data.goal.getStudy() == 0 ||
                 Data.goal.getWork() == 0 || Data.goal.getLeisure() == 0) {
-            specialoutputs.setText("All goal values must be greater than 0 before checking weekly progress.");
+            SpecialOutputs.setText("All goal values must be greater than 0 before checking weekly progress.");
             return;
         }
 
@@ -286,9 +287,53 @@ public class MainController {
                 String.format("Work: %.2f%%\n", percentWork) +
                 String.format("Leisure: %.2f%%\n", percentLeisure);
 
-        specialoutputs.setText(output);
+        SpecialOutputs.setText(output);
     }
 
+    private String getDay() {
+        while (true) {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Enter Day");
+            dialog.setHeaderText("Day of the week (Sunday → Saturday):");
+            dialog.setContentText("Day:");
+
+            Optional<String> result = dialog.showAndWait();
+
+            // If user cancels the dialog
+            if (!result.isPresent()) {
+                return ""; // or null, depending on how you want to handle canceling
+            }
+
+            String dayOfWeek = result.get().toLowerCase();
+
+            switch (dayOfWeek) {
+                case "monday":
+                case "tuesday":
+                case "wednesday":
+                case "thursday":
+                case "friday":
+                case "saturday":
+                case "sunday":
+                    //showInfo("You entered " + capitalize(dayOfWeek) + ".");
+                    return dayOfWeek;
+
+                default:
+                    //showError("Invalid day entered. Must be a day of the week.");
+            }
+        }
+    }
+
+
+
+
+
+
+    @FXML
+    private Button DailyGoalsAchieved;
+
+    @FXML
+    private void handleDailyGoalsAchieved() {
+    }
 
 }
 
