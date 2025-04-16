@@ -294,7 +294,7 @@ public class MainController {
         while (true) {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Enter Day");
-            dialog.setHeaderText("Day of the week (Sunday → Saturday):");
+            dialog.setHeaderText("Day of the week (Monday-Sunday:");
             dialog.setContentText("Day:");
 
             Optional<String> result = dialog.showAndWait();
@@ -314,14 +314,15 @@ public class MainController {
                 case "friday":
                 case "saturday":
                 case "sunday":
-                    //showInfo("You entered " + capitalize(dayOfWeek) + ".");
+                    showInfo("You entered " + capitalize(dayOfWeek) + ".");
                     return dayOfWeek;
 
                 default:
-                    //showError("Invalid day entered. Must be a day of the week.");
+                    showError("Invalid day entered. Must be a day of the week.");
             }
         }
     }
+
 
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -339,11 +340,50 @@ public class MainController {
 
 
 
+
     @FXML
     private Button DailyGoalsAchieved;
 
     @FXML
     private void handleDailyGoalsAchieved() {
+        // Get the day from user input (assume a method or TextField for this)
+        String day = getDay(); // Update this if day is selected through a GUI element
+
+        // Retrieve the activity data for the selected day
+        Map<String, Integer> dayMap = Data.getDayMap(day);
+
+        // Retrieve logged hours for the selected day
+        int totalSleep = dayMap.getOrDefault("sleep", 0);
+        int totalExercise = dayMap.getOrDefault("exercise", 0);
+        int totalStudy = dayMap.getOrDefault("study", 0);
+        int totalWork = dayMap.getOrDefault("work", 0);
+        int totalLeisure = dayMap.getOrDefault("leisure", 0);
+
+        // Retrieve daily goal values
+        int GoalSleep = Data.goal.getSleep();
+        int GoalExercise = Data.goal.getExercise();
+        int GoalStudy = Data.goal.getStudy();
+        int GoalWork = Data.goal.getWork();
+        int GoalLeisure = Data.goal.getLeisure();
+
+        // Calculate percentages
+        double percentSleep = Math.min((totalSleep / (double) GoalSleep) * 100, 100);
+        double percentExercise = Math.min((totalExercise / (double) GoalExercise) * 100, 100);
+        double percentStudy = Math.min((totalStudy / (double) GoalStudy) * 100, 100);
+        double percentWork = Math.min((totalWork / (double) GoalWork) * 100, 100);
+        double percentLeisure = Math.min((totalLeisure / (double) GoalLeisure) * 100, 100);
+
+        // Build the result string
+        StringBuilder result = new StringBuilder();
+        result.append("\nPercentage of Daily Goals Achieved for ").append(capitalize(day)).append(":\n");
+        result.append(String.format("Sleep: %.2f%%\n", percentSleep));
+        result.append(String.format("Exercise: %.2f%%\n", percentExercise));
+        result.append(String.format("Study: %.2f%%\n", percentStudy));
+        result.append(String.format("Work: %.2f%%\n", percentWork));
+        result.append(String.format("Leisure: %.2f%%\n", percentLeisure));
+
+        // Display in TextArea
+        SpecialOutputs.setText(result.toString());
     }
 
 }
