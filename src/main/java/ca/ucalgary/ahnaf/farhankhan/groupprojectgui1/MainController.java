@@ -245,16 +245,8 @@ public class MainController {
 
     @FXML
     private void handleWeeklyGoalsAchieved() {
-        // Check if goals have been set
         if (Goals.getInstance() == null) {
             SpecialOutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
-            return;
-        }
-
-        // Check for any zero-value goals to prevent divide-by-zero
-        if (Goals.getInstance().getSleep() == 0 || Goals.getInstance().getExercise() == 0 || Goals.getInstance().getStudy() == 0 ||
-                Goals.getInstance().getWork() == 0 || Goals.getInstance().getLeisure() == 0) {
-            SpecialOutputs.setText("All goal values must be greater than 0 before checking weekly progress.");
             return;
         }
 
@@ -272,18 +264,35 @@ public class MainController {
             }
         }
 
-        int GoalSleep = Goals.getInstance().getSleep() * 7;
-        int GoalExercise = Goals.getInstance().getExercise() * 7;
-        int GoalStudy = Goals.getInstance().getStudy() * 7;
-        int GoalWork = Goals.getInstance().getWork() * 7;
-        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
+        int goalSleep = Goals.getInstance().getSleep() * 7;
+        int goalExercise = Goals.getInstance().getExercise() * 7;
+        int goalStudy = Goals.getInstance().getStudy() * 7;
+        int goalWork = Goals.getInstance().getWork() * 7;
+        int goalLeisure = Goals.getInstance().getLeisure() * 7;
 
-        double percentSleep = (totalSleep / (double) GoalSleep) * 100;
-        double percentExercise = (totalExercise / (double) GoalExercise) * 100;
-        double percentStudy = (totalStudy / (double) GoalStudy) * 100;
-        double percentWork = (totalWork / (double) GoalWork) * 100;
-        double percentLeisure = (totalLeisure / (double) GoalLeisure) * 100;
+        double percentSleep = 0;
+        double percentExercise = 0;
+        double percentStudy = 0;
+        double percentWork = 0;
+        double percentLeisure = 0;
 
+        if (goalSleep != 0) {
+            percentSleep = (totalSleep / (double) goalSleep) * 100;
+        }
+        if (goalExercise != 0) {
+            percentExercise = (totalExercise / (double) goalExercise) * 100;
+        }
+        if (goalStudy != 0) {
+            percentStudy = (totalStudy / (double) goalStudy) * 100;
+        }
+        if (goalWork != 0) {
+            percentWork = (totalWork / (double) goalWork) * 100;
+        }
+        if (goalLeisure != 0) {
+            percentLeisure = (totalLeisure / (double) goalLeisure) * 100;
+        }
+
+        // Cap values at 100
         if (percentSleep > 100) percentSleep = 100;
         if (percentExercise > 100) percentExercise = 100;
         if (percentStudy > 100) percentStudy = 100;
@@ -298,6 +307,7 @@ public class MainController {
                 String.format("Leisure: %.2f%%\n", percentLeisure);
 
         SpecialOutputs.setText(output);
+
     }
 
     private String getDay() {
@@ -352,7 +362,7 @@ public class MainController {
 
     @FXML
     private void handleDailyGoalsAchieved() {
-        // Get the day from user input (assume a method or TextField for this)
+        // Get the day from user input
         String day = getDay(); // Update this if day is selected through a GUI element
         if (day.isEmpty()) return; // If user cancelled or didn't enter anything
 
@@ -373,18 +383,44 @@ public class MainController {
         int totalLeisure = dayMap.getOrDefault("leisure", 0);
 
         // Retrieve daily goal values
-        int GoalSleep = Goals.getInstance().getSleep();
-        int GoalExercise = Goals.getInstance().getExercise();
-        int GoalStudy = Goals.getInstance().getStudy();
-        int GoalWork = Goals.getInstance().getWork();
-        int GoalLeisure = Goals.getInstance().getLeisure();
+        int goalSleep = Goals.getInstance().getSleep();
+        int goalExercise = Goals.getInstance().getExercise();
+        int goalStudy = Goals.getInstance().getStudy();
+        int goalWork = Goals.getInstance().getWork();
+        int goalLeisure = Goals.getInstance().getLeisure();
 
-        // Calculate percentages
-        double percentSleep = Math.min((totalSleep / (double) GoalSleep) * 100, 100);
-        double percentExercise = Math.min((totalExercise / (double) GoalExercise) * 100, 100);
-        double percentStudy = Math.min((totalStudy / (double) GoalStudy) * 100, 100);
-        double percentWork = Math.min((totalWork / (double) GoalWork) * 100, 100);
-        double percentLeisure = Math.min((totalLeisure / (double) GoalLeisure) * 100, 100);
+        // Calculate percentages without using inline conditionals
+        double percentSleep = 0;
+        double percentExercise = 0;
+        double percentStudy = 0;
+        double percentWork = 0;
+        double percentLeisure = 0;
+
+        // check if if 0 entry and calculate precentage
+        if (goalSleep != 0) {
+            percentSleep = (totalSleep / (double) goalSleep) * 100;
+            if (percentSleep > 100) percentSleep = 100;
+        }
+
+        if (goalExercise != 0) {
+            percentExercise = (totalExercise / (double) goalExercise) * 100;
+            if (percentExercise > 100) percentExercise = 100;
+        }
+
+        if (goalStudy != 0) {
+            percentStudy = (totalStudy / (double) goalStudy) * 100;
+            if (percentStudy > 100) percentStudy = 100;
+        }
+
+        if (goalWork != 0) {
+            percentWork = (totalWork / (double) goalWork) * 100;
+            if (percentWork > 100) percentWork = 100;
+        }
+
+        if (goalLeisure != 0) {
+            percentLeisure = (totalLeisure / (double) goalLeisure) * 100;
+            if (percentLeisure > 100) percentLeisure = 100;
+        }
 
         // Build the result string
         StringBuilder result = new StringBuilder();
