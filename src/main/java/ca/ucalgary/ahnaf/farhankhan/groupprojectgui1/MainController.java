@@ -323,6 +323,13 @@ public class MainController {
         }
     }
 
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
