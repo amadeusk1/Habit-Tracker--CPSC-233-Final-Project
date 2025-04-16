@@ -277,7 +277,7 @@ public class MainController {
         if (percentWork > 100) percentWork = 100;
         if (percentLeisure > 100) percentLeisure = 100;
 
-        String output = "\nPercentage of Weekly Goals Achieved:\n" +
+        String output = "Percentage of Weekly Goals Achieved:\n" +
                 String.format("Sleep: %.2f%%\n", percentSleep) +
                 String.format("Exercise: %.2f%%\n", percentExercise) +
                 String.format("Study: %.2f%%\n", percentStudy) +
@@ -375,7 +375,7 @@ public class MainController {
 
         // Build the result string
         StringBuilder result = new StringBuilder();
-        result.append("\nPercentage of Daily Goals Achieved for ").append(capitalize(day)).append(":\n");
+        result.append("Percentage of Daily Goals Achieved for ").append(capitalize(day)).append(":\n");
         result.append(String.format("Sleep: %.2f%%\n", percentSleep));
         result.append(String.format("Exercise: %.2f%%\n", percentExercise));
         result.append(String.format("Study: %.2f%%\n", percentStudy));
