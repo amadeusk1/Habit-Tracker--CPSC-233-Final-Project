@@ -133,9 +133,12 @@
 
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -160,10 +163,10 @@ public class MainController {
 
 
     @FXML
-    private ChoiceBox<?> DayChoice;
+    private ChoiceBox<String> DayChoice;
 
     @FXML
-    private ChoiceBox<?> GoalActivityChoice;
+    private ChoiceBox<String> GoalActivityChoice;
 
     @FXML
     private TextArea GoalsDisplay;
@@ -193,11 +196,6 @@ public class MainController {
     private TextField work;
 
     @FXML
-    void confirmAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void editActivities(ActionEvent event) {
 
     }
@@ -206,6 +204,8 @@ public class MainController {
     void editGoals(ActionEvent event) {
 
     }
+
+
 
     @FXML
     void exit(ActionEvent event) {
@@ -271,8 +271,84 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void initialize() {
+        // Populate the DayChoice menu
+        DayChoice.setItems(FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
+
+        // Populate the Goal / activity menu
+        GoalActivityChoice.setItems(FXCollections.observableArrayList("Goals", "Activity"));
+
+        // Set DayChoice to be hidden by default since initial selection is "Goal"
+        DayChoice.setVisible(false);
+        dayText.setVisible(false);
 
 
+        // Listen for changes on GoalActivityChoice
+        GoalActivityChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Show the DayChoice only if the user selects "Habit"
+            if ("Activity".equals(newValue)) {
+                DayChoice.setVisible(true);
+                dayText.setVisible(true);
+            } else {
+                DayChoice.setVisible(false);
+                dayText.setVisible(false);
+            }
+        });
+    }
+
+
+    @FXML
+    void confirmAction(ActionEvent event) {
+        // Get the selected values from goals
+        String selectedGoal = GoalActivityChoice.getValue();
+        try {
+            int sleepV = Integer.parseInt(sleep.getText());
+            int exerciseV = Integer.parseInt(exercise.getText());
+            int studyV = Integer.parseInt(study.getText());
+            int workV = Integer.parseInt(work.getText());
+            int leisureV = Integer.parseInt(leisure.getText());
+            // check if inputs are positive
+            if (sleepV < 0 || exerciseV < 0 || studyV < 0 || workV < 0 || leisureV < 0) {
+                status_label.setText("All inputs must be positive numbers.");
+                return;
+            }
+            // sum total inputs
+            int sumTotal = sleepV + exerciseV + studyV + workV + leisureV;
+
+            // if goals is selected
+            if ("Goals".equals(selectedGoal)) {
+                if (sumTotal <= 24) {
+                    Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
+                    GoalsDisplay.setText(goals.toString());
+                    status_label.setText("Goals logged successfully");
+                } else {
+                    status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
+                }
+            } else if ("Activity".equals(selectedGoal)) {
+                String selectedDay = DayChoice.getValue();
+                if (sumTotal <= 24) {
+                    Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
+                    status_label.setText("Activities logged successfully");
+                } else {
+                    status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
+                }
+
+            } else {
+                status_label.setText("Select Goal / Activity");
+            }
+
+
+        } catch (NumberFormatException e) {
+            status_label.setText("Invalid input. Please enter a valid integer for all inputs .");
+            // Optionally, display an error message to the user, e.g., using an Alert.
+        }
+
+    }
 
 }
+
+
+
+
 
