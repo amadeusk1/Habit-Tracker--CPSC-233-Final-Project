@@ -330,7 +330,7 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+2
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Input Accepted");
@@ -355,9 +355,16 @@ public class MainController {
     private void handleDailyGoalsAchieved() {
         // Get the day from user input (assume a method or TextField for this)
         String day = getDay(); // Update this if day is selected through a GUI element
+        if (day.isEmpty()) return; // If user cancelled or didn't enter anything
 
         // Retrieve the activity data for the selected day
         Map<String, Integer> dayMap = Data.getDayMap(day);
+
+        // Check for missing day data
+        if (dayMap == null) {
+            showError("No data found for " + capitalize(day) + ".");
+            return;
+        }
 
         // Retrieve logged hours for the selected day
         int totalSleep = dayMap.getOrDefault("sleep", 0);
