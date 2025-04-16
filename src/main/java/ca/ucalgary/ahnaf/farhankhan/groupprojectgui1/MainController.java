@@ -198,6 +198,7 @@ public class MainController {
             if ("Goals".equals(selectedGoal)) {
                 if (sumTotal <= 24) {
                     Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
+                    Data.goal = goals;
                     GoalsDisplay.setText(goals.toString());
                     status_label.setText("Goals logged successfully");
                 } else {
@@ -233,6 +234,19 @@ public class MainController {
 
     @FXML
     private void handleWeeklyGoalsAchieved() {
+        // Check if goals have been set
+        if (Data.goal == null) {
+            specialoutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
+            return;
+        }
+
+        // Check for any zero-value goals to prevent divide-by-zero
+        if (Data.goal.getSleep() == 0 || Data.goal.getExercise() == 0 || Data.goal.getStudy() == 0 ||
+                Data.goal.getWork() == 0 || Data.goal.getLeisure() == 0) {
+            specialoutputs.setText("All goal values must be greater than 0 before checking weekly progress.");
+            return;
+        }
+
         int totalSleep = 0, totalExercise = 0, totalStudy = 0, totalWork = 0, totalLeisure = 0;
         String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
 
