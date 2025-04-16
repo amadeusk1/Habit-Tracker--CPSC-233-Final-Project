@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javafx.scene.paint.Color;
 
@@ -223,6 +224,57 @@ public class MainController {
         }
 
     }
+
+    @FXML
+    private Button weeklygoalsachieved;
+
+    @FXML
+    private TextArea specialoutputs;
+
+    @FXML
+    private void handleWeeklyGoalsAchieved() {
+        int totalSleep = 0, totalExercise = 0, totalStudy = 0, totalWork = 0, totalLeisure = 0;
+        String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
+
+        for (String day : days) {
+            Map<String, Integer> dayMap = Data.getDayMap(day);
+            if (dayMap != null) {
+                totalSleep += dayMap.getOrDefault("sleep", 0);
+                totalExercise += dayMap.getOrDefault("exercise", 0);
+                totalStudy += dayMap.getOrDefault("study", 0);
+                totalWork += dayMap.getOrDefault("work", 0);
+                totalLeisure += dayMap.getOrDefault("leisure", 0);
+            }
+        }
+
+        int GoalSleep = Data.goal.getSleep() * 7;
+        int GoalExercise = Data.goal.getExercise() * 7;
+        int GoalStudy = Data.goal.getStudy() * 7;
+        int GoalWork = Data.goal.getWork() * 7;
+        int GoalLeisure = Data.goal.getLeisure() * 7;
+
+        double percentSleep = (totalSleep / (double) GoalSleep) * 100;
+        double percentExercise = (totalExercise / (double) GoalExercise) * 100;
+        double percentStudy = (totalStudy / (double) GoalStudy) * 100;
+        double percentWork = (totalWork / (double) GoalWork) * 100;
+        double percentLeisure = (totalLeisure / (double) GoalLeisure) * 100;
+
+        if (percentSleep > 100) percentSleep = 100;
+        if (percentExercise > 100) percentExercise = 100;
+        if (percentStudy > 100) percentStudy = 100;
+        if (percentWork > 100) percentWork = 100;
+        if (percentLeisure > 100) percentLeisure = 100;
+
+        String output = "\nPercentage of Weekly Goals Achieved:\n" +
+                String.format("Sleep: %.2f%%\n", percentSleep) +
+                String.format("Exercise: %.2f%%\n", percentExercise) +
+                String.format("Study: %.2f%%\n", percentStudy) +
+                String.format("Work: %.2f%%\n", percentWork) +
+                String.format("Leisure: %.2f%%\n", percentLeisure);
+
+        specialoutputs.setText(output);
+    }
+
 
 }
 
