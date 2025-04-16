@@ -94,7 +94,7 @@
             <Button fx:id="DailyGoalsAchieved" mnemonicParsing="false" onAction="#handleDailyGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="DailyGoalsAchieved" />
             <Button fx:id="NumberGoalsAchieved" mnemonicParsing="false" onAction="#handleNumberGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="NumberGoalsAchieved" />
             <Button fx:id="GoalsExceeded" mnemonicParsing="false" onAction="#handleGoalsExceeded" prefHeight="40.0" prefWidth="145.0" text="Goals Exceeded (Day)" />
-            <Button fx:id="RemainingTime" mnemonicParsing="false" prefHeight="40.0" prefWidth="145.0" text="Remaining Time (Day)" />
+            <Button fx:id="RemainingTime" mnemonicParsing="false" onAction="#handleRemainingTime" prefHeight="40.0" prefWidth="145.0" text="Remaining Time (Day)" />
          </children></VBox>
    </right>
    <bottom>
