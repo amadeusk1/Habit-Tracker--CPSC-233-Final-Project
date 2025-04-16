@@ -436,6 +436,48 @@ public class MainController {
 
         SpecialOutputs.setText(result.toString());
     }
+
+    @FXML
+    private void handleGoalsExceeded() {
+        String day = getDay(); // user input day
+        Map<String, Integer> actMap = Data.getDayMap(day); // returns Map<String, Integer>
+
+        if (actMap != null) {
+            StringBuilder output = new StringBuilder();
+            output.append("Activities over goal on ").append(capitalize(day)).append(":\n");
+            output.append(getActivityOverGoalDetails(actMap));
+            SpecialOutputs.setText(output.toString());
+        } else {
+            showError("No data logged for " + capitalize(day) + ".");
+        }
+    }
+
+    private String getActivityOverGoalDetails(Map<String, Integer> actMap) {
+        String[] labels = {"sleep", "exercise", "study", "work", "leisure"};
+        Map<String, Integer> goals = new HashMap<>();
+        goals.put("sleep", Data.goal.getSleep());
+        goals.put("exercise", Data.goal.getExercise());
+        goals.put("study", Data.goal.getStudy());
+        goals.put("work", Data.goal.getWork());
+        goals.put("leisure", Data.goal.getLeisure());
+
+        StringBuilder sb = new StringBuilder();
+        for (String label : labels) {
+            int actual = actMap.getOrDefault(label, 0);
+            int goal = goals.getOrDefault(label, 0);
+
+            if (actual > goal) {
+                sb.append(capitalize(label))
+                        .append(": ")
+                        .append(actual)
+                        .append("h (Goal: ")
+                        .append(goal)
+                        .append("h)\n");
+            }
+        }
+        return sb.toString().isEmpty() ? "No goals exceeded on this day." : sb.toString();
+    }
+
 }
 
 
