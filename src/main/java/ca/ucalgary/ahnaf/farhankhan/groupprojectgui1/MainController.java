@@ -173,6 +173,9 @@ public class MainController {
     private TextArea GoalsDisplay;
 
     @FXML
+    private TextArea ActivityDisplay;
+
+    @FXML
     private Button confirm;
 
     @FXML
@@ -228,7 +231,8 @@ public class MainController {
     }
 
     public static void menuViewAllActivities() {
-        Data.displayAllActivities();
+//        Data.displayAllActivities();
+
     }
 
 //    public static void menuViewAllGoals() {
@@ -331,6 +335,7 @@ public class MainController {
                 String selectedDay = DayChoice.getValue();
                 if (sumTotal <= 24) {
                     Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
+                    ActivityDisplay.appendText(activity.toString());
                     status_label.setText("Activities logged successfully");
                 } else {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");

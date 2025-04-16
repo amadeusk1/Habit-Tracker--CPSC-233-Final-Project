@@ -8,6 +8,8 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects;
  */
 
 
+import java.awt.*;
+import java.util.IllformedLocaleException;
 
 /**
  * The Activity class represents daily activities for a specific day,
@@ -42,12 +44,12 @@ public class Activity extends Day implements Comparable<Activity> {
      */
     @Override
     public String toString() {
-        return super.toString() +
-                "sleep = " + sleep +
-                ", exercise = " + exercise +
-                ", study = " + study +
-                ", work = " + work +
-                ", leisure = " + leisure;
+        return "Day: " + super.toString() + "\n" +
+                "\tSleep: " + sleep + " hours\n" +
+                "\tExercise: " + exercise + " hours\n" +
+                "\tStudy: " + study + " hours\n" +
+                "\tWork: " + work + " hours\n" +
+                "\tLeisure: " + leisure + " hours\n\n";
     }
 
     /** @return the time spent on sleep */

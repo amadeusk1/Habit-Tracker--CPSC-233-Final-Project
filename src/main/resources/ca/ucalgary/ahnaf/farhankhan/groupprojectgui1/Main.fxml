@@ -116,7 +116,7 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <TextArea layoutX="8.0" layoutY="98.0" prefHeight="225.0" prefWidth="202.0" />
+                  <TextArea fx:id="ActivityDisplay" layoutX="8.0" layoutY="98.0" prefHeight="225.0" prefWidth="202.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="218.0">
