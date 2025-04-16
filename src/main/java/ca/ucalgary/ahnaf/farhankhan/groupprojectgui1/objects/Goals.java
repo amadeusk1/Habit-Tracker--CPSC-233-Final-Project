@@ -17,7 +17,24 @@ import java.util.Map;
  */
 public class Goals {
 
+    // Private static instance variable to hold the single global Goals object.
+    private static Goals instance;
+
     private final Map<GoalType, Integer> goals; // Map to store time goals for different categories
+
+    /**
+     * Initializes the singleton Goals instance.
+     * This creates or updates the current global Goals object.
+     *
+     * @param sleep    the sleep goal.
+     * @param exercise the exercise goal.
+     * @param study    the study goal.
+     * @param work     the work goal.
+     * @param leisure  the leisure goal.
+     */
+    public static void initialize(int sleep, int exercise, int study, int work, int leisure) {
+        instance = new Goals(sleep, exercise, study, work, leisure);
+    }
 
     /**
      * Constructs a new Goals object with specified time goals.
@@ -35,6 +52,19 @@ public class Goals {
         goals.put(GoalType.STUDY, study);
         goals.put(GoalType.WORK, work);
         goals.put(GoalType.LEISURE, leisure);
+    }
+
+    /**
+     * Returns the current global Goals instance.
+     *
+     * @return the current Goals object.
+     * @throws IllegalStateException if the Goals instance has not been initialized.
+     */
+    public static Goals getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("Goals have not been initialized. Call initialize() first.");
+        }
+        return instance;
     }
 
     /**
@@ -65,6 +95,7 @@ public class Goals {
                 "\n\nWork: " + getWork() + " hours" +
                 "\n\nLeisure: " + getLeisure() + " hours";
     }
+
 
 
     /** @return the sleep goal */

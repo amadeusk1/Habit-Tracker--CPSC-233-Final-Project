@@ -63,7 +63,7 @@ public class Menu {
     public static void menuGoalSet() {
         System.out.println("Please enter your daily goals for the following (in hours)");
 
-        Goals goals; // To store the user's input as a Goals object
+        Goals newGoals; // To store the user's input as a Goals object
         int totalGoals; // Variable to store the total of the entered goals
 
         do {
@@ -74,7 +74,7 @@ public class Menu {
             int GoalWork = checkInteger(scanner, "Work Goal: ");
             int GoalLeisure = checkInteger(scanner, "Leisure Goal: ");
 
-            goals = new Goals(GoalSleep,GoalExercise,GoalStudy,GoalWork,GoalLeisure);
+            newGoals = new Goals(GoalSleep,GoalExercise,GoalStudy,GoalWork,GoalLeisure);
 
             // Sum the entered goals
             totalGoals = GoalSleep + GoalExercise + GoalStudy + GoalWork + GoalLeisure;
@@ -83,12 +83,18 @@ public class Menu {
             if (totalGoals > 24) {
                 System.out.println("The total of your goals must be less than or equal to 24 hours. Please try again.");
             } else {
-                // If the newly entered goals are the same as existing ones, notify the user
-                if (goals.equals(Data.goal)) {
-                    System.out.println("You entered the same goals as before.");
-                }else {
-                    // Store goals if the sum is 24
-                    Data.setGoals(goals);
+                try {
+                    // Compare with existing Goals if already set
+                    Goals existingGoals = Goals.getInstance();
+                    if (newGoals.equals(existingGoals)) {
+                        System.out.println("You entered the same goals as before.");
+                    } else {
+                        Data.setGoals(newGoals);
+                        System.out.println("\n• Your daily goals have been set successfully!");
+                    }
+                } catch (IllegalStateException e) {
+                    // No Goals instance exists yet, so initialize it
+                    Data.setGoals(newGoals);
                     System.out.println("\n• Your daily goals have been set successfully!");
                 }
             }
@@ -420,11 +426,11 @@ public class Menu {
      */
     public static void menuViewAllGoals() {
         System.out.println("\nCurrent Daily Goals:");
-        System.out.println("Sleep: " + Data.goal.getSleep() + " hours per day");
-        System.out.println("Exercise: " + Data.goal.getExercise() + " hours per day");
-        System.out.println("Study: " + Data.goal.getStudy() + " hours per day");
-        System.out.println("Work: " + Data.goal.getStudy() + " hours per day");
-        System.out.println("Leisure: " + Data.goal.getLeisure() + " hours per day");
+        System.out.println("Sleep: " + Goals.getInstance().getSleep() + " hours per day");
+        System.out.println("Exercise: " + Goals.getInstance().getExercise() + " hours per day");
+        System.out.println("Study: " + Goals.getInstance().getStudy() + " hours per day");
+        System.out.println("Work: " + Goals.getInstance().getStudy() + " hours per day");
+        System.out.println("Leisure: " + Goals.getInstance().getLeisure() + " hours per day");
     }
 
     /**
@@ -576,11 +582,11 @@ public class Menu {
         }
 
         // Change daily goals to weekly goals by multiplying by 7
-        int GoalSleep = Data.goal.getSleep() * 7;
-        int GoalExercise = Data.goal.getExercise() * 7;
-        int GoalStudy = Data.goal.getStudy() * 7;
-        int GoalWork = Data.goal.getWork() * 7;
-        int GoalLeisure = Data.goal.getLeisure() * 7;
+        int GoalSleep = Goals.getInstance().getSleep() * 7;
+        int GoalExercise = Goals.getInstance().getExercise() * 7;
+        int GoalStudy = Goals.getInstance().getStudy() * 7;
+        int GoalWork = Goals.getInstance().getWork() * 7;
+        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
         // Calculate percentage completion for each activity
         double percentSleep = (totalSleep / (double) GoalSleep) * 100;
@@ -627,11 +633,11 @@ public class Menu {
         int totalLeisure = dayMap.getOrDefault("leisure", 0);
 
         // Retrieve daily goal values
-        int GoalSleep = Data.goal.getSleep();
-        int GoalExercise = Data.goal.getExercise();
-        int GoalStudy = Data.goal.getStudy();
-        int GoalWork = Data.goal.getWork();
-        int GoalLeisure = Data.goal.getLeisure();
+        int GoalSleep = Goals.getInstance().getSleep();
+        int GoalExercise = Goals.getInstance().getExercise();
+        int GoalStudy = Goals.getInstance().getStudy();
+        int GoalWork = Goals.getInstance().getWork();
+        int GoalLeisure = Goals.getInstance().getLeisure();
 
         // Calculate percentages
         double percentSleep = (totalSleep / (double) GoalSleep) * 100;
@@ -662,11 +668,11 @@ public class Menu {
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
 
         // Weekly goal totals
-        int GoalSleep = Data.goal.getSleep() * 7;
-        int GoalExercise = Data.goal.getExercise() * 7;
-        int GoalStudy = Data.goal.getStudy() * 7;
-        int GoalWork = Data.goal.getWork() * 7;
-        int GoalLeisure = Data.goal.getLeisure() * 7;
+        int GoalSleep = Goals.getInstance().getSleep() * 7;
+        int GoalExercise = Goals.getInstance().getExercise() * 7;
+        int GoalStudy = Goals.getInstance().getStudy() * 7;
+        int GoalWork = Goals.getInstance().getWork() * 7;
+        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
         // Store total logged hours for each activity
         Map<String, Integer> totalLogged = new HashMap<>();
@@ -788,11 +794,11 @@ public class Menu {
 
         //user-defined goals for each category
         int[] goals = {
-                Data.goal.getSleep(),
-                Data.goal.getExercise(),
-                Data.goal.getStudy(),
-                Data.goal.getWork(),
-                Data.goal.getLeisure()
+                Goals.getInstance().getSleep(),
+                Goals.getInstance().getExercise(),
+                Goals.getInstance().getStudy(),
+                Goals.getInstance().getWork(),
+                Goals.getInstance().getLeisure()
         };
 
         for (int i = 0; i < labels.length; i++) {

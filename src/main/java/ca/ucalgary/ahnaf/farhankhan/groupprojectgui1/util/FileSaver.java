@@ -44,7 +44,7 @@ public class FileSaver {
             fw.write("Goals\n");
 
             // Write the goal values: sleep, exercise, study, work, leisure
-            Goals goal = Data.goal;
+            Goals goal = Goals.getInstance();
             fw.write(String.format("%d,%d,%d,%d,%d\n",
                     goal.getSleep(),
                     goal.getExercise(),

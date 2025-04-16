@@ -30,7 +30,7 @@ import static ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data.*;
 
 public class MainController {
 
-    private static Data data = new Data();
+    private Data data = new Data();
 
 //    << formating sting code from menu like jonathan did in yt video >>
 
@@ -100,7 +100,9 @@ public class MainController {
         ActivityDisplay.setText(Data.displayAllActivitiesGUI());
 //       menuViewAllGoals();
 //        menuViewAllActivities();
-        GoalsDisplay.setText(goal.toString());
+        //GoalsDisplay.setText(data.getGoals().toString());
+        Goals currentGoals = Goals.getInstance();
+        GoalsDisplay.setText(currentGoals.toString());
     }
 
 //    public void menuViewAllActivities() {
@@ -127,7 +129,7 @@ public class MainController {
         } else {
             status_label.setTextFill(Color.GREEN);
             status_label.setText(String.format("Loaded data from file %s%n", file));
-            MainController.data = data;
+            this.data = data;
         }
     }
 
@@ -198,9 +200,12 @@ public class MainController {
             // if goals is selected
             if ("Goals".equals(selectedGoal)) {
                 if (sumTotal <= 24) {
-                    Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
-                    Data.goal = goals;
-                    GoalsDisplay.setText(goals.toString());
+                    // Initialize the global Goals instance.
+                    Goals.initialize(sleepV, exerciseV, studyV, workV, leisureV);
+                    //Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
+                    //Data.goal = goals;
+                    Goals currentGoals = Goals.getInstance();
+                    GoalsDisplay.setText(currentGoals.toString());
                     status_label.setText("Goals logged successfully");
                 } else {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
@@ -241,14 +246,14 @@ public class MainController {
     @FXML
     private void handleWeeklyGoalsAchieved() {
         // Check if goals have been set
-        if (Data.goal == null) {
+        if (Goals.getInstance() == null) {
             SpecialOutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
             return;
         }
 
         // Check for any zero-value goals to prevent divide-by-zero
-        if (Data.goal.getSleep() == 0 || Data.goal.getExercise() == 0 || Data.goal.getStudy() == 0 ||
-                Data.goal.getWork() == 0 || Data.goal.getLeisure() == 0) {
+        if (Goals.getInstance().getSleep() == 0 || Goals.getInstance().getExercise() == 0 || Goals.getInstance().getStudy() == 0 ||
+                Goals.getInstance().getWork() == 0 || Goals.getInstance().getLeisure() == 0) {
             SpecialOutputs.setText("All goal values must be greater than 0 before checking weekly progress.");
             return;
         }
@@ -267,11 +272,11 @@ public class MainController {
             }
         }
 
-        int GoalSleep = Data.goal.getSleep() * 7;
-        int GoalExercise = Data.goal.getExercise() * 7;
-        int GoalStudy = Data.goal.getStudy() * 7;
-        int GoalWork = Data.goal.getWork() * 7;
-        int GoalLeisure = Data.goal.getLeisure() * 7;
+        int GoalSleep = Goals.getInstance().getSleep() * 7;
+        int GoalExercise = Goals.getInstance().getExercise() * 7;
+        int GoalStudy = Goals.getInstance().getStudy() * 7;
+        int GoalWork = Goals.getInstance().getWork() * 7;
+        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
         double percentSleep = (totalSleep / (double) GoalSleep) * 100;
         double percentExercise = (totalExercise / (double) GoalExercise) * 100;
@@ -368,11 +373,11 @@ public class MainController {
         int totalLeisure = dayMap.getOrDefault("leisure", 0);
 
         // Retrieve daily goal values
-        int GoalSleep = Data.goal.getSleep();
-        int GoalExercise = Data.goal.getExercise();
-        int GoalStudy = Data.goal.getStudy();
-        int GoalWork = Data.goal.getWork();
-        int GoalLeisure = Data.goal.getLeisure();
+        int GoalSleep = Goals.getInstance().getSleep();
+        int GoalExercise = Goals.getInstance().getExercise();
+        int GoalStudy = Goals.getInstance().getStudy();
+        int GoalWork = Goals.getInstance().getWork();
+        int GoalLeisure = Goals.getInstance().getLeisure();
 
         // Calculate percentages
         double percentSleep = Math.min((totalSleep / (double) GoalSleep) * 100, 100);
@@ -398,11 +403,11 @@ public class MainController {
     private void handleNumberGoalsAchieved() {
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
 
-        int GoalSleep = Data.goal.getSleep() * 7;
-        int GoalExercise = Data.goal.getExercise() * 7;
-        int GoalStudy = Data.goal.getStudy() * 7;
-        int GoalWork = Data.goal.getWork() * 7;
-        int GoalLeisure = Data.goal.getLeisure() * 7;
+        int GoalSleep = Goals.getInstance().getSleep() * 7;
+        int GoalExercise = Goals.getInstance().getExercise() * 7;
+        int GoalStudy = Goals.getInstance().getStudy() * 7;
+        int GoalWork = Goals.getInstance().getWork() * 7;
+        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
         Map<String, Integer> totalLogged = new HashMap<>();
         for (String activity : activities) {
@@ -463,11 +468,11 @@ public class MainController {
     private String getActivityOverGoalDetails(Map<String, Integer> actMap) {
         String[] labels = {"sleep", "exercise", "study", "work", "leisure"};
         Map<String, Integer> goals = new HashMap<>();
-        goals.put("sleep", Data.goal.getSleep());
-        goals.put("exercise", Data.goal.getExercise());
-        goals.put("study", Data.goal.getStudy());
-        goals.put("work", Data.goal.getWork());
-        goals.put("leisure", Data.goal.getLeisure());
+        goals.put("sleep", Goals.getInstance().getSleep());
+        goals.put("exercise", Goals.getInstance().getExercise());
+        goals.put("study", Goals.getInstance().getStudy());
+        goals.put("work", Goals.getInstance().getWork());
+        goals.put("leisure", Goals.getInstance().getLeisure());
 
         StringBuilder sb = new StringBuilder();
         for (String label : labels) {
@@ -504,11 +509,11 @@ public class MainController {
     private String getTimeRemainingDetails(Map<String, Integer> actMap) {
         String[] labels = {"sleep", "exercise", "study", "work", "leisure"};
         Map<String, Integer> goals = new HashMap<>();
-        goals.put("sleep", Data.goal.getSleep());
-        goals.put("exercise", Data.goal.getExercise());
-        goals.put("study", Data.goal.getStudy());
-        goals.put("work", Data.goal.getWork());
-        goals.put("leisure", Data.goal.getLeisure());
+        goals.put("sleep", Goals.getInstance().getSleep());
+        goals.put("exercise", Goals.getInstance().getExercise());
+        goals.put("study", Goals.getInstance().getStudy());
+        goals.put("work", Goals.getInstance().getWork());
+        goals.put("leisure", Goals.getInstance().getLeisure());
 
         StringBuilder sb = new StringBuilder();
         for (String label : labels) {

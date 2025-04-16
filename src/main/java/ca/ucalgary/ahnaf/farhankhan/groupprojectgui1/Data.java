@@ -24,8 +24,6 @@ public class Data {
     // List to store each day's activity data
     private static final List<Day> days = new ArrayList<>();
 
-    // Object to store user-defined daily goals
-    public static Goals goal;
 
     /**
      * Stores or updates an Activity entry for a specific day.
@@ -58,9 +56,19 @@ public class Data {
      * Sets the user’s daily goals for all tracked activities.
      */
     public static void setGoals(Goals goals) {
-        Data.goal = goals;
+        // Initialize the singleton Goals instance using the values from the provided Goals object.
+        Goals.initialize(goals.getSleep(), goals.getExercise(), goals.getStudy(),
+                goals.getWork(), goals.getLeisure());
     }
 
+    /**
+     * Retrieves the current Goals instance.
+     *
+     * @return the Goals instance from the Goals class.
+     */
+    public Goals getGoals() {
+        return Goals.getInstance();
+    }
 
     /**
      * Converts the list of days into a map of activities per day.
