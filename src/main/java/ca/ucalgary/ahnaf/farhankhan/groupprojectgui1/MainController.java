@@ -330,7 +330,7 @@ public class MainController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-2
+
     private void showInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Input Accepted");
@@ -343,9 +343,6 @@ public class MainController {
         if (str == null || str.isEmpty()) return str;
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
-
-
-
 
 
     @FXML
@@ -399,6 +396,8 @@ public class MainController {
         // Display in TextArea
         SpecialOutputs.setText(result.toString());
     }
+
+
 
 }
 
