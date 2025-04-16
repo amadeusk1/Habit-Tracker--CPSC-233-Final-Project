@@ -9,11 +9,13 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -512,6 +514,69 @@ public class MainController {
         }
         return sb.toString();
     }
+
+    private boolean isValidDay(String day) {
+        return List.of("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday").contains(day);
+    }
+
+    @FXML
+    private void handleEditActivities() {
+        String day = getDay();
+        if (day.isEmpty()) return; // User cancelled
+
+        // Now show activity input popup
+        TextField sleepField = new TextField();
+        TextField exerciseField = new TextField();
+        TextField studyField = new TextField();
+        TextField workField = new TextField();
+        TextField leisureField = new TextField();
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20, 150, 10, 10));
+
+        grid.add(new Label("Sleep hours:"), 0, 0);
+        grid.add(sleepField, 1, 0);
+
+        grid.add(new Label("Exercise hours:"), 0, 1);
+        grid.add(exerciseField, 1, 1);
+
+        grid.add(new Label("Study hours:"), 0, 2);
+        grid.add(studyField, 1, 2);
+
+        grid.add(new Label("Work hours:"), 0, 3);
+        grid.add(workField, 1, 3);
+
+        grid.add(new Label("Leisure hours:"), 0, 4);
+        grid.add(leisureField, 1, 4);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Enter Activities");
+        dialog.setHeaderText("Enter activity hours for " + capitalize(day));
+        dialog.getDialogPane().setContent(grid);
+
+        ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButton, ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == saveButton) {
+            try {
+                int sleep = Integer.parseInt(sleepField.getText());
+                int exercise = Integer.parseInt(exerciseField.getText());
+                int study = Integer.parseInt(studyField.getText());
+                int work = Integer.parseInt(workField.getText());
+                int leisure = Integer.parseInt(leisureField.getText());
+
+                Data.storeNewDay(day, sleep, exercise, study, work, leisure);
+                ActivityDisplay.setText(Data.displayAllActivitiesGUI());
+                status_label.setText("Activities updated for " + capitalize(day) + ".");
+            } catch (NumberFormatException e) {
+                showError("Please enter valid numbers for all activity fields.");
+            }
+        }
+    }
+
 
 
 }
