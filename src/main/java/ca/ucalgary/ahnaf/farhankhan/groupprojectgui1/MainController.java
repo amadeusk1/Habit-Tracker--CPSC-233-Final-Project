@@ -48,9 +48,6 @@ public class MainController {
     private TextArea ActivityDisplay;
 
     @FXML
-    private Button confirm;
-
-    @FXML
     private Label dayText;
 
     @FXML
@@ -98,25 +95,9 @@ public class MainController {
         File file = fc.showOpenDialog(new Stage());
         load(file);
         ActivityDisplay.setText(Data.displayAllActivitiesGUI());
-//       menuViewAllGoals();
-//        menuViewAllActivities();
-        //GoalsDisplay.setText(data.getGoals().toString());
         Goals currentGoals = Goals.getInstance();
         GoalsDisplay.setText(currentGoals.toString());
     }
-
-//    public void menuViewAllActivities() {
-//        Data.displayAllActivitiesGUI();
-//    }
-
-//    public static void menuViewAllGoals() {
-//        System.out.println("\nCurrent Daily Goals:");
-//        System.out.println("Sleep: " + Data.goal.getSleep() + " hours per day");
-//        System.out.println("Exercise: " + Data.goal.getExercise() + " hours per day");
-//        System.out.println("Study: " + Data.goal.getStudy() + " hours per day");
-//        System.out.println("Work: " + Data.goal.getStudy() + " hours per day");
-//        System.out.println("Leisure: " + Data.goal.getLeisure() + " hours per day");
-//    }
 
 
     private void load(File file) {
@@ -162,7 +143,6 @@ public class MainController {
         // Set DayChoice to be hidden by default since initial selection is "Goal"
         DayChoice.setVisible(false);
         dayText.setVisible(false);
-
 
         // Listen for changes on GoalActivityChoice
         GoalActivityChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -230,11 +210,9 @@ public class MainController {
                 status_label.setText("Select Goal / Activity");
             }
 
-
         } catch (NumberFormatException e) {
             status_label.setText("Invalid input. Please enter a valid integer for all inputs .");
         }
-
     }
 
     @FXML
