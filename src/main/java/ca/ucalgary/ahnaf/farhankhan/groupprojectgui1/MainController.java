@@ -68,6 +68,13 @@ public class MainController {
     @FXML
     private TextField work;
 
+    private File startupFile;  //startup file
+
+    public void setStartupFile(File file) {
+        this.startupFile = file;
+    }
+
+
     @FXML
     void editActivities(ActionEvent event) {
 
@@ -154,6 +161,16 @@ public class MainController {
                 dayText.setVisible(false);
             }
         });
+
+        // load file if provided
+        if (startupFile != null && startupFile.exists()) {
+            load(startupFile);
+            ActivityDisplay.setText(data.displayAllActivitiesGUI());
+            Goals currentGoals = Goals.getInstance();
+            if (currentGoals != null) {
+                GoalsDisplay.setText(currentGoals.toString());
+            }
+        }
     }
 
 
@@ -291,7 +308,7 @@ public class MainController {
         while (true) {
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Enter Day");
-            dialog.setHeaderText("Day of the week (Monday-Sunday:");
+            dialog.setHeaderText("Day of the week (Monday-Sunday):");
             dialog.setContentText("Day:");
 
             Optional<String> result = dialog.showAndWait();
