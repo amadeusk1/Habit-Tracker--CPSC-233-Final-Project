@@ -714,38 +714,38 @@ public class MainController {
         SpecialOutputs.setText(output.toString());
     }
 
-//    @FXML
-//    private void handleTotalHoursLogged_Day() {
-//        // Get the selected day from the GUI
-//        String day = DayChoice.getValue();
-//
-//        if (day == null || day.trim().isEmpty()) {
-//            status_label.setText("Please select a valid day.");
-//            return;
-//        }
-//
-//        for (Day d : Data.getDays()) {
-//            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
-//                int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
-//
-//                StringBuilder output = new StringBuilder();
-//                output.append("Total Hours for ").append(capitalize(day)).append(":\n");
-//                output.append("Total: ").append(total).append(" hours\n\n");
-//                output.append("Sleep: ").append(act.getSleep()).append(" hours\n");
-//                output.append("Exercise: ").append(act.getExercise()).append(" hours\n");
-//                output.append("Study: ").append(act.getStudy()).append(" hours\n");
-//                output.append("Work: ").append(act.getWork()).append(" hours\n");
-//                output.append("Leisure: ").append(act.getLeisure()).append(" hours");
-//
-//                SpecialOutputs.setText(output.toString());
-//                return;
-//            }
-//        }
-//
-//        // No activity found for the selected day
-//        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
-//    }
-//
+    @FXML
+    private void handleTotalHoursLogged_Day() {
+        // Get the selected day from the GUI
+        String day = DayChoice.getValue();
+
+        if (day == null || day.trim().isEmpty()) {
+            status_label.setText("Please select a valid day.");
+            return;
+        }
+
+        for (Day d : Data.getDays()) {
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+                int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
+
+                StringBuilder output = new StringBuilder();
+                output.append("Total Hours for ").append(capitalize(day)).append(":\n");
+                output.append("Total: ").append(total).append(" hours\n\n");
+                output.append("Sleep: ").append(act.getSleep()).append(" hours\n");
+                output.append("Exercise: ").append(act.getExercise()).append(" hours\n");
+                output.append("Study: ").append(act.getStudy()).append(" hours\n");
+                output.append("Work: ").append(act.getWork()).append(" hours\n");
+                output.append("Leisure: ").append(act.getLeisure()).append(" hours");
+
+                SpecialOutputs.setText(output.toString());
+                return;
+            }
+        }
+
+        // No activity found for the selected day
+        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
+    }
+
 //    @FXML
 //    private void handleMaxandMinActivity() {
 //        String day = DayChoice.getValue();
