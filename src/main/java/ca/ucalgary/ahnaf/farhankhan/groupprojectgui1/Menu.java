@@ -17,10 +17,7 @@ import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import javax.imageio.metadata.IIOMetadata;
 import java.io.File;
 import java.lang.constant.DynamicConstantDesc;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Menu {
@@ -519,13 +516,17 @@ public class Menu {
      * Sources:
      * -MIN_VALUE and MAX_VALUE <a href="https://www.geeksforgeeks.org/integer-max_value-and-integer-min_value-in-java-with-examples/">...</a>
      */
+    /**
+     * Displays the activity or activities that had the most and least hours logged on a given day.
+     * Prompts the user for the day and prints the results.
+     */
     private void menuTimeActivity() {
-
-        // Get user input for day
         String day = getDay();
 
         for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+
+                // Map to store activity names and hours
                 Map<String, Integer> activityMap = new HashMap<>();
                 activityMap.put("Sleep", act.getSleep());
                 activityMap.put("Exercise", act.getExercise());
@@ -533,36 +534,37 @@ public class Menu {
                 activityMap.put("Work", act.getWork());
                 activityMap.put("Leisure", act.getLeisure());
 
+                // Find max and min hours
+                int maxHours = Collections.max(activityMap.values());
+                int minHours = Collections.min(activityMap.values());
 
-                String maxActivity = null;          // Initializes maxActivity to be null
-                String minActivity = null;          // Initializes minActivity to be null
-                int maxHours = Integer.MIN_VALUE;   // Initializes maxHours and ensures it is a very small integer
-                int minHours = Integer.MAX_VALUE;   //Initializes minHours and ensures it is a very big integer, will be useful for logic used
+                // Store all activities with max and min hours
+                List<String> maxActivities = new ArrayList<>();
+                List<String> minActivities = new ArrayList<>();
 
-                // Loop through activities to find max and min time spent
                 for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
-                    int hours = entry.getValue();
-
-                    // Check for max hours activity
-                    if (hours > maxHours) {
-                        maxHours = hours;
-                        maxActivity = entry.getKey();
+                    if (entry.getValue() == maxHours) {
+                        maxActivities.add(entry.getKey());
                     }
-
-                    // Check for min hours activity
-                    if (hours < minHours || hours != 0) {
-                        minHours = hours;
-                        minActivity = entry.getKey();
+                    if (entry.getValue() == minHours) {
+                        minActivities.add(entry.getKey());
                     }
                 }
 
-                // Display max and min time spent on activities
-                System.out.println("core.objects.Activity with most time on " + day + ": " + maxActivity + " with " + maxHours + " hours");
-                System.out.println("core.objects.Activity with least time on " + day + ": " + minActivity + " with " + minHours + " hours\n");
+                // Output results
+                System.out.println("Activities with most time on " + capitalize(day) + " (" + maxHours + " hours):");
+                System.out.println("→ " + String.join(", ", maxActivities));
+
+                System.out.println("Activities with least time on " + capitalize(day) + " (" + minHours + " hours):");
+                System.out.println("→ " + String.join(", ", minActivities));
+                return;
             }
         }
+
+        // If no data matched
         System.out.println("No data logged for " + capitalize(day) + ".");
     }
+
 
     /**
     * Calculates and displays the percentage of weekly goals achieved per activity.
