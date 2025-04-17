@@ -107,4 +107,9 @@ public class Data {
         return formated.toString();
     }
 
+    public static void clear() {
+        days.clear();
+    }
+
+
 }

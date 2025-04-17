@@ -103,6 +103,8 @@ public class MainController {
     private void load(File file) {
         status_label.setTextFill(Color.BLACK);
         status_label.setText("");
+        Data.clear(); //Clears existing data
+
         Data data = FileLoader.load(file);
         if (data == null) {
             status_label.setTextFill(Color.RED);
