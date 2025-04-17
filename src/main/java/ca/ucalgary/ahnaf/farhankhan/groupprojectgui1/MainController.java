@@ -717,14 +717,19 @@ public class MainController {
 
     @FXML
     private void handleTotalHoursLogged_Day() {
-        String day = DayChoice.getValue();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Select Day");
+        dialog.setHeaderText("Enter the day of the week:");
+        dialog.setContentText("Day (e.g., Monday):");
 
-        if (day == null || day.trim().isEmpty()) {
-            status_label.setText("Please select a valid day.");
+        Optional<String> result = dialog.showAndWait();
+
+        if (!result.isPresent()) {
+            SpecialOutputs.setText("Day selection cancelled.");
             return;
         }
 
-        day = day.toLowerCase(); // match backend format
+        String day = result.get().trim().toLowerCase();
 
         for (Day d : Data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
@@ -748,19 +753,24 @@ public class MainController {
     }
 
 
-
     @FXML
     private void handleMaxandMinActivity() {
-        String day = DayChoice.getValue();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Select Day");
+        dialog.setHeaderText("Enter the day of the week:");
+        dialog.setContentText("Day (e.g., Monday):");
 
-        if (day == null || day.trim().isEmpty()) {
-            status_label.setText("Please select a valid day.");
+        Optional<String> result = dialog.showAndWait();
+
+        if (!result.isPresent()) {
+            SpecialOutputs.setText("Day selection cancelled.");
             return;
         }
 
+        String day = result.get().trim().toLowerCase();
+
         for (Day d : Data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
-                // Store all activities and their hours
                 Map<String, Integer> activityMap = new HashMap<>();
                 activityMap.put("Sleep", act.getSleep());
                 activityMap.put("Exercise", act.getExercise());
@@ -768,7 +778,6 @@ public class MainController {
                 activityMap.put("Work", act.getWork());
                 activityMap.put("Leisure", act.getLeisure());
 
-                // Find max and min
                 String maxActivity = null, minActivity = null;
                 int maxHours = Integer.MIN_VALUE, minHours = Integer.MAX_VALUE;
 
@@ -784,7 +793,6 @@ public class MainController {
                     }
                 }
 
-                // Show results in Special Output box
                 StringBuilder output = new StringBuilder();
                 output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
                 output.append("Most Time: ").append(maxActivity).append(" (").append(maxHours).append("h)\n");
@@ -797,7 +805,6 @@ public class MainController {
 
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
-
 
 
 
