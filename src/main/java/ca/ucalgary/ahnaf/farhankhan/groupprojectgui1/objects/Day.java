@@ -11,7 +11,7 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects;
 /** Day class represents a day of the week.
  * Has a child class of Activity
  */
-public abstract class Day{
+public class Day{
     private String day; // The name of the day
 
     /**
