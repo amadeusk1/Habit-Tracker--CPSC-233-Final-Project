@@ -1,5 +1,12 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
+/**
+ * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
+ * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+ * @date 17 April 2025
+ * @tutorial 05
+ */
+
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
@@ -689,16 +696,15 @@ public class MainController {
     }
 
 
-    @FXML
-    private Button TotalHoursLogged;
 
-    @FXML
-    private Button TotalHoursLogged_Day;
-
-    @FXML
-    private Button MaxandMinActivity;
-
-
+    /**
+     * Calculates and displays the total hours spent across all days for each activity type.
+     *
+     * Sums up hours for sleep, exercise, study, work, and leisure from all logged days.
+     * Displays the total and individual activity hours in the SpecialOutputs TextArea.
+     *
+     * This gives the user an overview of their total weekly activity distribution.
+     */
     @FXML
     private void handleTotalHoursLogged() {
         // Initialize counters
@@ -731,6 +737,15 @@ public class MainController {
     }
 
 
+    /**
+     * Prompts the user to enter a day, then shows the total hours logged for that specific day.
+     *
+     * Asks for a day using a popup dialog.
+     * Finds that day’s activity entry (if available).
+     * Sums and displays all activity hours in the SpecialOutputs TextArea.
+     *
+     * Notifies the user if no data is logged for the entered day.
+     */
     @FXML
     private void handleTotalHoursLogged_Day() {
         String day = getDay();
@@ -764,7 +779,16 @@ public class MainController {
     }
 
 
-
+    /**
+     * Shows the activity or activities that took the most and least time on a specific day.
+     *
+     * Prompts the user to input the day of the week.
+     * Checks the stored activity data for that day.
+     * Finds all activities that have the highest and lowest number of hours.
+     * Displays the result in the SpecialOutputs TextArea.
+     *
+     * If no data is found for the entered day, it notifies the user.
+     */
     @FXML
     private void handleMaxandMinActivity() {
         String day = getDay();
@@ -776,35 +800,39 @@ public class MainController {
 
         for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
-                // Store all activities and their hours
-                Map<String, Integer> activityMap = new HashMap<>();
-                activityMap.put("Sleep", act.getSleep());
-                activityMap.put("Exercise", act.getExercise());
-                activityMap.put("Study", act.getStudy());
-                activityMap.put("Work", act.getWork());
-                activityMap.put("Leisure", act.getLeisure());
+                // Store each activity and its hours
+                Map<String, Integer> activityHours = new HashMap<>();
+                activityHours.put("Sleep", act.getSleep());
+                activityHours.put("Exercise", act.getExercise());
+                activityHours.put("Study", act.getStudy());
+                activityHours.put("Work", act.getWork());
+                activityHours.put("Leisure", act.getLeisure());
 
-                // Find max and min
-                String maxActivity = null, minActivity = null;
-                int maxHours = Integer.MIN_VALUE, minHours = Integer.MAX_VALUE;
+                int max = Collections.max(activityHours.values());
+                int min = Collections.min(activityHours.values());
 
-                for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
-                    int hours = entry.getValue();
-                    if (hours > maxHours) {
-                        maxHours = hours;
-                        maxActivity = entry.getKey();
+                List<String> maxActivities = new ArrayList<>();
+                List<String> minActivities = new ArrayList<>();
+
+                // Find all activities with max and min time
+                for (Map.Entry<String, Integer> entry : activityHours.entrySet()) {
+                    if (entry.getValue() == max) {
+                        maxActivities.add(entry.getKey());
                     }
-                    if (hours < minHours) {
-                        minHours = hours;
-                        minActivity = entry.getKey();
+                    if (entry.getValue() == min) {
+                        minActivities.add(entry.getKey());
                     }
                 }
 
-                // Show results in Special Output box
+                // Build output
                 StringBuilder output = new StringBuilder();
                 output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
-                output.append("Most Time: ").append(maxActivity).append(" (").append(maxHours).append("h)\n");
-                output.append("Least Time: ").append(minActivity).append(" (").append(minHours).append("h)");
+
+                output.append("Most Time (").append(max).append("h): ")
+                        .append(String.join(", ", maxActivities)).append("\n");
+
+                output.append("Least Time (").append(min).append("h): ")
+                        .append(String.join(", ", minActivities));
 
                 SpecialOutputs.setText(output.toString());
                 return;
@@ -813,7 +841,6 @@ public class MainController {
 
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
+
+
 }
-
-
-
