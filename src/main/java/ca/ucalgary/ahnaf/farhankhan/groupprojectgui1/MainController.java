@@ -746,54 +746,55 @@ public class MainController {
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
 
-//    @FXML
-//    private void handleMaxandMinActivity() {
-//        String day = DayChoice.getValue();
-//
-//        if (day == null || day.trim().isEmpty()) {
-//            status_label.setText("Please select a valid day.");
-//            return;
-//        }
-//
-//        for (Day d : Data.getDays()) {
-//            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
-//                // Store all activities and their hours
-//                Map<String, Integer> activityMap = new HashMap<>();
-//                activityMap.put("Sleep", act.getSleep());
-//                activityMap.put("Exercise", act.getExercise());
-//                activityMap.put("Study", act.getStudy());
-//                activityMap.put("Work", act.getWork());
-//                activityMap.put("Leisure", act.getLeisure());
-//
-//                // Find max and min
-//                String maxActivity = null, minActivity = null;
-//                int maxHours = Integer.MIN_VALUE, minHours = Integer.MAX_VALUE;
-//
-//                for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
-//                    int hours = entry.getValue();
-//                    if (hours > maxHours) {
-//                        maxHours = hours;
-//                        maxActivity = entry.getKey();
-//                    }
-//                    if (hours < minHours) {
-//                        minHours = hours;
-//                        minActivity = entry.getKey();
-//                    }
-//                }
-//
-//                // Show results in Special Output box
-//                StringBuilder output = new StringBuilder();
-//                output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
-//                output.append("Most Time: ").append(maxActivity).append(" (").append(maxHours).append("h)\n");
-//                output.append("Least Time: ").append(minActivity).append(" (").append(minHours).append("h)");
-//
-//                SpecialOutputs.setText(output.toString());
-//                return;
-//            }
-//        }
-//
-//        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
-//    }
+
+    @FXML
+    private void handleMaxandMinActivity() {
+        String day = DayChoice.getValue();
+
+        if (day == null || day.trim().isEmpty()) {
+            status_label.setText("Please select a valid day.");
+            return;
+        }
+
+        for (Day d : Data.getDays()) {
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+                // Store all activities and their hours
+                Map<String, Integer> activityMap = new HashMap<>();
+                activityMap.put("Sleep", act.getSleep());
+                activityMap.put("Exercise", act.getExercise());
+                activityMap.put("Study", act.getStudy());
+                activityMap.put("Work", act.getWork());
+                activityMap.put("Leisure", act.getLeisure());
+
+                // Find max and min
+                String maxActivity = null, minActivity = null;
+                int maxHours = Integer.MIN_VALUE, minHours = Integer.MAX_VALUE;
+
+                for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
+                    int hours = entry.getValue();
+                    if (hours > maxHours) {
+                        maxHours = hours;
+                        maxActivity = entry.getKey();
+                    }
+                    if (hours < minHours) {
+                        minHours = hours;
+                        minActivity = entry.getKey();
+                    }
+                }
+
+                // Show results in Special Output box
+                StringBuilder output = new StringBuilder();
+                output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
+                output.append("Most Time: ").append(maxActivity).append(" (").append(maxHours).append("h)\n");
+                output.append("Least Time: ").append(minActivity).append(" (").append(minHours).append("h)");
+
+                SpecialOutputs.setText(output.toString());
+                return;
+            }
+        }
+
+        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
+    }
 
 
 
