@@ -610,6 +610,69 @@ public class MainController {
         }
     }
 
+    @FXML
+    private void HandleEditGoals() {
+        TextField sleepField = new TextField();
+        TextField exerciseField = new TextField();
+        TextField studyField = new TextField();
+        TextField workField = new TextField();
+        TextField leisureField = new TextField();
+
+        Goals current = Goals.getInstance();
+        if (current != null) {
+            sleepField.setText(String.valueOf(current.getSleep()));
+            exerciseField.setText(String.valueOf(current.getExercise()));
+            studyField.setText(String.valueOf(current.getStudy()));
+            workField.setText(String.valueOf(current.getWork()));
+            leisureField.setText(String.valueOf(current.getLeisure()));
+        }
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20));
+
+        grid.add(new Label("Sleep:"), 0, 0);
+        grid.add(sleepField, 1, 0);
+        grid.add(new Label("Exercise:"), 0, 1);
+        grid.add(exerciseField, 1, 1);
+        grid.add(new Label("Study:"), 0, 2);
+        grid.add(studyField, 1, 2);
+        grid.add(new Label("Work:"), 0, 3);
+        grid.add(workField, 1, 3);
+        grid.add(new Label("Leisure:"), 0, 4);
+        grid.add(leisureField, 1, 4);
+
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Edit Daily Goals");
+        dialog.getDialogPane().setContent(grid);
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                int sleep = Integer.parseInt(sleepField.getText());
+                int exercise = Integer.parseInt(exerciseField.getText());
+                int study = Integer.parseInt(studyField.getText());
+                int work = Integer.parseInt(workField.getText());
+                int leisure = Integer.parseInt(leisureField.getText());
+
+                int sumTotal = sleep + exercise + study + work + leisure;
+                if (sumTotal <= 24) {
+                    Goals.initialize(sleep, exercise, study, work, leisure); // must exist in your Goals class
+                    Goals currentGoals = Goals.getInstance();
+                    GoalsDisplay.setText(currentGoals.toString());
+                    status_label.setText("Goals logged successfully.");
+                } else {
+                    showError("The total of your goals must be less than or equal to 24 hours. Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                showError("Invalid input. Please enter valid whole numbers.");
+            }
+        }
+    }
+
+
 
 
 }

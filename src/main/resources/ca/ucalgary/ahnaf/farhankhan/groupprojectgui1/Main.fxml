@@ -33,7 +33,7 @@
           <Menu mnemonicParsing="false" text="Edit">
             <items>
                   <MenuItem fx:id="editActivities" mnemonicParsing="false" onAction="#handleEditActivities" text="Edit Activities" />
-                  <MenuItem mnemonicParsing="false" onAction="#editGoals" text="Edit Goals" />
+                  <MenuItem fx:id="editGoals" mnemonicParsing="false" onAction="#HandleEditGoals" text="Edit Goals" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
