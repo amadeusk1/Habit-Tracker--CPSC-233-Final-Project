@@ -19,6 +19,10 @@ public class MainGUI extends Application {
 
     private static String startupFilePath = null;
 
+    /**launches the java fx
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length > 0) {
             startupFilePath = args[0];
@@ -27,7 +31,11 @@ public class MainGUI extends Application {
     }
 
 
-
+    /** launches the program
+     *
+     * @param stage the running stage
+     * @throws IOException if there is an error
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("Main.fxml"));
