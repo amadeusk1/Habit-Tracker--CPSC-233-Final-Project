@@ -85,6 +85,25 @@ public class MainController {
 
     }
 
+    @FXML
+    void AboutHT(ActionEvent event) {
+        // make the alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        // create the writing portions of it
+        alert.setTitle("About Habit Tracker");
+        alert.setHeaderText("Habit Tracker Info");
+        // set the content
+        alert.setContentText("""
+                Authors: Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
+                Email: dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+                Version: v1.0
+                Description: This is a Habit Tracker for daily use, that will show the effectiveness of your goal setting.
+                """);
+        // display it
+        alert.show();
+    }
+
+
 
     @FXML
     void exit(ActionEvent event) {
