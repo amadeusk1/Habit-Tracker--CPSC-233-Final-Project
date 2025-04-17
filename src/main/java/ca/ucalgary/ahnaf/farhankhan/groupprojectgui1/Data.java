@@ -22,15 +22,17 @@ import java.util.*;
 public class Data {
 
     // List to store each day's activity data
-    private static final List<Day> days = new ArrayList<>();
+    private final List<Day> days;
 
-
+    public Data() {
+        this.days = new ArrayList<>();
+    }
     /**
      * Stores or updates an Activity entry for a specific day.
      * If the day already exists, it updates the existing entry.
      * Otherwise, adds a new Activity object.
      */
-    public static void storeNewDay(String dayOfWeek, int sleep, int exercise, int study, int work, int leisure) {
+    public void storeNewDay(String dayOfWeek, int sleep, int exercise, int study, int work, int leisure) {
         for (Day day : days) {
             if (day.getDay().equalsIgnoreCase(dayOfWeek)) {
                 Activity existingDay = (Activity) day;
@@ -48,14 +50,14 @@ public class Data {
     /**
      * Returns the full list of all logged days.
      */
-    public static List<Day> getDays() {
+    public List<Day> getDays() {
         return days;
     }
 
     /**
      * Sets the user’s daily goals for all tracked activities.
      */
-    public static void setGoals(Goals goals) {
+    public void setGoals(Goals goals) {
         // Initialize the singleton Goals instance using the values from the provided Goals object.
         Goals.initialize(goals.getSleep(), goals.getExercise(), goals.getStudy(),
                 goals.getWork(), goals.getLeisure());
@@ -74,7 +76,7 @@ public class Data {
      * Converts the list of days into a map of activities per day.
      * Used for goal calculations across the week.
      */
-    public static Map<String, Integer> getDayMap(String day) {
+    public Map<String, Integer> getDayMap(String day) {
         for (Day d : days) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 Map<String, Integer> map = new HashMap<>();
@@ -92,19 +94,24 @@ public class Data {
     /**
      * Prints all stored activity data.
      */
-    public static void displayAllActivities() {
+    public void displayAllActivities() {
         System.out.println("\n📅 Weekly Activities:");
         for (Day day : days) {
             System.out.println(day.toString());
         }
     }
 
-    public static String displayAllActivitiesGUI() {
+    public String displayAllActivitiesGUI() {
         StringBuilder formated = new StringBuilder();
         for (Day day : days) {
             formated.append(day.toString());
         }
         return formated.toString();
     }
+
+    public void clear() {
+        days.clear();
+    }
+
 
 }

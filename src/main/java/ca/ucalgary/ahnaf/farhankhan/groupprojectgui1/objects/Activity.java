@@ -8,9 +8,6 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects;
  */
 
 
-import java.awt.*;
-import java.util.IllformedLocaleException;
-
 /**
  * The Activity class represents daily activities for a specific day,
  * including time spent on sleep, exercise, study, work, and leisure.

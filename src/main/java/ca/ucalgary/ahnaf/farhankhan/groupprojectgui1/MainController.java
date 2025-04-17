@@ -673,6 +673,130 @@ public class MainController {
     }
 
 
+    @FXML
+    private Button TotalHoursLogged;
+
+    @FXML
+    private Button TotalHoursLogged_Day;
+
+    @FXML
+    private Button MaxandMinActivity;
+
+
+    @FXML
+    private void handleTotalHoursLogged() {
+        // Initialize counters
+        int total = 0, sleep = 0, exercise = 0, study = 0, work = 0, leisure = 0;
+
+        // Add up activity hours from all days
+        for (Day d : Data.getDays()) {
+            if (d instanceof Activity act) {
+                sleep += act.getSleep();
+                exercise += act.getExercise();
+                study += act.getStudy();
+                work += act.getWork();
+                leisure += act.getLeisure();
+            }
+        }
+
+        total = sleep + exercise + study + work + leisure;
+
+        // Show results in Special Output box
+        StringBuilder output = new StringBuilder();
+        output.append("Total Hours Logged (All Days):\n");
+        output.append("Total: ").append(total).append(" hours\n\n");
+        output.append("Sleep: ").append(sleep).append(" hours\n");
+        output.append("Exercise: ").append(exercise).append(" hours\n");
+        output.append("Study: ").append(study).append(" hours\n");
+        output.append("Work: ").append(work).append(" hours\n");
+        output.append("Leisure: ").append(leisure).append(" hours");
+
+        SpecialOutputs.setText(output.toString());
+    }
+
+
+    @FXML
+    private void handleTotalHoursLogged_Day() {
+        String day = DayChoice.getValue();
+
+        if (day == null || day.trim().isEmpty()) {
+            status_label.setText("Please select a valid day.");
+            return;
+        }
+
+        day = day.toLowerCase(); // match backend format
+
+        for (Day d : Data.getDays()) {
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+                int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
+
+                StringBuilder output = new StringBuilder();
+                output.append("Total Hours for ").append(capitalize(day)).append(":\n");
+                output.append("Total: ").append(total).append(" hours\n\n");
+                output.append("Sleep: ").append(act.getSleep()).append(" hours\n");
+                output.append("Exercise: ").append(act.getExercise()).append(" hours\n");
+                output.append("Study: ").append(act.getStudy()).append(" hours\n");
+                output.append("Work: ").append(act.getWork()).append(" hours\n");
+                output.append("Leisure: ").append(act.getLeisure()).append(" hours");
+
+                SpecialOutputs.setText(output.toString());
+                return;
+            }
+        }
+
+        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
+    }
+
+
+
+    @FXML
+    private void handleMaxandMinActivity() {
+        String day = DayChoice.getValue();
+
+        if (day == null || day.trim().isEmpty()) {
+            status_label.setText("Please select a valid day.");
+            return;
+        }
+
+        for (Day d : Data.getDays()) {
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+                // Store all activities and their hours
+                Map<String, Integer> activityMap = new HashMap<>();
+                activityMap.put("Sleep", act.getSleep());
+                activityMap.put("Exercise", act.getExercise());
+                activityMap.put("Study", act.getStudy());
+                activityMap.put("Work", act.getWork());
+                activityMap.put("Leisure", act.getLeisure());
+
+                // Find max and min
+                String maxActivity = null, minActivity = null;
+                int maxHours = Integer.MIN_VALUE, minHours = Integer.MAX_VALUE;
+
+                for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
+                    int hours = entry.getValue();
+                    if (hours > maxHours) {
+                        maxHours = hours;
+                        maxActivity = entry.getKey();
+                    }
+                    if (hours < minHours) {
+                        minHours = hours;
+                        minActivity = entry.getKey();
+                    }
+                }
+
+                // Show results in Special Output box
+                StringBuilder output = new StringBuilder();
+                output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
+                output.append("Most Time: ").append(maxActivity).append(" (").append(maxHours).append("h)\n");
+                output.append("Least Time: ").append(minActivity).append(" (").append(minHours).append("h)");
+
+                SpecialOutputs.setText(output.toString());
+                return;
+            }
+        }
+
+        SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
+    }
 
 
 

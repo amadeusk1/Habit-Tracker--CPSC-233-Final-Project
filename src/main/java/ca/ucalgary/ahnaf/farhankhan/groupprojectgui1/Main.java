@@ -16,6 +16,8 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
  */
 public class Main {
     public static void main(String[] args) {
+        Data data = new Data();
+        Menu Menu = new Menu(data);
         System.out.println("WELCOME TO THE DAILY HABIT TRACKER!\n");
         // Ask the user if they want to use saved data (menuUseSaved will be called)
         if (Menu.menuUseSaved()) {
