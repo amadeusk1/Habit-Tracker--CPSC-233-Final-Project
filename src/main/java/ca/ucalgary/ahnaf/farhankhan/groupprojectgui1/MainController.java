@@ -79,7 +79,6 @@ public class MainController {
     }
 
 
-
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
@@ -717,7 +716,7 @@ public class MainController {
 
     @FXML
     private void handleTotalHoursLogged_Day() {
-        String day = DayChoice.getValue();
+        String day = getDay();
 
         if (day == null || day.trim().isEmpty()) {
             status_label.setText("Please select a valid day.");
@@ -751,7 +750,7 @@ public class MainController {
 
     @FXML
     private void handleMaxandMinActivity() {
-        String day = DayChoice.getValue();
+        String day = getDay();
 
         if (day == null || day.trim().isEmpty()) {
             status_label.setText("Please select a valid day.");
@@ -797,8 +796,7 @@ public class MainController {
 
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
-
-
-
-
 }
+
+
+
