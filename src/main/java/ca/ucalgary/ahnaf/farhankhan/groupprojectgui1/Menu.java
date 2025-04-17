@@ -14,7 +14,9 @@ import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 
+import javax.imageio.metadata.IIOMetadata;
 import java.io.File;
+import java.lang.constant.DynamicConstantDesc;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -24,10 +26,15 @@ import java.util.Scanner;
 public class Menu {
 
     // The main data storage object
-    private static Data data = new Data();
+    private Data data;
 
     // Scanner for user input
-    static final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
+
+    public Menu(Data data) {
+        this.data = data;
+        this.scanner = new Scanner(System.in);
+    }
 
     /** Ask user if they want to use saved data
      * if they say yes then we call the load function and return true
@@ -35,7 +42,7 @@ public class Menu {
      *
      * @return
      */
-    public static boolean menuUseSaved() {
+    public boolean menuUseSaved() {
         // ask user question
         System.out.println("Do you want to use previously saved data?");
         System.out.println("'Y' for Yes. Anything else is No ");
@@ -60,7 +67,7 @@ public class Menu {
      * function must be run to continue program.
      */
     // Function used to mandate the logging of the first activity
-    public static void menuGoalSet() {
+    public void menuGoalSet() {
         System.out.println("Please enter your daily goals for the following (in hours)");
 
         Goals newGoals; // To store the user's input as a Goals object
@@ -89,12 +96,12 @@ public class Menu {
                     if (newGoals.equals(existingGoals)) {
                         System.out.println("You entered the same goals as before.");
                     } else {
-                        Data.setGoals(newGoals);
+                        data.setGoals(newGoals);
                         System.out.println("\n• Your daily goals have been set successfully!");
                     }
                 } catch (IllegalStateException e) {
                     // No Goals instance exists yet, so initialize it
-                    Data.setGoals(newGoals);
+                    data.setGoals(newGoals);
                     System.out.println("\n• Your daily goals have been set successfully!");
                 }
             }
@@ -106,7 +113,7 @@ public class Menu {
     /**
      * Function used to mandate the logging of the first activity
      */
-    public static void menuLogFirstActivity() {
+    public void menuLogFirstActivity() {
         // Initial prompts
         System.out.println("\nLets log your first activity.");
         System.out.println("Press <Enter> to continue.");
@@ -156,7 +163,7 @@ public class Menu {
      * This loops the menu
      * after user pick the choice and get output then menu is shown again
      */
-    public static void menuLoop() {
+    public void menuLoop() {
         System.out.println(message); // prints initial message
         String choice = scanner.nextLine();
         int option;
@@ -219,7 +226,7 @@ public class Menu {
      * If the save operation is successful, a success message is displayed.
      * If the save operation fails, an error message is shown.
      */
-    private static void save() {
+    private void save() {
         String filename;
         File file;
         do {
@@ -246,7 +253,7 @@ public class Menu {
      *
      * @return true if data was successfully loaded, false if loading failed after multiple attempts
      */
-    private static boolean load() {
+    private boolean load() {
         String filename;
         File file;
         do {
@@ -279,7 +286,7 @@ public class Menu {
      * @param prompt the question shown to user
      * @return the number if its was valid
      */
-    public static int checkInteger(Scanner scanner, String prompt) {
+    public int checkInteger(Scanner scanner, String prompt) {
         int number;
 
         while (true) {
@@ -305,7 +312,7 @@ public class Menu {
      * @param input the string being capitalised
      * @return the capitalised sting (first letter)
      */
-    public static String capitalize(String input) {
+    private static String capitalize(String input) {
         return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
@@ -313,20 +320,20 @@ public class Menu {
      * Called when the user chooses to enter a new activity
      */
     // Called when the user chooses to enter a new activity
-    public static void menuLogNewActivity() {
+    public void menuLogNewActivity() {
         // Ask the user for a valid day
         String day = getDay();
 
         // Loop to ensure the sum of hours is equal to 24
         int totalHours;
-        int[] data; // Array to store activity hours
+        int[] dataH; // Array to store activity hours
         do {
             // Get user input for the time spent on each activity
-            data = addDataToday(day);
+            dataH = addDataToday(day);
 
             // Calculate the total hours entered
             totalHours = 0;
-            for (int hours : data) {
+            for (int hours : dataH) {
                 totalHours += hours;
             }
 
@@ -338,7 +345,7 @@ public class Menu {
         } while (totalHours > 24); // Keep asking until the total is 24 hours
 
         // Store the valid data after the user has entered correct hours
-        Data.storeNewDay(day, data[0], data[1], data[2], data[3], data[4]);
+        data.storeNewDay(day, dataH[0], dataH[1], dataH[2], dataH[3], dataH[4]);
         System.out.println("Activity data stored for " + capitalize(day) + " successfully!");
     }
 
@@ -349,7 +356,7 @@ public class Menu {
      * @param day the day of the week
      *
      */
-    private static int[] addDataToday(String day) {
+    private int[] addDataToday(String day) {
         System.out.println("Enter hours spent for each activity on " + capitalize(day) + ":");
 
         // Define an array of activities
@@ -390,7 +397,7 @@ public class Menu {
      *
      * @return a string of the day of the week
      */
-    public static String getDay() {
+    public String getDay() {
         System.out.print("Day of the week (Sunday --> Saturday): \n");
         String dayOfWeek = scanner.nextLine().toLowerCase(); // Convert input to lowercase
 
@@ -417,14 +424,14 @@ public class Menu {
      * GENERAL OUTPUT
      * if called then shows all the activities.
      */
-    public static void menuViewAllActivities() {
-        Data.displayAllActivities();
+    public void menuViewAllActivities() {
+        data.displayAllActivities();
     }
 
     /**
      * Displays the current daily goals for all activities.
      */
-    public static void menuViewAllGoals() {
+    private void menuViewAllGoals() {
         System.out.println("\nCurrent Daily Goals:");
         System.out.println("Sleep: " + Goals.getInstance().getSleep() + " hours per day");
         System.out.println("Exercise: " + Goals.getInstance().getExercise() + " hours per day");
@@ -436,9 +443,9 @@ public class Menu {
     /**
      * Used to view all activities done on a specific day.
      */
-    public static void menuViewActivityDay() {
+    private void menuViewActivityDay() {
         String day = getDay();
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day)) {
                 System.out.println("\nActivities for " + capitalize(day) + ":");
                 System.out.println(d);
@@ -453,11 +460,11 @@ public class Menu {
      * Calculates and displays the total hours logged across all days.
      * Also provides a breakdown of hours per activity.
      */
-    public static void menuTotalHours() {
+    private void menuTotalHours() {
 
         //Stores total hours
         int total = 0, sleep = 0, exercise = 0, study = 0, work = 0, leisure = 0; //Store total hours and total hours per activity
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d instanceof Activity act) {
                 sleep += act.getSleep();
                 exercise += act.getExercise();
@@ -483,11 +490,11 @@ public class Menu {
      * Source used:
      * -> <a href="https://www.geeksforgeeks.org/hashmap-entryset-method-in-java/">...</a>
      */
-    public static void menuHoursOnDay() {
+    private void menuHoursOnDay() {
 
         String day = getDay();     //Reusing getDay() method to ensure valid day input
 
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
@@ -512,12 +519,12 @@ public class Menu {
      * Sources:
      * -MIN_VALUE and MAX_VALUE <a href="https://www.geeksforgeeks.org/integer-max_value-and-integer-min_value-in-java-with-examples/">...</a>
      */
-    public static void menuTimeActivity() {
+    private void menuTimeActivity() {
 
         // Get user input for day
         String day = getDay();
 
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 Map<String, Integer> activityMap = new HashMap<>();
                 activityMap.put("Sleep", act.getSleep());
@@ -561,7 +568,7 @@ public class Menu {
     * Calculates and displays the percentage of weekly goals achieved per activity.
     * will not work if user did not enter goal values beforehand
     */
-    public static void menuGoalsInWeek() {
+    private void menuGoalsInWeek() {
 
         // Create initial total hours for each activity
         int totalSleep = 0, totalExercise = 0, totalStudy = 0, totalWork = 0, totalLeisure = 0;
@@ -571,7 +578,7 @@ public class Menu {
 
         // Loop through each day's data and sum up the total hours for each activity
         for (String day : days) {
-            Map<String, Integer> dayMap = Data.getDayMap(day);
+            Map<String, Integer> dayMap = data.getDayMap(day);
             if (dayMap != null) {
                 totalSleep += dayMap.getOrDefault("sleep", 0);
                 totalExercise += dayMap.getOrDefault("exercise", 0);
@@ -617,13 +624,13 @@ public class Menu {
      * calculates percentages, and prints the results.
      * Ensures percentages do not exceed 100%.
      */
-    public static void menuGoalsInDay() {
+    private void menuGoalsInDay() {
 
         // Get the day from the user
         String day = getDay();
 
         // Retrieve the activity data for the selected day
-        Map<String, Integer> dayMap = Data.getDayMap(day);
+        Map<String, Integer> dayMap = data.getDayMap(day);
 
         // Retrieve logged hours for the selected day
         int totalSleep = dayMap.getOrDefault("sleep", 0);
@@ -662,7 +669,7 @@ public class Menu {
         System.out.printf("Leisure: %.2f%%\n", percentLeisure);
     }
 
-    public static void menuNumberOfGoals() {
+    private void menuNumberOfGoals() {
 
         // Goal categories
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
@@ -687,7 +694,7 @@ public class Menu {
 
         // Loop through days and add total logged hours for each activity over the week
         for (String day : days) {
-            Map<String, Integer> dayMap = Data.getDayMap(day);
+            Map<String, Integer> dayMap = data.getDayMap(day);
             if (dayMap != null) {
                 for (String activity : activities) {
                     totalLogged.put(activity, totalLogged.get(activity) + dayMap.getOrDefault(activity, 0));
@@ -727,7 +734,7 @@ public class Menu {
      * Prompts the user for a day, retrieves the corresponding activity,
      * and prints only the categories that went over the set goals.
      */
-    private static void menuActivityOverGoals() {
+    private void menuActivityOverGoals() {
         String day = getDay(); // Prompt for day input
         Activity act = getActivityForDay(day); //retrieve activity data for that day
 
@@ -743,7 +750,7 @@ public class Menu {
      * Displays the remaining time required to meet the user's goals for a given day.
      * Prompts for a day and shows how many hours are needed to reach each goal.
      */
-    private static void menuTimeRemainingForGoals() {
+    private void menuTimeRemainingForGoals() {
         String day = getDay(); //prompt for day input
         Activity act = getActivityForDay(day); //retrieve activity data for that day
 
@@ -761,8 +768,8 @@ public class Menu {
      * @param day the name of the day to look up
      * @return the Activity object for the day, or null if not found
      */
-    private static Activity getActivityForDay(String day) {
-        for (Day d : Data.getDays()) {
+    private Activity getActivityForDay(String day) {
+        for (Day d : data.getDays()) {
             //check day match and type cast to Activity
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 return act;
@@ -779,7 +786,7 @@ public class Menu {
      * @param act      the activity data to compare
      * @param overGoal flag indicating type of comparison
      */
-    private static void compareActivityToGoal(Activity act, boolean overGoal) {
+    private void compareActivityToGoal(Activity act, boolean overGoal) {
         // Categories to compare
         String[] labels = {"Sleep", "Exercise", "Study", "Work", "Leisure"};
 

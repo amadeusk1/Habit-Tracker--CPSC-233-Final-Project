@@ -94,7 +94,7 @@ public class MainController {
         fc.setInitialFileName("data.csv");
         File file = fc.showOpenDialog(new Stage());
         load(file);
-        ActivityDisplay.setText(Data.displayAllActivitiesGUI());
+        ActivityDisplay.setText(data.displayAllActivitiesGUI());
         Goals currentGoals = Goals.getInstance();
         GoalsDisplay.setText(currentGoals.toString());
     }
@@ -103,7 +103,7 @@ public class MainController {
     private void load(File file) {
         status_label.setTextFill(Color.BLACK);
         status_label.setText("");
-        Data.clear(); //Clears existing data
+        data.clear(); //Clears existing data
 
         Data data = FileLoader.load(file);
         if (data == null) {
@@ -201,8 +201,8 @@ public class MainController {
                 //String selectedDay = DayChoice.getValue();
                 if (sumTotal <= 24) {
                     Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
-                    storeNewDay(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
-                    ActivityDisplay.setText(Data.displayAllActivitiesGUI());
+                    data.storeNewDay(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
+                    ActivityDisplay.setText(data.displayAllActivitiesGUI());
                     status_label.setText("Activities logged successfully");
                 } else {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
@@ -234,7 +234,7 @@ public class MainController {
         String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
 
         for (String day : days) {
-            Map<String, Integer> dayMap = Data.getDayMap(day);
+            Map<String, Integer> dayMap = data.getDayMap(day);
             if (dayMap != null) {
                 totalSleep += dayMap.getOrDefault("sleep", 0);
                 totalExercise += dayMap.getOrDefault("exercise", 0);
@@ -347,7 +347,7 @@ public class MainController {
         if (day.isEmpty()) return; // If user cancelled or didn't enter anything
 
         // Retrieve the activity data for the selected day
-        Map<String, Integer> dayMap = Data.getDayMap(day);
+        Map<String, Integer> dayMap = data.getDayMap(day);
 
         // Check for missing day data
         if (dayMap == null) {
@@ -432,7 +432,7 @@ public class MainController {
 
         String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
         for (String day : days) {
-            Map<String, Integer> dayMap = Data.getDayMap(day);
+            Map<String, Integer> dayMap = data.getDayMap(day);
             if (dayMap != null) {
                 for (String activity : activities) {
                     totalLogged.put(activity, totalLogged.get(activity) + dayMap.getOrDefault(activity, 0));
@@ -469,7 +469,7 @@ public class MainController {
     @FXML
     private void handleGoalsExceeded() {
         String day = getDay(); // user input day
-        Map<String, Integer> actMap = Data.getDayMap(day); // returns Map<String, Integer>
+        Map<String, Integer> actMap = data.getDayMap(day); // returns Map<String, Integer>
 
         if (actMap != null) {
             StringBuilder output = new StringBuilder();
@@ -510,7 +510,7 @@ public class MainController {
     @FXML
     private void handleRemainingTime() {
         String day = getDay(); // Get user-inputted day
-        Map<String, Integer> actMap = Data.getDayMap(day); // Fetch activity map for the day
+        Map<String, Integer> actMap = data.getDayMap(day); // Fetch activity map for the day
 
         if (actMap != null) {
             StringBuilder output = new StringBuilder();
@@ -602,8 +602,8 @@ public class MainController {
                     return;
                 }
 
-                Data.storeNewDay(day, sleep, exercise, study, work, leisure);
-                ActivityDisplay.setText(Data.displayAllActivitiesGUI());
+                data.storeNewDay(day, sleep, exercise, study, work, leisure);
+                ActivityDisplay.setText(data.displayAllActivitiesGUI());
                 status_label.setText("Activities updated for " + capitalize(day) + ".");
 
             } catch (NumberFormatException e) {
@@ -691,7 +691,7 @@ public class MainController {
         int total = 0, sleep = 0, exercise = 0, study = 0, work = 0, leisure = 0;
 
         // Add up activity hours from all days
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d instanceof Activity act) {
                 sleep += act.getSleep();
                 exercise += act.getExercise();
@@ -728,7 +728,7 @@ public class MainController {
 
         day = day.toLowerCase(); // match backend format
 
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
@@ -760,7 +760,7 @@ public class MainController {
             return;
         }
 
-        for (Day d : Data.getDays()) {
+        for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 // Store all activities and their hours
                 Map<String, Integer> activityMap = new HashMap<>();

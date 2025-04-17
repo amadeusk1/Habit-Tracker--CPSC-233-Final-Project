@@ -45,7 +45,7 @@ public class FileLoader {
                     int leisure = Integer.parseInt(parts[5]);
 
                     // Store the activity in the data object
-                    Data.storeNewDay(day, sleep, exercise, study, work, leisure);
+                    newData.storeNewDay(day, sleep, exercise, study, work, leisure);
                 } catch (NumberFormatException e) {
                     // Handle any invalid data in the file by skipping the line
                     System.out.println("Skipping invalid line: " + line);
@@ -66,7 +66,7 @@ public class FileLoader {
 
                         // Set the loaded goals in Data
                         Goals loadedGoals = new Goals(gSleep,gExercise,gStudy,gWork,gLeisure);
-                        Data.setGoals(loadedGoals);
+                        newData.setGoals(loadedGoals);
                     } catch (NumberFormatException e) {
                         System.out.println("Error parsing goals from the file.");
                     }
