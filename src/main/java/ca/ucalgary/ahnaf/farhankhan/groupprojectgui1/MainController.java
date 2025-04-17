@@ -260,10 +260,16 @@ public class MainController {
     @FXML
     private TextArea SpecialOutputs;
 
+    /**
+     * Handles the "Weekly Goals Achieved" button action.
+     * Calculates the percentage of goals achieved for each activity type
+     * over the past week and displays the results in a TextArea.
+     * If no goals have been set, it displays a warning message.
+     */
     @FXML
     private void handleWeeklyGoalsAchieved() {
 
-        // Attempt to retrieve the goals; if not set, display an error and exit.
+        // Get current goals, show message if not set
         Goals currentGoals;
         try {
             currentGoals = Goals.getInstance();
@@ -272,9 +278,11 @@ public class MainController {
             return;
         }
 
+        // Set total counters for the week
         int totalSleep = 0, totalExercise = 0, totalStudy = 0, totalWork = 0, totalLeisure = 0;
         String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
 
+        // Add up values for each day
         for (String day : days) {
             Map<String, Integer> dayMap = data.getDayMap(day);
             if (dayMap != null) {
@@ -286,41 +294,35 @@ public class MainController {
             }
         }
 
-        int goalSleep = Goals.getInstance().getSleep() * 7;
-        int goalExercise = Goals.getInstance().getExercise() * 7;
-        int goalStudy = Goals.getInstance().getStudy() * 7;
-        int goalWork = Goals.getInstance().getWork() * 7;
-        int goalLeisure = Goals.getInstance().getLeisure() * 7;
+        // Calculate weekly goals
+        int goalSleep = currentGoals.getSleep() * 7;
+        int goalExercise = currentGoals.getExercise() * 7;
+        int goalStudy = currentGoals.getStudy() * 7;
+        int goalWork = currentGoals.getWork() * 7;
+        int goalLeisure = currentGoals.getLeisure() * 7;
 
+        // Initialize percentages
         double percentSleep = 0;
         double percentExercise = 0;
         double percentStudy = 0;
         double percentWork = 0;
         double percentLeisure = 0;
 
-        if (goalSleep != 0) {
-            percentSleep = (totalSleep / (double) goalSleep) * 100;
-        }
-        if (goalExercise != 0) {
-            percentExercise = (totalExercise / (double) goalExercise) * 100;
-        }
-        if (goalStudy != 0) {
-            percentStudy = (totalStudy / (double) goalStudy) * 100;
-        }
-        if (goalWork != 0) {
-            percentWork = (totalWork / (double) goalWork) * 100;
-        }
-        if (goalLeisure != 0) {
-            percentLeisure = (totalLeisure / (double) goalLeisure) * 100;
-        }
+        // Calculate percent values (avoid divide by zero)
+        if (goalSleep != 0) percentSleep = (totalSleep / (double) goalSleep) * 100;
+        if (goalExercise != 0) percentExercise = (totalExercise / (double) goalExercise) * 100;
+        if (goalStudy != 0) percentStudy = (totalStudy / (double) goalStudy) * 100;
+        if (goalWork != 0) percentWork = (totalWork / (double) goalWork) * 100;
+        if (goalLeisure != 0) percentLeisure = (totalLeisure / (double) goalLeisure) * 100;
 
-        // Cap values at 100
+        // Limit to 100%
         if (percentSleep > 100) percentSleep = 100;
         if (percentExercise > 100) percentExercise = 100;
         if (percentStudy > 100) percentStudy = 100;
         if (percentWork > 100) percentWork = 100;
         if (percentLeisure > 100) percentLeisure = 100;
 
+        // Build the output message
         String output = "Percentage of Weekly Goals Achieved:\n" +
                 String.format("Sleep: %.2f%%\n", percentSleep) +
                 String.format("Exercise: %.2f%%\n", percentExercise) +
@@ -328,12 +330,20 @@ public class MainController {
                 String.format("Work: %.2f%%\n", percentWork) +
                 String.format("Leisure: %.2f%%\n", percentLeisure);
 
+        // Show result in the TextArea
         SpecialOutputs.setText(output);
-
     }
 
+
+    /**
+     * Prompts the user to enter a day of the week using a text input dialog.
+     * Keeps asking until a valid day (Monday–Sunday) is entered or the user cancels.
+     *
+     * @return the valid day in lowercase (e.g., "monday"), or an empty string if canceled
+     */
     private String getDay() {
         while (true) {
+            // Show input dialog
             TextInputDialog dialog = new TextInputDialog();
             dialog.setTitle("Enter Day");
             dialog.setHeaderText("Day of the week (Monday-Sunday):");
@@ -341,13 +351,15 @@ public class MainController {
 
             Optional<String> result = dialog.showAndWait();
 
-            // If user cancels the dialog
+            // Return empty string if canceled
             if (!result.isPresent()) {
-                return ""; // or null, depending on how you want to handle canceling
+                return "";
             }
 
+            // Convert input to lowercase
             String dayOfWeek = result.get().toLowerCase();
 
+            // Check if valid day
             switch (dayOfWeek) {
                 case "monday":
                 case "tuesday":
@@ -360,10 +372,12 @@ public class MainController {
                     return dayOfWeek;
 
                 default:
+                    // Show error if invalid
                     showError("Invalid day entered. Must be a day of the week.");
             }
         }
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
