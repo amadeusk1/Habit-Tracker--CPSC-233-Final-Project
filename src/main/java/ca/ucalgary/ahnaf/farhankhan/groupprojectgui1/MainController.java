@@ -263,7 +263,11 @@ public class MainController {
     @FXML
     private void handleWeeklyGoalsAchieved() {
 
-        if (Goals.getInstance() == null) {
+        // Attempt to retrieve the goals; if not set, display an error and exit.
+        Goals currentGoals;
+        try {
+            currentGoals = Goals.getInstance();
+        } catch (IllegalStateException ex) {
             SpecialOutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
             return;
         }
@@ -441,16 +445,15 @@ public class MainController {
         }
 
         // Build the result string
-        StringBuilder result = new StringBuilder();
-        result.append("Percentage of Daily Goals Achieved for ").append(capitalize(day)).append(":\n");
-        result.append(String.format("Sleep: %.2f%%\n", percentSleep));
-        result.append(String.format("Exercise: %.2f%%\n", percentExercise));
-        result.append(String.format("Study: %.2f%%\n", percentStudy));
-        result.append(String.format("Work: %.2f%%\n", percentWork));
-        result.append(String.format("Leisure: %.2f%%\n", percentLeisure));
+        String result = "Percentage of Daily Goals Achieved for " + capitalize(day) + ":\n" +
+                String.format("Sleep: %.2f%%\n", percentSleep) +
+                String.format("Exercise: %.2f%%\n", percentExercise) +
+                String.format("Study: %.2f%%\n", percentStudy) +
+                String.format("Work: %.2f%%\n", percentWork) +
+                String.format("Leisure: %.2f%%\n", percentLeisure);
 
         // Display in TextArea
-        SpecialOutputs.setText(result.toString());
+        SpecialOutputs.setText(result);
     }
 
     @FXML
@@ -460,17 +463,17 @@ public class MainController {
         try {
             currentGoals = Goals.getInstance();
         } catch (IllegalStateException e) {
-            SpecialOutputs.setText("Inputs have not been set. Please set your Inputs first.");
+            SpecialOutputs.setText("Goals have not been set. Please set your goals first.");
             return;
         }
 
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
 
-        int GoalSleep = currentGoals.getInstance().getSleep() * 7;
-        int GoalExercise = currentGoals.getInstance().getExercise() * 7;
-        int GoalStudy = currentGoals.getInstance().getStudy() * 7;
-        int GoalWork = currentGoals.getInstance().getWork() * 7;
-        int GoalLeisure = currentGoals.getInstance().getLeisure() * 7;
+        int GoalSleep = Goals.getInstance().getSleep() * 7;
+        int GoalExercise = Goals.getInstance().getExercise() * 7;
+        int GoalStudy = Goals.getInstance().getStudy() * 7;
+        int GoalWork = Goals.getInstance().getWork() * 7;
+        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
         Map<String, Integer> totalLogged = new HashMap<>();
         for (String activity : activities) {
@@ -505,12 +508,11 @@ public class MainController {
             }
         }
 
-        StringBuilder result = new StringBuilder();
-        result.append("Number of Goals Achieved / Not Achieved This Week:\n");
-        result.append("Goals Achieved: ").append(goalsAchieved).append("\n");
-        result.append("Goals Not Achieved: ").append(goalsNotAchieved);
+        String result = "Number of Goals Achieved / Not Achieved This Week:\n" +
+                "Goals Achieved: " + goalsAchieved + "\n" +
+                "Goals Not Achieved: " + goalsNotAchieved;
 
-        SpecialOutputs.setText(result.toString());
+        SpecialOutputs.setText(result);
     }
 
     @FXML
@@ -519,10 +521,9 @@ public class MainController {
         Map<String, Integer> actMap = data.getDayMap(day); // returns Map<String, Integer>
 
         if (actMap != null) {
-            StringBuilder output = new StringBuilder();
-            output.append("Activities over goal on ").append(capitalize(day)).append(":\n");
-            output.append(getActivityOverGoalDetails(actMap));
-            SpecialOutputs.setText(output.toString());
+            String output = "Activities over goal on " + capitalize(day) + ":\n" +
+                    getActivityOverGoalDetails(actMap);
+            SpecialOutputs.setText(output);
         } else {
             showError("No data logged for " + capitalize(day) + ".");
         }
@@ -560,10 +561,9 @@ public class MainController {
         Map<String, Integer> actMap = data.getDayMap(day); // Fetch activity map for the day
 
         if (actMap != null) {
-            StringBuilder output = new StringBuilder();
-            output.append("Time remaining to achieve goals on ").append(capitalize(day)).append(":\n");
-            output.append(getTimeRemainingDetails(actMap));
-            SpecialOutputs.setText(output.toString());
+            String output = "Time remaining to achieve goals on " + capitalize(day) + ":\n" +
+                    getTimeRemainingDetails(actMap);
+            SpecialOutputs.setText(output);
         } else {
             showError("No data logged for " + capitalize(day) + ".");
         }
@@ -750,16 +750,15 @@ public class MainController {
         total = sleep + exercise + study + work + leisure;
 
         // Show results in Special Output box
-        StringBuilder output = new StringBuilder();
-        output.append("Total Hours Logged (All Days):\n");
-        output.append("Total: ").append(total).append(" hours\n\n");
-        output.append("Sleep: ").append(sleep).append(" hours\n");
-        output.append("Exercise: ").append(exercise).append(" hours\n");
-        output.append("Study: ").append(study).append(" hours\n");
-        output.append("Work: ").append(work).append(" hours\n");
-        output.append("Leisure: ").append(leisure).append(" hours");
+        String output = "Total Hours Logged (All Days):\n" +
+                "Total: " + total + " hours\n\n" +
+                "Sleep: " + sleep + " hours\n" +
+                "Exercise: " + exercise + " hours\n" +
+                "Study: " + study + " hours\n" +
+                "Work: " + work + " hours\n" +
+                "Leisure: " + leisure + " hours";
 
-        SpecialOutputs.setText(output.toString());
+        SpecialOutputs.setText(output);
     }
 
 
@@ -787,16 +786,15 @@ public class MainController {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
-                StringBuilder output = new StringBuilder();
-                output.append("Total Hours for ").append(capitalize(day)).append(":\n");
-                output.append("Total: ").append(total).append(" hours\n\n");
-                output.append("Sleep: ").append(act.getSleep()).append(" hours\n");
-                output.append("Exercise: ").append(act.getExercise()).append(" hours\n");
-                output.append("Study: ").append(act.getStudy()).append(" hours\n");
-                output.append("Work: ").append(act.getWork()).append(" hours\n");
-                output.append("Leisure: ").append(act.getLeisure()).append(" hours");
+                String output = "Total Hours for " + capitalize(day) + ":\n" +
+                        "Total: " + total + " hours\n\n" +
+                        "Sleep: " + act.getSleep() + " hours\n" +
+                        "Exercise: " + act.getExercise() + " hours\n" +
+                        "Study: " + act.getStudy() + " hours\n" +
+                        "Work: " + act.getWork() + " hours\n" +
+                        "Leisure: " + act.getLeisure() + " hours";
 
-                SpecialOutputs.setText(output.toString());
+                SpecialOutputs.setText(output);
                 return;
             }
         }
@@ -851,16 +849,14 @@ public class MainController {
                 }
 
                 // Build output
-                StringBuilder output = new StringBuilder();
-                output.append("Most & Least Time Spent on ").append(capitalize(day)).append(":\n");
 
-                output.append("Most Time (").append(max).append("h): ")
-                        .append(String.join(", ", maxActivities)).append("\n");
+                String output = "Most & Least Time Spent on " + capitalize(day) + ":\n" +
+                        "Most Time (" + max + "h): " +
+                        String.join(", ", maxActivities) + "\n" +
+                        "Least Time (" + min + "h): " +
+                        String.join(", ", minActivities);
 
-                output.append("Least Time (").append(min).append("h): ")
-                        .append(String.join(", ", minActivities));
-
-                SpecialOutputs.setText(output.toString());
+                SpecialOutputs.setText(output);
                 return;
             }
         }
