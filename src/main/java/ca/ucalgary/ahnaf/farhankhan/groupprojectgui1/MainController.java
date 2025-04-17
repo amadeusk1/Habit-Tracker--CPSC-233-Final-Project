@@ -36,11 +36,8 @@ import static ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data.*;
 
 
 public class MainController {
-
+    // made for storing data
     private Data data = new Data();
-
-//    << formating sting code from menu like jonathan did in yt video >>
-
 
     @FXML
     private ChoiceBox<String> DayChoice;
@@ -82,15 +79,28 @@ public class MainController {
     }
 
 
+    /** used for the about section in gui
+     *
+     * @param event on click
+     */
     @FXML
-    void editActivities(ActionEvent event) {
-
+    void AboutHT(ActionEvent event) {
+        // make the alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        // create the writing portions of it
+        alert.setTitle("About Habit Tracker");
+        alert.setHeaderText("Habit Tracker Info");
+        // set the content
+        alert.setContentText("""
+                Authors: Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
+                Email: dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+                Version: v1.0
+                Description: This is a Habit Tracker for daily use, that will show the effectiveness of your goal setting.
+                """);
+        // display it
+        alert.show();
     }
 
-    @FXML
-    void editGoals(ActionEvent event) {
-
-    }
 
 
     @FXML
@@ -145,25 +155,28 @@ public class MainController {
         }
     }
 
+    /** initialize everything at the start of the program
+     *
+     */
     @FXML
     public void initialize() {
-        // Populate the DayChoice menu
+        // add the DayChoice menu
         DayChoice.setItems(FXCollections.observableArrayList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"));
 
-        // Populate the Goal / activity menu
+        // add the Goal / activity menu
         GoalActivityChoice.setItems(FXCollections.observableArrayList("Goals", "Activity"));
 
         // Set DayChoice to be hidden by default since initial selection is "Goal"
         DayChoice.setVisible(false);
         dayText.setVisible(false);
 
-        // Listen for changes on GoalActivityChoice
+        // check for changes on GoalActivityChoice
         GoalActivityChoice.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             // Show the DayChoice only if the user selects "Habit"
             if ("Activity".equals(newValue)) {
                 DayChoice.setVisible(true);
                 dayText.setVisible(true);
-            } else {
+            } else {// otherwise keep hidden
                 DayChoice.setVisible(false);
                 dayText.setVisible(false);
             }
@@ -180,12 +193,15 @@ public class MainController {
         }
     }
 
-
+    /** logging new info
+     *
+     * @param event on the click
+     */
     @FXML
     void confirmAction(ActionEvent event) {
         // Get the selected values from goals
         String selectedGoal = GoalActivityChoice.getValue();
-        try {
+        try { // try to parse as integers
             int sleepV = Integer.parseInt(sleep.getText());
             int exerciseV = Integer.parseInt(exercise.getText());
             int studyV = Integer.parseInt(study.getText());
@@ -205,34 +221,34 @@ public class MainController {
                 if (sumTotal <= 24) {
                     // Initialize the global Goals instance.
                     Goals.initialize(sleepV, exerciseV, studyV, workV, leisureV);
-                    //Goals goals = new Goals(sleepV, exerciseV, studyV, workV, leisureV);
-                    //Data.goal = goals;
-                    Goals currentGoals = Goals.getInstance();
-                    GoalsDisplay.setText(currentGoals.toString());
+                    Goals currentGoals = Goals.getInstance(); // add the goals
+                    GoalsDisplay.setText(currentGoals.toString()); // show the goals
                     status_label.setText("Goals logged successfully");
                 } else {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
                 }
+                // if activity is selected
             } else if ("Activity".equals(selectedGoal)) {
                 String selectedDay = DayChoice.getValue();
                 if (selectedDay == null || selectedDay.trim().isEmpty()) {
                     status_label.setText("Please select a valid day for your activity.");
                     return;
                 }
-                //String selectedDay = DayChoice.getValue();
+                // check is hours arent over 24
                 if (sumTotal <= 24) {
+                    //add the activity
                     Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
                     data.storeNewDay(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
-                    ActivityDisplay.setText(data.displayAllActivitiesGUI());
+                    ActivityDisplay.setText(data.displayAllActivitiesGUI()); // display activity
                     status_label.setText("Activities logged successfully");
                 } else {
                     status_label.setText("The total of your goals must be less than or equal to 24 hours. Please try again.");
                 }
 
-            } else {
+            } else { // if they didnt select
                 status_label.setText("Select Goal / Activity");
             }
-
+        // if inputs are not integers
         } catch (NumberFormatException e) {
             status_label.setText("Invalid input. Please enter a valid integer for all inputs .");
         }

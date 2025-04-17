@@ -1,12 +1,5 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
-/**
- * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
- * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
- * @date 17 April 2025
- * @tutorial 05
- */
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,6 +18,7 @@ public class MainGUI extends Application {
         }
         launch(args);
     }
+
 
 
     @Override
