@@ -262,6 +262,7 @@ public class MainController {
 
     @FXML
     private void handleWeeklyGoalsAchieved() {
+
         if (Goals.getInstance() == null) {
             SpecialOutputs.setText("No goals have been set yet. Please set your goals before checking progress.");
             return;
@@ -454,13 +455,22 @@ public class MainController {
 
     @FXML
     private void handleNumberGoalsAchieved() {
+
+        Goals currentGoals;
+        try {
+            currentGoals = Goals.getInstance();
+        } catch (IllegalStateException e) {
+            SpecialOutputs.setText("Inputs have not been set. Please set your Inputs first.");
+            return;
+        }
+
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
 
-        int GoalSleep = Goals.getInstance().getSleep() * 7;
-        int GoalExercise = Goals.getInstance().getExercise() * 7;
-        int GoalStudy = Goals.getInstance().getStudy() * 7;
-        int GoalWork = Goals.getInstance().getWork() * 7;
-        int GoalLeisure = Goals.getInstance().getLeisure() * 7;
+        int GoalSleep = currentGoals.getInstance().getSleep() * 7;
+        int GoalExercise = currentGoals.getInstance().getExercise() * 7;
+        int GoalStudy = currentGoals.getInstance().getStudy() * 7;
+        int GoalWork = currentGoals.getInstance().getWork() * 7;
+        int GoalLeisure = currentGoals.getInstance().getLeisure() * 7;
 
         Map<String, Integer> totalLogged = new HashMap<>();
         for (String activity : activities) {
