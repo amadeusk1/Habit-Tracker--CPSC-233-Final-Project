@@ -714,15 +714,17 @@ public class MainController {
         SpecialOutputs.setText(output.toString());
     }
 
+
     @FXML
     private void handleTotalHoursLogged_Day() {
-        // Get the selected day from the GUI
         String day = DayChoice.getValue();
 
         if (day == null || day.trim().isEmpty()) {
             status_label.setText("Please select a valid day.");
             return;
         }
+
+        day = day.toLowerCase(); // match backend format
 
         for (Day d : Data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
@@ -742,9 +744,9 @@ public class MainController {
             }
         }
 
-        // No activity found for the selected day
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
+
 
 
     @FXML
