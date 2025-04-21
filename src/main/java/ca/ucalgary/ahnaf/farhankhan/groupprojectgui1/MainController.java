@@ -343,7 +343,7 @@ public class MainController {
             Optional<String> result = dialog.showAndWait();
 
             // Return empty string if canceled
-            if (!result.isPresent()) {
+            if (result.isEmpty()) {
                 return "";
             }
 

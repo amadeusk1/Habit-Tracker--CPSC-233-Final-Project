@@ -12,7 +12,7 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects;
  * Has a child class of Activity
  */
 public class Day{
-    private String day; // The name of the day
+    private final String day; // The name of the day
 
     /**
      * Constructs a new Day object with the specified day's name.

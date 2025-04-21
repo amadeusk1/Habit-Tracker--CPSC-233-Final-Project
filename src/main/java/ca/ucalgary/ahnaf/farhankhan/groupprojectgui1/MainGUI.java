@@ -37,7 +37,7 @@ public class MainGUI extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("Main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 850, 650);
+        Scene scene = new Scene(fxmlLoader.load(), 850, 600);
         stage.setTitle("Habit Tracker");
         stage.setScene(scene);
 
