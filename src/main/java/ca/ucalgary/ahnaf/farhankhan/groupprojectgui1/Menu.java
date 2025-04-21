@@ -1,4 +1,12 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
+
+import java.io.File;
+import java.util.*;
 
 /**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
@@ -6,20 +14,6 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
  * @date 27 March 2025
  * @tutorial 05
  */
-
-
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
-
-import javax.imageio.metadata.IIOMetadata;
-import java.io.File;
-import java.lang.constant.DynamicConstantDesc;
-import java.util.*;
-
-
 public class Menu {
 
     // The main data storage object
@@ -33,11 +27,12 @@ public class Menu {
         this.scanner = new Scanner(System.in);
     }
 
-    /** Ask user if they want to use saved data
-     * if they say yes then we call the load function and return true
-     * if they say no then we return false and 'normal' tracker loop runs.
+    /** Ask user if they want to use saved data,
+     * if they say yes, then we call the load function and return true
+     * if they say no, then we return false and 'normal' tracker loop runs.
      *
-     * @return
+     * @return true if the user wants to use saved data, and it was loaded successfully and false otherwise;
+     *
      */
     public boolean menuUseSaved() {
         // ask user question
@@ -59,8 +54,8 @@ public class Menu {
 
 
     /**
-     * Initial function that prompts user to enter his daily goals.
-     * goals are measured in hours
+     * Initial function that prompts the user to enter his daily goals.
+     * Goals are measured in hours
      * function must be run to continue program.
      */
     // Function used to mandate the logging of the first activity
@@ -83,7 +78,7 @@ public class Menu {
             // Sum the entered goals
             totalGoals = GoalSleep + GoalExercise + GoalStudy + GoalWork + GoalLeisure;
 
-            // If total is not 24 hours, ask the user to re-enter the data
+            // If the total is not 24 hours, ask the user to re-enter the data
             if (totalGoals > 24) {
                 System.out.println("The total of your goals must be less than or equal to 24 hours. Please try again.");
             } else {
@@ -129,7 +124,7 @@ public class Menu {
         options.add("View logged activities on a specific day");                           // view logged activities on specific day
         options.add("Total hours logged");                                                 // view total logged hours
         options.add("Hours logged on a specific day");                                     // view hours logged on a specific day
-        options.add("Activity with most / least amount of time spent on a specific day");  // view activity with the most and least amount of hours logged
+        options.add("Activity with most / least amount of time spent on a specific day");  // view activity with the most and least number of hours logged
         options.add("% of goals achieved in week");                                         // % of goals achieved during the week
         options.add("% of goals achieved on a day");                                        // % of goals achieved on a specific day.
         options.add("Number of goals achieved / not achieved during week");                // number of goals achieved / not achieved in the whole week.
@@ -158,7 +153,7 @@ public class Menu {
 
     /**
      * This loops the menu
-     * after user pick the choice and get output then menu is shown again
+     * after user pick the choice and get output then the menu is shown again
      */
     public void menuLoop() {
         System.out.println(message); // prints initial message
@@ -188,13 +183,13 @@ public class Menu {
                 case 6 -> menuTotalHours(); // Total hours logged.
                 case 7 -> menuHoursOnDay(); // Hours logged on a specific day.
                 case 8 -> menuTimeActivity(); // core.objects.Activity with most / the least amount of time spent on a specific day.
-                case 9 -> menuGoalsInWeek(); // % of goals achieved in week
-                case 10 -> menuGoalsInDay(); // % of goals achieved in day
-                case 11 -> menuNumberOfGoals(); //Number of goals achieved / not achieved during week.
-                case 12 -> menuActivityOverGoals(); // how many activities reached ur goals
-                case 13 -> menuTimeRemainingForGoals(); // how much time there is remaining to reach goals
-                case 14 -> load(); // get the data from the file and save to program
-                case 15 -> save(); // save the users data
+                case 9 -> menuGoalsInWeek(); // % of goals achieved in week.
+                case 10 -> menuGoalsInDay(); // % of goals achieved in day.
+                case 11 -> menuNumberOfGoals(); //Number of goals achieved / not achieved during the week.
+                case 12 -> menuActivityOverGoals(); // how many activities reached ur goals?
+                case 13 -> menuTimeRemainingForGoals(); // how much time there is remaining to reach goals.
+                case 14 -> load(); // get the data from the file and save to program.
+                case 15 -> save(); // save the user's data.
                 default -> System.out.printf("Option not recognized. %n");
             }
 
@@ -274,9 +269,6 @@ public class Menu {
     }
 
 
-
-
-
     /** Method to get a valid integer from the user
      *
      * @param scanner imports the scanner
@@ -306,8 +298,8 @@ public class Menu {
 
     /** Function to Capitalize Days
      *
-     * @param input the string being capitalised
-     * @return the capitalised sting (first letter)
+     * @param input the string being capitalized
+     * @return the capitalized sting (first letter)
      */
     private static String capitalize(String input) {
         return input.substring(0, 1).toUpperCase() + input.substring(1);
@@ -334,14 +326,14 @@ public class Menu {
                 totalHours += hours;
             }
 
-            // If total is not 24 hours, ask the user to re-enter the data
+            // If the total is not 24 hours, ask the user to re-enter the data
             if (totalHours > 24) {
                 System.out.println("The total hours must be less than or equal to 24. Please try again.");
             }
 
         } while (totalHours > 24); // Keep asking until the total is 24 hours
 
-        // Store the valid data after the user has entered correct hours
+        // Store the valid data after the user has entered the correct hours
         data.storeNewDay(day, dataH[0], dataH[1], dataH[2], dataH[3], dataH[4]);
         System.out.println("Activity data stored for " + capitalize(day) + " successfully!");
     }
@@ -511,14 +503,10 @@ public class Menu {
     }
 
     /**
-     * Displays the activity with the most and least logged hours on a given day.
-     * Prompts the user for a day, then finds and prints the activities with max and min hours.
-     * Sources:
-     * -MIN_VALUE and MAX_VALUE <a href="https://www.geeksforgeeks.org/integer-max_value-and-integer-min_value-in-java-with-examples/">...</a>
-     */
-    /**
-     * Displays the activity or activities that had the most and least hours logged on a given day.
-     * Prompts the user for the day and prints the results.
+     * Displays the activities with the most and least hours logged on a given day.
+     * Prompts the user for a day, then finds and prints which activities had
+     * the highest and lowest time spent. If no data is found for the entered
+     * day, a message is shown.
      */
     private void menuTimeActivity() {
         String day = getDay();
@@ -560,7 +548,6 @@ public class Menu {
                 return;
             }
         }
-
         // If no data matched
         System.out.println("No data logged for " + capitalize(day) + ".");
     }
@@ -568,7 +555,7 @@ public class Menu {
 
     /**
     * Calculates and displays the percentage of weekly goals achieved per activity.
-    * will not work if user did not enter goal values beforehand
+    * Will not work if user did not enter goal values beforehand
     */
     private void menuGoalsInWeek() {
 
@@ -765,7 +752,7 @@ public class Menu {
     }
 
     /**
-     * Retrieves the Activity for a specific day, if one exists.
+     * Retrieves the Activity for a specific day if one exists.
      *
      * @param day the name of the day to look up
      * @return the Activity object for the day, or null if not found
@@ -786,14 +773,14 @@ public class Menu {
      * - Remaining time to goal (if overGoal is false).
      *
      * @param act      the activity data to compare
-     * @param overGoal flag indicating type of comparison
+     * @param overGoal flag indicating a type of comparison
      */
     private void compareActivityToGoal(Activity act, boolean overGoal) {
         // Categories to compare
         String[] labels = {"Sleep", "Exercise", "Study", "Work", "Leisure"};
 
         //actual activity values for the day
-        int[] actuals = {
+        int[] actual = {
                 act.getSleep(),
                 act.getExercise(),
                 act.getStudy(),
@@ -811,12 +798,12 @@ public class Menu {
         };
 
         for (int i = 0; i < labels.length; i++) {
-            if (overGoal && actuals[i] > goals[i]) {
+            if (overGoal && actual[i] > goals[i]) {
                 //print only if the actual exceeds the goal
-                System.out.println(labels[i] + ": " + actuals[i] + "h (Goal: " + goals[i] + "h)");
+                System.out.println(labels[i] + ": " + actual[i] + "h (Goal: " + goals[i] + "h)");
             } else if (!overGoal) {
                 //print time remaining to hit the goal
-                System.out.println(labels[i] + ": " + Math.max(0, goals[i] - actuals[i]) + "h");
+                System.out.println(labels[i] + ": " + Math.max(0, goals[i] - actual[i]) + "h");
             }
         }
     }

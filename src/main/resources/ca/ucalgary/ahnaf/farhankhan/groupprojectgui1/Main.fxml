@@ -89,7 +89,7 @@
          <children>
             <Button fx:id="TotalHoursLogged" mnemonicParsing="false" onAction="#handleTotalHoursLogged" prefHeight="40.0" prefWidth="145.0" text="TotalHoursLogged" />
             <Button fx:id="TotalHoursLogged_Day" mnemonicParsing="false" onAction="#handleTotalHoursLogged_Day" prefHeight="40.0" prefWidth="145.0" text="TotalHoursLogged/Day" />
-            <Button fx:id="MaxandMinActivity" mnemonicParsing="false" onAction="#handleMaxandMinActivity" prefHeight="40.0" prefWidth="145.0" text="Max. &amp; Min. Activity" />
+            <Button fx:id="MaxandMinActivity" mnemonicParsing="false" onAction="#handleMaxAndMinActivity" prefHeight="40.0" prefWidth="145.0" text="Max. &amp; Min. Activity" />
             <Button fx:id="WeeklyGoalsAchieved" mnemonicParsing="false" onAction="#handleWeeklyGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="WeeklyGoalsAcieved" />
             <Button fx:id="DailyGoalsAchieved" mnemonicParsing="false" onAction="#handleDailyGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="DailyGoalsAchieved" />
             <Button fx:id="NumberGoalsAchieved" mnemonicParsing="false" onAction="#handleNumberGoalsAchieved" prefHeight="40.0" prefWidth="145.0" text="NumberGoalsAchieved" />

@@ -1,12 +1,4 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
-
-/**
- * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
- * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
- * @date 17 April 2025
- * @tutorial 05
- */
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,13 +7,19 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
+ * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+ * @date 17 April 2025
+ * @tutorial 05
+ */
 public class MainGUI extends Application {
 
     private static String startupFilePath = null;
 
     /**launches the java fx
      *
-     * @param args
+     * @param args - command line arguments; if provided, the first one is used as startupFilePath
      */
     public static void main(String[] args) {
         if (args.length > 0) {
@@ -43,7 +41,7 @@ public class MainGUI extends Application {
         stage.setTitle("Habit Tracker");
         stage.setScene(scene);
 
-        // Inject file path into controller if present
+        // Inject a file path into the controller if present
         MainController controller = fxmlLoader.getController();
         if (startupFilePath != null) {
             controller.setStartupFile(new File(startupFilePath));

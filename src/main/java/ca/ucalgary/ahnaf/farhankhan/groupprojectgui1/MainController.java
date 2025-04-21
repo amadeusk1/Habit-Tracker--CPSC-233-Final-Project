@@ -1,12 +1,4 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
-
-/**
- * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
- * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
- * @date 17 April 2025
- * @tutorial 05
- */
-
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
@@ -26,15 +18,16 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
 import java.io.File;
 import java.util.*;
-
 import javafx.scene.paint.Color;
 
-import static ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data.*;
-
-
+/**
+ * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
+ * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+ * @date 17 April 2025
+ * @tutorial 05
+ */
 public class MainController {
     // made for storing data
     private Data data = new Data();
@@ -216,7 +209,7 @@ public class MainController {
             // sum total inputs
             int sumTotal = sleepV + exerciseV + studyV + workV + leisureV;
 
-            // if goals is selected
+            // if goals are selected
             if ("Goals".equals(selectedGoal)) {
                 if (sumTotal <= 24) {
                     // Initialize the global Goals instance.
@@ -234,7 +227,7 @@ public class MainController {
                     status_label.setText("Please select a valid day for your activity.");
                     return;
                 }
-                // check is hours arent over 24
+                // check is hours aren't over 24
                 if (sumTotal <= 24) {
                     //add the activity
                     Activity activity = new Activity(selectedDay, sleepV, exerciseV, studyV, workV, leisureV);
@@ -254,8 +247,6 @@ public class MainController {
         }
     }
 
-    @FXML
-    private Button WeeklyGoalsAchieved;
 
     @FXML
     private TextArea SpecialOutputs;
@@ -269,7 +260,7 @@ public class MainController {
     @FXML
     private void handleWeeklyGoalsAchieved() {
 
-        // Get current goals, show message if not set
+        // Get current goals, show a message if not set
         Goals currentGoals;
         try {
             currentGoals = Goals.getInstance();
@@ -400,7 +391,7 @@ public class MainController {
     private void handleDailyGoalsAchieved() {
         // Get the day from user input
         String day = getDay(); // Update this if day is selected through a GUI element
-        if (day.isEmpty()) return; // If user cancelled or didn't enter anything
+        if (day.isEmpty()) return; // If user canceled or didn't enter anything
 
         // Retrieve the activity data for the selected day
         Map<String, Integer> dayMap = data.getDayMap(day);
@@ -432,7 +423,7 @@ public class MainController {
         double percentWork = 0;
         double percentLeisure = 0;
 
-        // check if if 0 entry and calculate precentage
+        // check if 0 entry and calculate percentage
         if (goalSleep != 0) {
             percentSleep = (totalSleep / (double) goalSleep) * 100;
             if (percentSleep > 100) percentSleep = 100;
@@ -572,7 +563,7 @@ public class MainController {
     @FXML
     private void handleRemainingTime() {
         String day = getDay(); // Get user-inputted day
-        Map<String, Integer> actMap = data.getDayMap(day); // Fetch activity map for the day
+        Map<String, Integer> actMap = data.getDayMap(day); // Fetch an activity map for the day
 
         if (actMap != null) {
             String output = "Time remaining to achieve goals on " + capitalize(day) + ":\n" +
@@ -765,12 +756,13 @@ public class MainController {
 
         // Show results in Special Output box
         String output = "Total Hours Logged (All Days):\n" +
-                "Total: " + total + " hours\n\n" +
-                "Sleep: " + sleep + " hours\n" +
-                "Exercise: " + exercise + " hours\n" +
-                "Study: " + study + " hours\n" +
-                "Work: " + work + " hours\n" +
-                "Leisure: " + leisure + " hours";
+                "Total    : " + total    + " / 168 hours\n\n\n" +
+                "Sleep    : " + sleep    + " hours\n\n" +
+                "Exercise : " + exercise + " hours\n\n" +
+                "Study    : " + study    + " hours\n\n" +
+                "Work     : " + work     + " hours\n\n" +
+                "Leisure  : " + leisure  + " hours";
+
 
         SpecialOutputs.setText(output);
     }
@@ -780,7 +772,7 @@ public class MainController {
      * Prompts the user to enter a day, then shows the total hours logged for that specific day.
      *
      * Asks for a day using a popup dialog.
-     * Finds that day’s activity entry (if available).
+     * Find that day’s activity entry (if available).
      * Sums and displays all activity hours in the SpecialOutputs TextArea.
      *
      * Notifies the user if no data is logged for the entered day.
@@ -800,13 +792,13 @@ public class MainController {
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
-                String output = "Total Hours for " + capitalize(day) + ":\n" +
-                        "Total: " + total + " hours\n\n" +
-                        "Sleep: " + act.getSleep() + " hours\n" +
-                        "Exercise: " + act.getExercise() + " hours\n" +
-                        "Study: " + act.getStudy() + " hours\n" +
-                        "Work: " + act.getWork() + " hours\n" +
-                        "Leisure: " + act.getLeisure() + " hours";
+                String output = "Total Hours Logged for " + capitalize(day) + ":\n" +
+                        "Total    : " + total           + " / 24 hours\n\n\n" +
+                        "Sleep    : " + act.getSleep()  + " hours\n\n" +
+                        "Exercise : " + act.getExercise() + " hours\n\n" +
+                        "Study    : " + act.getStudy()  + " hours\n\n" +
+                        "Work     : " + act.getWork()   + " hours\n\n" +
+                        "Leisure  : " + act.getLeisure() + " hours";
 
                 SpecialOutputs.setText(output);
                 return;
@@ -818,63 +810,86 @@ public class MainController {
 
 
     /**
-     * Shows the activity or activities that took the most and least time on a specific day.
+     * Handles the "Max and Min Activity" action.
      *
-     * Prompts the user to input the day of the week.
-     * Checks the stored activity data for that day.
-     * Finds all activities that have the highest and lowest number of hours.
-     * Displays the result in the SpecialOutputs TextArea.
+     * This function checks which activities took the most and least amount of time
+     * on a specific day entered by the user.
+     * It shows the results in the SpecialOutputs TextArea.
      *
-     * If no data is found for the entered day, it notifies the user.
+     * If the day is invalid or no data is found, it displays an appropriate message.
      */
     @FXML
-    private void handleMaxandMinActivity() {
+    private void handleMaxAndMinActivity() {
         String day = getDay();
 
+        // Check if the day is empty
         if (day == null || day.trim().isEmpty()) {
             status_label.setText("Please select a valid day.");
             return;
         }
 
+        // Loop through all days
         for (Day d : data.getDays()) {
-            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
-                // Store each activity and its hours
-                Map<String, Integer> activityHours = new HashMap<>();
-                activityHours.put("Sleep", act.getSleep());
-                activityHours.put("Exercise", act.getExercise());
-                activityHours.put("Study", act.getStudy());
-                activityHours.put("Work", act.getWork());
-                activityHours.put("Leisure", act.getLeisure());
+            // Check if it's the correct day and is an Activity
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity) {
+                Activity act = (Activity) d;
 
-                int max = Collections.max(activityHours.values());
-                int min = Collections.min(activityHours.values());
+                // Store activities and their times
+                int sleep = act.getSleep();
+                int exercise = act.getExercise();
+                int study = act.getStudy();
+                int work = act.getWork();
+                int leisure = act.getLeisure();
 
-                List<String> maxActivities = new ArrayList<>();
-                List<String> minActivities = new ArrayList<>();
+                // Set initial max and min
+                int max = sleep;
+                int min = sleep;
 
-                // Find all activities with max and min time
-                for (Map.Entry<String, Integer> entry : activityHours.entrySet()) {
-                    if (entry.getValue() == max) {
-                        maxActivities.add(entry.getKey());
-                    }
-                    if (entry.getValue() == min) {
-                        minActivities.add(entry.getKey());
-                    }
+                // Find max
+                if (exercise > max) max = exercise;
+                if (study > max) max = study;
+                if (work > max) max = work;
+                if (leisure > max) max = leisure;
+
+                // Find min
+                if (exercise < min) min = exercise;
+                if (study < min) min = study;
+                if (work < min) min = work;
+                if (leisure < min) min = leisure;
+
+                // Collect activities with max time
+                String maxActivities = "";
+                if (sleep == max) maxActivities += "Sleep, ";
+                if (exercise == max) maxActivities += "Exercise, ";
+                if (study == max) maxActivities += "Study, ";
+                if (work == max) maxActivities += "Work, ";
+                if (leisure == max) maxActivities += "Leisure, ";
+                if (maxActivities.endsWith(", ")) {
+                    maxActivities = maxActivities.substring(0, maxActivities.length() - 2);
+                }
+
+                // Collect activities with min time
+                String minActivities = "";
+                if (sleep == min) minActivities += "Sleep, ";
+                if (exercise == min) minActivities += "Exercise, ";
+                if (study == min) minActivities += "Study, ";
+                if (work == min) minActivities += "Work, ";
+                if (leisure == min) minActivities += "Leisure, ";
+                if (minActivities.endsWith(", ")) {
+                    minActivities = minActivities.substring(0, minActivities.length() - 2);
                 }
 
                 // Build output
-
-                String output = "Most & Least Time Spent on " + capitalize(day) + ":\n" +
-                        "Most Time (" + max + "h): " +
-                        String.join(", ", maxActivities) + "\n" +
-                        "Least Time (" + min + "h): " +
-                        String.join(", ", minActivities);
+                String output = "Most & Least Time Spent on " + capitalize(day) + ":\n\n\n" +
+                        "Most Time  (" + max + "h)  : " + maxActivities + "\n\n" +
+                        "Least Time  (" + min + "h)  : " + minActivities;
 
                 SpecialOutputs.setText(output);
                 return;
             }
         }
 
+        // If no matching day found
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
 
