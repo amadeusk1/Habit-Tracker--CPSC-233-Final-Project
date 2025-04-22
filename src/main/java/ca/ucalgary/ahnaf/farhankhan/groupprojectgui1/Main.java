@@ -12,7 +12,7 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
 
 /**
- * Function that starts the code running process
+ * class to start the code running process without UML
  */
 public class Main {
     public static void main(String[] args) {

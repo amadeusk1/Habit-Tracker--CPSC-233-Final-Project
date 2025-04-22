@@ -6,12 +6,17 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.foreign.PaddingLayout;
 
 /**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
  * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
  * @date 17 April 2025
  * @tutorial 05
+ */
+
+/**
+ * class to run the application of with the GUI
  */
 public class MainGUI extends Application {
 
@@ -22,6 +27,7 @@ public class MainGUI extends Application {
      * @param args - command line arguments; if provided, the first one is used as startupFilePath
      */
     public static void main(String[] args) {
+        // when there is argument
         if (args.length > 0) {
             startupFilePath = args[0];
         }
@@ -37,8 +43,11 @@ public class MainGUI extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("Main.fxml"));
+        // create scene
         Scene scene = new Scene(fxmlLoader.load(), 900, 620);
+        // set title
         stage.setTitle("Habit Tracker");
+        // add stage and scene
         stage.setScene(scene);
 
         // Inject a file path into the controller if present
@@ -47,7 +56,7 @@ public class MainGUI extends Application {
             controller.setStartupFile(new File(startupFilePath));
             controller.loadStartupFileIfPresent();
         }
-
+        // show the application
         stage.show();
     }
 }

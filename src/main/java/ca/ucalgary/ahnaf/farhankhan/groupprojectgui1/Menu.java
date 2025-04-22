@@ -14,6 +14,11 @@ import java.util.*;
  * @date 27 March 2025
  * @tutorial 05
  */
+
+/**
+ * class for running the game
+ * used only when GUI is not in use
+ */
 public class Menu {
 
     // The main data storage object
@@ -22,6 +27,10 @@ public class Menu {
     // Scanner for user input
     private final Scanner scanner;
 
+    /** Constructor for the Menu class
+     *
+     * @param data data object
+     */
     public Menu(Data data) {
         this.data = data;
         this.scanner = new Scanner(System.in);
