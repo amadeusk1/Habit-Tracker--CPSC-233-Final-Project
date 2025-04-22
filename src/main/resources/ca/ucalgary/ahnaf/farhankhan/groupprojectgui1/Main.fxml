@@ -47,7 +47,7 @@
    <left>
       <VBox alignment="TOP_RIGHT" prefHeight="557.0" prefWidth="170.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="510.0" prefWidth="171.0">
+            <Pane prefHeight="544.0" prefWidth="170.0">
                <children>
                   <GridPane layoutX="15.0" layoutY="157.0" prefHeight="249.0" prefWidth="151.0">
                     <columnConstraints>
@@ -75,14 +75,14 @@
                         <TextField fx:id="leisure" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
-                  <Button fx:id="confirm" layoutX="30.0" layoutY="423.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="112.0" text="CONFIRM" />
-                  <ChoiceBox fx:id="DayChoice" layoutX="101.0" layoutY="78.0" prefHeight="14.0" prefWidth="62.0" />
-                  <ChoiceBox fx:id="GoalActivityChoice" layoutX="102.0" layoutY="31.0" prefHeight="14.0" prefWidth="62.0" />
-                  <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="33.0" prefHeight="20.0" prefWidth="87.0" text="Goal/Activity:">
+                   <Button fx:id="confirm" layoutX="29.0" layoutY="435.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="112.0" style="-fx-background-radius: 10; -fx-background-color: #0078D7; -fx-text-fill: white;" text="CONFIRM" />
+                  <ChoiceBox fx:id="DayChoice" layoutX="72.0" layoutY="78.0" prefHeight="25.0" prefWidth="96.0" />
+                  <ChoiceBox fx:id="GoalActivityChoice" layoutX="92.0" layoutY="31.0" prefHeight="25.0" prefWidth="75.0" />
+                  <Label alignment="CENTER_RIGHT" layoutX="3.0" layoutY="33.0" prefHeight="20.0" prefWidth="87.0" text="Goal/Activity:">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <Label fx:id="dayText" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="79.0" prefHeight="17.0" prefWidth="74.0" text="  Day: " textAlignment="RIGHT">
+                  <Label fx:id="dayText" alignment="CENTER_RIGHT" layoutX="-2.0" layoutY="81.0" prefHeight="17.0" prefWidth="74.0" text="  Day: " textAlignment="RIGHT">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
@@ -93,14 +93,38 @@
    <right>
       <VBox prefHeight="557.0" prefWidth="164.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="TotalHoursLogged" mnemonicParsing="false" onAction="#handleTotalHoursLogged" prefHeight="60.0" prefWidth="165.0" text="TotalHoursLogged" />
-            <Button fx:id="TotalHoursLogged_Day" mnemonicParsing="false" onAction="#handleTotalHoursLogged_Day" prefHeight="60.0" prefWidth="165.0" text="TotalHoursLogged/Day" />
-            <Button fx:id="MaxandMinActivity" mnemonicParsing="false" onAction="#handleMaxAndMinActivity" prefHeight="60.0" prefWidth="165.0" text="Max. &amp; Min. Activity" />
-            <Button fx:id="WeeklyGoalsAchieved" mnemonicParsing="false" onAction="#handleWeeklyGoalsAchieved" prefHeight="60.0" prefWidth="165.0" text="WeeklyGoalsAcieved" />
-            <Button fx:id="DailyGoalsAchieved" mnemonicParsing="false" onAction="#handleDailyGoalsAchieved" prefHeight="60.0" prefWidth="165.0" text="DailyGoalsAchieved" />
-            <Button fx:id="NumberGoalsAchieved" mnemonicParsing="false" onAction="#handleNumberGoalsAchieved" prefHeight="60.0" prefWidth="165.0" text="NumberGoalsAchieved" />
-            <Button fx:id="GoalsExceeded" mnemonicParsing="false" onAction="#handleGoalsExceeded" prefHeight="60.0" prefWidth="165.0" text="Goals Exceeded (Day)" />
-            <Button fx:id="RemainingTime" mnemonicParsing="false" onAction="#handleRemainingTime" prefHeight="60.0" prefWidth="165.0" text="Remaining Time (Day)" />
+            <Button fx:id="TotalHoursLogged" mnemonicParsing="false" onAction="#handleTotalHoursLogged" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="TotalHoursLogged">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="TotalHoursLogged_Day" mnemonicParsing="false" onAction="#handleTotalHoursLogged_Day" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="TotalHoursLogged/Day">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="MaxandMinActivity" mnemonicParsing="false" onAction="#handleMaxAndMinActivity" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="Max and Min Activity">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="WeeklyGoalsAchieved" mnemonicParsing="false" onAction="#handleWeeklyGoalsAchieved" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="WeeklyGoalsAcieved">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="DailyGoalsAchieved" mnemonicParsing="false" onAction="#handleDailyGoalsAchieved" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="DailyGoalsAchieved">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="NumberGoalsAchieved" mnemonicParsing="false" onAction="#handleNumberGoalsAchieved" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="NumberGoalsAchieved">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="GoalsExceeded" mnemonicParsing="false" onAction="#handleGoalsExceeded" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="Goals Exceeded (Day)">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button fx:id="RemainingTime" mnemonicParsing="false" onAction="#handleRemainingTime" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="Remaining Time (Day)">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
          </children></VBox>
    </right>
    <bottom>
@@ -112,12 +136,12 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="555.0" prefWidth="165.0">
                <children>
                   <TextArea fx:id="GoalsDisplay" layoutX="6.0" layoutY="333.0" prefHeight="214.0" prefWidth="205.0" />
-                  <Label layoutX="14.0" layoutY="302.0" prefHeight="36.0" prefWidth="86.0" text="Goals:" textAlignment="CENTER" textFill="#29d145">
+                  <Label layoutX="14.0" layoutY="302.0" prefHeight="36.0" prefWidth="86.0" text="Goals:" textAlignment="CENTER" textFill="#43a047">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="174.0" text="Activities:" textAlignment="CENTER" textFill="RED">
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="174.0" text="Activities:" textAlignment="CENTER" textFill="e53935">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -131,7 +155,7 @@
                      <content>
                         <AnchorPane prefHeight="554.0" prefWidth="325.0">
                            <children>
-                              <Label layoutX="15.0" layoutY="68.0" prefHeight="38.0" prefWidth="227.0" text="Special Outputs:" textAlignment="CENTER" textFill="#8200ff">
+                              <Label layoutX="15.0" layoutY="68.0" prefHeight="38.0" prefWidth="227.0" text="Special Outputs:" textAlignment="CENTER" textFill="#673ab7">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
