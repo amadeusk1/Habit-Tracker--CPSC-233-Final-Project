@@ -23,8 +23,8 @@ compare them against their goals. It also provides detailed summaries and insigh
 
 ## Technologies Used
 - Java 23
-- JavaFX 23.0.1 (FXML-based UI)
-- Scene Builder (for FXML layout)
+- JavaFX 23.0.1 
+- Scene Builder 
 - Maven for dependency management and building
 
 ## Authors
@@ -60,7 +60,6 @@ mvn clean javafx:run
 - `FileSaver.java` - Handles saving data to file
 - `Goals.java` - Singleton class managing goal data
 - `Activity.java` - Represents a day's activity data
-- `style.css` - Optional CSS file for button styling and layout polish
 
 ## How It Works
 - Users can load a previous `.csv` file or begin fresh
@@ -68,12 +67,4 @@ mvn clean javafx:run
 - Confirm entries to save them
 - Use right-side tools to view summaries and analytics
 
-## About Section in App
-Accessible via Help > About in the menu bar. It includes authorship, version info, and a short description of the project.
-
-## Version
-v1.1
-
-## License
-This project is for educational purposes and may be freely modified or extended for personal use.
 
