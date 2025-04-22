@@ -355,12 +355,12 @@ public class MainController {
         if (percentLeisure > 100) percentLeisure = 100;
 
         // Build the output message
-        String output = "Percentage of Weekly Goals Achieved:\n" +
-                String.format("Sleep: %.2f%%\n", percentSleep) +
-                String.format("Exercise: %.2f%%\n", percentExercise) +
-                String.format("Study: %.2f%%\n", percentStudy) +
-                String.format("Work: %.2f%%\n", percentWork) +
-                String.format("Leisure: %.2f%%\n", percentLeisure);
+        String output = "Percentage of Weekly Goals Achieved:\n\n\n" +
+                String.format("Sleep: %.2f%%\n\n", percentSleep) +
+                String.format("Exercise: %.2f%%\n\n", percentExercise) +
+                String.format("Study: %.2f%%\n\n", percentStudy) +
+                String.format("Work: %.2f%%\n\n", percentWork) +
+                String.format("Leisure: %.2f%%\n\n", percentLeisure);
 
         // Show result in the TextArea
         SpecialOutputs.setText(output);
@@ -491,12 +491,12 @@ public class MainController {
         }
 
         // Build the result string
-        String result = "Percentage of Daily Goals Achieved for " + capitalize(day) + ":\n" +
-                String.format("Sleep: %.2f%%\n", percentSleep) +
-                String.format("Exercise: %.2f%%\n", percentExercise) +
-                String.format("Study: %.2f%%\n", percentStudy) +
-                String.format("Work: %.2f%%\n", percentWork) +
-                String.format("Leisure: %.2f%%\n", percentLeisure);
+        String result = "Percentage of Daily Goals Achieved for " + capitalize(day) + ":\n\n\n" +
+                String.format("Sleep: %.2f%%\n\n", percentSleep) +
+                String.format("Exercise: %.2f%%\n\n", percentExercise) +
+                String.format("Study: %.2f%%\n\n", percentStudy) +
+                String.format("Work: %.2f%%\n\n", percentWork) +
+                String.format("Leisure: %.2f%%\n\n", percentLeisure);
 
         // Display in TextArea
         SpecialOutputs.setText(result);
@@ -554,8 +554,8 @@ public class MainController {
             }
         }
 
-        String result = "Number of Goals Achieved / Not Achieved This Week:\n" +
-                "Goals Achieved: " + goalsAchieved + "\n" +
+        String result = "Number of Goals Achieved / Not Achieved This Week:\n\n\n" +
+                "Goals Achieved: " + goalsAchieved + "\n\n" +
                 "Goals Not Achieved: " + goalsNotAchieved;
 
         SpecialOutputs.setText(result);
@@ -567,7 +567,7 @@ public class MainController {
         Map<String, Integer> actMap = data.getDayMap(day); // returns Map<String, Integer>
 
         if (actMap != null) {
-            String output = "Activities over goal on " + capitalize(day) + ":\n" +
+            String output = "Activities over goal on " + capitalize(day) + ":\n\n\n" +
                     getActivityOverGoalDetails(actMap);
             SpecialOutputs.setText(output);
         } else {
@@ -595,7 +595,7 @@ public class MainController {
                         .append(actual)
                         .append("h (Goal: ")
                         .append(goal)
-                        .append("h)\n");
+                        .append("h)\n\n");
             }
         }
         return sb.toString().isEmpty() ? "No goals exceeded on this day." : sb.toString();
@@ -607,7 +607,7 @@ public class MainController {
         Map<String, Integer> actMap = data.getDayMap(day); // Fetch an activity map for the day
 
         if (actMap != null) {
-            String output = "Time remaining to achieve goals on " + capitalize(day) + ":\n" +
+            String output = "Time remaining to achieve goals on " + capitalize(day) + ":\n\n\n" +
                     getTimeRemainingDetails(actMap);
             SpecialOutputs.setText(output);
         } else {
@@ -630,7 +630,7 @@ public class MainController {
             int goal = goals.getOrDefault(label, 0);
             int remaining = Math.max(0, goal - actual);
 
-            sb.append(capitalize(label)).append(": ").append(remaining).append("h\n");
+            sb.append(capitalize(label)).append(": ").append(remaining).append("h\n\n");
         }
         return sb.toString();
     }
