@@ -71,6 +71,18 @@ public class MainController {
         this.startupFile = file;
     }
 
+    public void loadStartupFileIfPresent() {
+        if (startupFile != null && startupFile.exists()) {
+            load(startupFile);
+            ActivityDisplay.setText(data.displayAllActivitiesGUI());
+            Goals currentGoals = Goals.getInstance();
+            if (currentGoals != null) {
+                GoalsDisplay.setText(currentGoals.toString());
+            }
+        }
+    }
+
+
 
     /** used for the about section in gui
      *
@@ -110,9 +122,6 @@ public class MainController {
         fc.setInitialFileName("data.csv");
         File file = fc.showOpenDialog(new Stage());
         load(file);
-        ActivityDisplay.setText(data.displayAllActivitiesGUI());
-        Goals currentGoals = Goals.getInstance();
-        GoalsDisplay.setText(currentGoals.toString());
     }
 
 
@@ -127,7 +136,11 @@ public class MainController {
             status_label.setTextFill(Color.GREEN);
             status_label.setText(String.format("Loaded data from file %s%n", file));
             this.data = data;
+            ActivityDisplay.setText(data.displayAllActivitiesGUI());
+            Goals currentGoals = Goals.getInstance();
+            GoalsDisplay.setText(currentGoals.toString());
         }
+
     }
 
     @FXML
@@ -174,16 +187,6 @@ public class MainController {
                 dayText.setVisible(false);
             }
         });
-
-        // load file if provided
-        if (startupFile != null && startupFile.exists()) {
-            load(startupFile);
-            ActivityDisplay.setText(data.displayAllActivitiesGUI());
-            Goals currentGoals = Goals.getInstance();
-            if (currentGoals != null) {
-                GoalsDisplay.setText(currentGoals.toString());
-            }
-        }
     }
 
     /** logging new info

@@ -45,6 +45,7 @@ public class MainGUI extends Application {
         MainController controller = fxmlLoader.getController();
         if (startupFilePath != null) {
             controller.setStartupFile(new File(startupFilePath));
+            controller.loadStartupFileIfPresent();
         }
 
         stage.show();
