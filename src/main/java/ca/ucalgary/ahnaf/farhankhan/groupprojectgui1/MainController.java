@@ -65,6 +65,9 @@ public class MainController {
     @FXML
     private TextField work;
 
+    @FXML
+    private TextArea SpecialOutputs;
+
     private File startupFile;  //startup file
 
     public void setStartupFile(File file) {
@@ -97,23 +100,49 @@ public class MainController {
         alert.setHeaderText("Habit Tracker Info");
         // set the content
         alert.setContentText("""
-                Authors: Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
-                Email: dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
-                Version: v1.0
-                Description: This is a Habit Tracker for daily use, that will show the effectiveness of your goal setting.
-                """);
+                            
+                            Version: v1.1
+                            
+                            Authors:
+                            - Dominik Trzesicki
+                            - Ahnaf Farhan Khan
+                            - Amadeus Kaczmarek
+                            
+                            Emails:
+                            dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
+                            
+                            Description:
+                            Habit Tracker is a simple and effective productivity tool that helps you log daily habits
+                            and track your progress toward personal goals. It allows you to:
+                            
+                            • Load a saved schedule from your database
+                            • Enter your daily goals and the hours spent on each activity
+                            • Confirm and save the data to a new or existing file
+                            • View detailed summaries using the 8 buttons provided on the right side of the app
+                            
+                            This tool gives you valuable insights into how you spend your time and how well you're meeting your goals.
+                            
+                            """);
         // display it
         alert.show();
     }
 
-
-
+    /**
+     * Exits the application when the user selects "Close" from the menu.
+     *
+     * @param event the action event triggered by clicking the Close menu item
+     */
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
     }
 
-
+    /**
+     * Opens a file chooser dialog to let the user select a file to load.
+     * Then loads the selected file and updates the activity and goals displays.
+     *
+     * @param event the action event triggered by clicking the Load menu item
+     */
     @FXML
     void load(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -124,7 +153,13 @@ public class MainController {
         load(file);
     }
 
-
+    /**
+     * Loads the data from the selected file. If the file loads successfully,
+     * it updates the status label and displays the loaded activities and goals.
+     * Otherwise, it shows an error message.
+     *
+     * @param file the file to load data from
+     */
     private void load(File file) {
         status_label.setTextFill(Color.BLACK);
         status_label.setText("");
@@ -143,6 +178,12 @@ public class MainController {
 
     }
 
+    /**
+     * Opens a file chooser dialog to let the user choose where to save the file.
+     * Then saves the current data and updates the status label based on success or failure.
+     *
+     * @param event the action event triggered by clicking the Save menu item
+     */
     @FXML
     void save(ActionEvent event) {
         FileChooser fc = new FileChooser();
@@ -161,7 +202,7 @@ public class MainController {
         }
     }
 
-    /** initialize everything at the start of the program
+    /** Initialize everything at the start of the program
      *
      */
     @FXML
@@ -189,7 +230,7 @@ public class MainController {
         });
     }
 
-    /** logging new info
+    /** Logging new info
      *
      * @param event on the click
      */
@@ -250,9 +291,6 @@ public class MainController {
         }
     }
 
-
-    @FXML
-    private TextArea SpecialOutputs;
 
     /**
      * Handles the "Weekly Goals Achieved" button action.

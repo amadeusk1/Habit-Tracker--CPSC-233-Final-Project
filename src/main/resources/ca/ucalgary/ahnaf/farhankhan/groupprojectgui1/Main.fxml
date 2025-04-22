@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -49,7 +50,7 @@
          <children>
             <Pane prefHeight="544.0" prefWidth="170.0">
                <children>
-                  <GridPane layoutX="15.0" layoutY="157.0" prefHeight="249.0" prefWidth="151.0">
+                  <GridPane alignment="TOP_CENTER" layoutX="6.0" layoutY="142.0" prefHeight="274.0" prefWidth="159.0" style="-fx-background-color: LightGray; -fx-background-radius: 6;">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="57.800018310546875" minWidth="10.0" prefWidth="54.600006103515625" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="67.39999389648438" />
@@ -63,17 +64,20 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Sleep" GridPane.rowIndex="1" />
-                        <Label text="Exercise" GridPane.rowIndex="2" />
-                        <Label text="Study" GridPane.rowIndex="3" />
-                        <Label text="Work" GridPane.rowIndex="4" />
-                        <Label text="Leisure" GridPane.rowIndex="5" />
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="59.0" text="Sleep" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="58.0" text="Exercise" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="60.0" text="Study" GridPane.rowIndex="3" />
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="60.0" text="Work" GridPane.rowIndex="4" />
+                        <Label alignment="CENTER" prefHeight="18.0" prefWidth="61.0" text="Leisure" GridPane.rowIndex="5" />
                         <TextField fx:id="sleep" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="exercise" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="study" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="work" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="leisure" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor>
                   </GridPane>
                    <Button fx:id="confirm" layoutX="29.0" layoutY="435.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="112.0" style="-fx-background-radius: 10; -fx-background-color: #0078D7; -fx-text-fill: white;" text="CONFIRM" />
                   <ChoiceBox fx:id="DayChoice" layoutX="72.0" layoutY="78.0" prefHeight="25.0" prefWidth="96.0" />
