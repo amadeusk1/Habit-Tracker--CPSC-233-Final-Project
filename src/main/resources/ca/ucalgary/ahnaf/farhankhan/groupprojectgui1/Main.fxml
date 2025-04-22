@@ -20,24 +20,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="850.0" style="-fx-background-radius: 5; -fx-background-color: #EBD9EB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainController">
    <top>
-      <MenuBar prefWidth="610.0" BorderPane.alignment="CENTER">
+      <MenuBar prefWidth="610.0" style="-fx-background-color: #62FF91; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" style="-fx-background-color: white;" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#load" text="Load" />
                   <MenuItem mnemonicParsing="false" onAction="#save" text="Save" />
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" style="-fx-background-color: white;" text="Edit">
             <items>
                   <MenuItem fx:id="editActivities" mnemonicParsing="false" onAction="#handleEditActivities" text="Edit Activities" />
                   <MenuItem fx:id="editGoals" mnemonicParsing="false" onAction="#HandleEditGoals" text="Edit Goals" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" style="-fx-background-color: white;" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#AboutHT" text="About" />
             </items>
@@ -103,7 +103,7 @@
                </font></Button>
             <Button fx:id="TotalHoursLogged_Day" mnemonicParsing="false" onAction="#handleTotalHoursLogged_Day" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="TotalHoursLogged/Day">
                <font>
-                  <Font size="14.0" />
+                  <Font size="13.89" />
                </font></Button>
             <Button fx:id="MaxandMinActivity" mnemonicParsing="false" onAction="#handleMaxAndMinActivity" prefHeight="60.0" prefWidth="165.0" style="-fx-background-color: #e0e0e8; -fx-border-color: black;" text="Max and Min Activity">
                <font>
@@ -150,7 +150,7 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <TextArea fx:id="ActivityDisplay" layoutX="8.0" layoutY="32.0" prefHeight="318.0" prefWidth="203.0" />
+                  <TextArea fx:id="ActivityDisplay" layoutX="8.0" layoutY="32.0" prefHeight="316.0" prefWidth="203.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="218.0">
