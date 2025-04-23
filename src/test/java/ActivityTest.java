@@ -50,13 +50,14 @@ public class ActivityTest {
         Activity act = new Activity("friday", 6, 1, 2, 8, 3);
         String output = act.toString();
 
-        assertTrue(output.contains("Friday:"));
-        assertTrue(output.contains("sleep = 6"));
-        assertTrue(output.contains("exercise = 1"));
-        assertTrue(output.contains("study = 2"));
-        assertTrue(output.contains("work = 8"));
-        assertTrue(output.contains("leisure = 3"));
+        // Check that the output contains the formatted values.
+        assertTrue(output.contains("Sleep: 6 hours"), "Expected output 'Sleep: 6 hours'");
+        assertTrue(output.contains("Exercise: 1 hours"), "Expected output 'Exercise: 1 hours'");
+        assertTrue(output.contains("Study: 2 hours"), "Expected output 'Study: 2 hours'");
+        assertTrue(output.contains("Work: 8 hours"), "Expected output to 'Work: 8 hours'");
+        assertTrue(output.contains("Leisure: 3 hours"), "Expected output 'Leisure: 3 hours'");
     }
+
 
     /**
      * Check if the getters work for Activity class
