@@ -24,26 +24,39 @@ public class Data {
     // List to store each day's activity data
     private final List<Day> days;
 
+    /**
+     * Constructs a new Data object.
+     */
     public Data() {
         this.days = new ArrayList<>();
     }
+
+
     /**
-     * Stores or updates an Activity entry for a specific day.
-     * If the day already exists, it updates the existing entry.
-     * Otherwise, adds a new Activity object.
+     * Stores or updates activity data for a day.
+
+     * @param dayOfWeek the day of the week (e.g., "Monday")
+     * @param sleep the number of sleep hours
+     * @param exercise the number of exercise hours
+     * @param study the number of study hours
+     * @param work the number of work hours
+     * @param leisure the number of leisure hours
      */
     public void storeNewDay(String dayOfWeek, int sleep, int exercise, int study, int work, int leisure) {
-        for (Day day : days) {
+        for (Day day : days) {// Loop through each day
             if (day.getDay().equalsIgnoreCase(dayOfWeek)) {
                 Activity existingDay = (Activity) day;
+                // Update the stored values for this day
                 existingDay.setSleep(sleep);
                 existingDay.setExercise(exercise);
                 existingDay.setStudy(study);
                 existingDay.setWork(work);
                 existingDay.setLeisure(leisure);
+                // Exit the method
                 return;
             }
         }
+        // otherwise make a new day
         days.add(new Activity(dayOfWeek, sleep, exercise, study, work, leisure));
     }
 
@@ -73,19 +86,23 @@ public class Data {
     }
 
     /**
-     * Converts the list of days into a map of activities per day.
-     * Used for goal calculations across the week.
+     * Returns the activity data for a given day as a map.
+     *
+     * @param day the day for which to get the activity data (e.g., "Monday")
+     * @return a map with keys "sleep", "exercise", "study", "work", and "leisure"
+     *         and their corresponding hours, or null if the day wasn't found
      */
     public Map<String, Integer> getDayMap(String day) {
-        for (Day d : days) {
-            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+        for (Day d : days) { // Loop through each Day
+            if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) { // Check if the day matches
                 Map<String, Integer> map = new HashMap<>();
+                // Store each activity's hours in the  new map
                 map.put("sleep", act.getSleep());
                 map.put("exercise", act.getExercise());
                 map.put("study", act.getStudy());
                 map.put("work", act.getWork());
                 map.put("leisure", act.getLeisure());
-                return map;
+                return map;// return map
             }
         }
         return null; // If day not found
@@ -95,20 +112,24 @@ public class Data {
      * Prints all stored activity data.
      */
     public void displayAllActivities() {
+        // Print a header
         System.out.println("\n📅 Weekly Activities:");
-        for (Day day : days) {
+        for (Day day : days) { // Loop through each day in the list and print its string representation
             System.out.println(day.toString());
         }
     }
 
     public String displayAllActivitiesGUI() {
         StringBuilder formated = new StringBuilder();
-        for (Day day : days) {
+        for (Day day : days) { // Loop through each day in the list and add its string representation to a string
             formated.append(day.toString());
         }
-        return formated.toString();
+        return formated.toString(); // return string
     }
 
+    /**
+     * used to clear days
+     */
     public void clear() {
         days.clear();
     }

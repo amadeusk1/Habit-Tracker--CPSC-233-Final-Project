@@ -46,7 +46,7 @@ public class Goals {
      * @param leisure the leisure goal
      */
     public Goals(int sleep, int exercise, int study, int work, int leisure) {
-        goals = new EnumMap<>(GoalType.class);
+        goals = new EnumMap<>(GoalType.class); // Create a map with GoalType keys to store the goals
         goals.put(GoalType.SLEEP, sleep);
         goals.put(GoalType.EXERCISE, exercise);
         goals.put(GoalType.STUDY, study);
@@ -61,7 +61,7 @@ public class Goals {
      * @throws IllegalStateException if the Goals instance has not been initialized.
      */
     public static Goals getInstance() {
-        if (instance == null) {
+        if (instance == null) { // if instance not made yet
             throw new IllegalStateException("Goals have not been initialized. Call initialize() first.");
         }
         return instance;
