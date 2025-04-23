@@ -1,61 +1,31 @@
-package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
+package core;
 
 /**
+ * CPSC 233 (Tut-05) Project: Habit Tracker
+ * ------------------------------------------------
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
  * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
- * @date 17 April 2025
+ * @date 27 March 2025
  * @tutorial 05
+ *
  */
+
 
 /**
- * class to run the application of with the GUI
+ * Function that starts the code running process
  */
-public class Main extends Application {
-
-    private static String startupFilePath = null;
-
-    /**launches the java fx
-     *
-     * @param args - command line arguments; if provided, the first one is used as startupFilePath
-     */
+public class Main {
     public static void main(String[] args) {
-        // when there is argument
-        if (args.length > 0) {
-            startupFilePath = args[0];
+        System.out.println("WELCOME TO THE DAILY HABIT TRACKER!\n");
+        // Ask the user if they want to use saved data (menuUseSaved will be called)
+        if (Menu.menuUseSaved()) {
+            // If true, load the saved data and proceed to the menu loop
+            Menu.menuLoop();
+        } else {
+            // If false, set goals and log the first activity, then proceed to the menu loop
+            Menu.menuGoalSet();
+            Menu.menuLogFirstActivity();
+            Menu.menuLoop();
         }
-        launch(args);
-    }
-
-
-    /** launches the program
-     *
-     * @param stage the running stage
-     * @throws IOException if there is an error
-     */
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
-        // create scene
-        Scene scene = new Scene(fxmlLoader.load(), 900, 620);
-        // set title
-        stage.setTitle("Habit Tracker");
-        // add stage and scene
-        stage.setScene(scene);
-
-        // Inject a file path into the controller if present
-        MainController controller = fxmlLoader.getController();
-        if (startupFilePath != null) {
-            controller.setStartupFile(new File(startupFilePath));
-            controller.loadStartupFileIfPresent();
-        }
-        // show the application
-        stage.show();
     }
 }
