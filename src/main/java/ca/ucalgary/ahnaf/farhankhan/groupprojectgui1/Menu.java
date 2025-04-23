@@ -230,10 +230,12 @@ public class Menu {
     private void save() {
         String filename;
         File file;
+        // always does
         do {
+            // prompts used to enter a filename
             System.out.print("Enter a filename to save: \n");
             filename = scanner.nextLine().trim();
-        } while (filename.isEmpty());
+        } while (filename.isEmpty()); // when no file name is chosen try again
 
         file = new File(filename);
 
@@ -257,20 +259,22 @@ public class Menu {
     private boolean load() {
         String filename;
         File file;
+        // Prompt the user for a filename until not empty
         do {
             System.out.print("Enter a filename to load: \n");
             filename = scanner.nextLine().trim();
-        } while (filename.isEmpty());
+        } while (filename.isEmpty()); // do again if empty
 
         file = new File(filename);
 
         // Load using FileLoader
         Data loadedData = FileLoader.load(file);
+        // if was loaded successfully
         if (loadedData != null) {
             data = loadedData;
             System.out.println("Data loaded successfully.");
             return true;
-        } else {
+        } else { // otherwise
             System.out.println("Failed to load data.");
             load();
             return false;
@@ -286,8 +290,8 @@ public class Menu {
      */
     public int checkInteger(Scanner scanner, String prompt) {
         int number;
-
-        while (true) {
+        // Loop until a valid input is obtained.
+        while (true) { //
             System.out.print(prompt);
             String input = scanner.nextLine(); // Changed to read input as a string
 
@@ -442,7 +446,8 @@ public class Menu {
      * Used to view all activities done on a specific day.
      */
     private void menuViewActivityDay() {
-        String day = getDay();
+        String day = getDay(); // get the day
+        // go through each Day object
         for (Day d : data.getDays()) {
             if (d.getDay().equalsIgnoreCase(day)) {
                 System.out.println("\nActivities for " + capitalize(day) + ":");
@@ -450,6 +455,7 @@ public class Menu {
                 return;
             }
         }
+        // else give user
         System.out.println("No data logged for " + capitalize(day) + ".");
     }
 
@@ -462,7 +468,7 @@ public class Menu {
 
         //Stores total hours
         int total = 0, sleep = 0, exercise = 0, study = 0, work = 0, leisure = 0; //Store total hours and total hours per activity
-        for (Day d : data.getDays()) {
+        for (Day d : data.getDays()) { // loop through the days
             if (d instanceof Activity act) {
                 sleep += act.getSleep();
                 exercise += act.getExercise();
@@ -492,7 +498,7 @@ public class Menu {
 
         String day = getDay();     //Reusing getDay() method to ensure valid day input
 
-        for (Day d : data.getDays()) {
+        for (Day d : data.getDays()) { // loop through days
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
@@ -539,10 +545,13 @@ public class Menu {
                 List<String> maxActivities = new ArrayList<>();
                 List<String> minActivities = new ArrayList<>();
 
+                // loop through activity map
                 for (Map.Entry<String, Integer> entry : activityMap.entrySet()) {
+                    // Compare the current entry's value with maxHours.
                     if (entry.getValue() == maxHours) {
                         maxActivities.add(entry.getKey());
                     }
+                    // Compare the current entry's value with minHours.
                     if (entry.getValue() == minHours) {
                         minActivities.add(entry.getKey());
                     }

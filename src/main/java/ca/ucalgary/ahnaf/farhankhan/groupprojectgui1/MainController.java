@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.*;
 import javafx.scene.paint.Color;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
@@ -29,6 +31,7 @@ import javafx.scene.paint.Color;
  * @tutorial 05
  */
 public class MainController {
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
     // made for storing data
     private Data data = new Data();
 
@@ -70,17 +73,32 @@ public class MainController {
 
     private File startupFile;  //startup file
 
+    /**
+     * Sets the startup file for this object.
+     *
+     * @param file the File to be used as the startup file
+     */
     public void setStartupFile(File file) {
         this.startupFile = file;
     }
 
+    /**
+     * Loads the startup file and updates the user interface.
+
+     * @see File#exists()
+     * @see #load(File)
+     * @see Data#displayAllActivitiesGUI()
+     * @see Goals#getInstance()
+     */
     public void loadStartupFileIfPresent() {
-        if (startupFile != null && startupFile.exists()) {
+        if (startupFile != null && startupFile.exists()) { // if exists
+            // Load the file's contents
             load(startupFile);
             ActivityDisplay.setText(data.displayAllActivitiesGUI());
+            // Get the current Goals
             Goals currentGoals = Goals.getInstance();
             if (currentGoals != null) {
-                GoalsDisplay.setText(currentGoals.toString());
+                GoalsDisplay.setText(currentGoals.toString()); // display the goals
             }
         }
     }
@@ -146,9 +164,11 @@ public class MainController {
     @FXML
     void load(ActionEvent event) {
         FileChooser fc = new FileChooser();
+        // set title of box
         fc.setTitle("Load a file");
         fc.setInitialDirectory(new File("."));
         fc.setInitialFileName("data.csv");
+        // open dialog box
         File file = fc.showOpenDialog(new Stage());
         load(file);
     }
@@ -164,15 +184,17 @@ public class MainController {
         status_label.setTextFill(Color.BLACK);
         status_label.setText("");
         Data data = FileLoader.load(file);
+        // when the data is blank
         if (data == null) {
             status_label.setTextFill(Color.RED);
-            status_label.setText(String.format("Failed to load data from file %s%n", file));
+            status_label.setText(String.format("Failed to load data from file %s%n", file)); // show user
         } else {
             status_label.setTextFill(Color.GREEN);
             status_label.setText(String.format("Loaded data from file %s%n", file));
             this.data = data;
+            // show in gui
             ActivityDisplay.setText(data.displayAllActivitiesGUI());
-            Goals currentGoals = Goals.getInstance();
+            Goals currentGoals = Goals.getInstance(); // set the object
             GoalsDisplay.setText(currentGoals.toString());
         }
 
@@ -187,18 +209,21 @@ public class MainController {
     @FXML
     void save(ActionEvent event) {
         FileChooser fc = new FileChooser();
+        // title
         fc.setTitle("Save a file");
         fc.setInitialDirectory(new File("."));
         fc.setInitialFileName("data.csv");
+        // Open the new stage
         File file = fc.showSaveDialog(new Stage());
         status_label.setTextFill(Color.BLACK);
         status_label.setText("");
+        // try to save the data to the selected file.
         if (FileSaver.save(file, data)) {
             status_label.setTextFill(Color.GREEN);
-            status_label.setText(String.format("Saved to file %s%n", file));
-        } else {
+            status_label.setText(String.format("Saved to file %s%n", file)); // output
+        } else { // If saving fails
             status_label.setTextFill(Color.RED);
-            status_label.setText(String.format("Failed to save to file %s%n", file));
+            status_label.setText(String.format("Failed to save to file %s%n", file)); // output
         }
     }
 
@@ -411,23 +436,43 @@ public class MainController {
     }
 
 
+    /**
+     * Displays an error message to the user using a JavaFX error alert.
+     *
+     *
+     * @param message the error message to display in the alert dialog
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        // Set the title of the dialog
         alert.setTitle("Invalid Input");
         alert.setHeaderText(null);
         alert.setContentText(message);
+        // Display the alert
         alert.showAndWait();
     }
 
+    /**
+     * Capitalizes the given string.
+
+     * @param str the string to be capitalized
+     * @return the capitalized version of the string, or the original string if it is null or empty
+     */
     private String capitalize(String str) {
-        if (str == null || str.isEmpty()) return str;
-        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        // Check if the input string is null
+        if (str == null || str.isEmpty()) {
+            // Return the original string since there's nothing to capitalize.
+            return str;
+        } else { // otherwise return capitalised
+            return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+        }
     }
 
 
-    @FXML
-    private Button DailyGoalsAchieved;
+    /**
+     * Handles the event of checking daily goals complete.
 
+     */
     @FXML
     private void handleDailyGoalsAchieved() {
         // Get the day from user input
@@ -464,7 +509,8 @@ public class MainController {
         double percentWork = 0;
         double percentLeisure = 0;
 
-        // check if 0 entry and calculate percentage
+        // If a non-zero goal value exists, calculate the percentage achieved,
+        // and cap the result at 100% if the logged hours exceed the goal.
         if (goalSleep != 0) {
             percentSleep = (totalSleep / (double) goalSleep) * 100;
             if (percentSleep > 100) percentSleep = 100;
@@ -502,30 +548,35 @@ public class MainController {
         SpecialOutputs.setText(result);
     }
 
+    /**
+     * the event to display the number of weekly goals achieved and not achieved
+     */
     @FXML
     private void handleNumberGoalsAchieved() {
 
         Goals currentGoals;
-        try {
+        try { // try to retrieve the current Goals
             currentGoals = Goals.getInstance();
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException e) { // If the Goals have not been set
             SpecialOutputs.setText("Goals have not been set. Please set your goals first.");
             return;
         }
 
         String[] activities = {"sleep", "exercise", "study", "work", "leisure"};
-
+        // Compute weekly goals by multiplying the daily goal values by 7
         int GoalSleep = Goals.getInstance().getSleep() * 7;
         int GoalExercise = Goals.getInstance().getExercise() * 7;
         int GoalStudy = Goals.getInstance().getStudy() * 7;
         int GoalWork = Goals.getInstance().getWork() * 7;
         int GoalLeisure = Goals.getInstance().getLeisure() * 7;
 
+        // make a map to store the total logged hours
         Map<String, Integer> totalLogged = new HashMap<>();
         for (String activity : activities) {
             totalLogged.put(activity, 0);
         }
 
+        // Define an array of days in a week.
         String[] days = {"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"};
         for (String day : days) {
             Map<String, Integer> dayMap = data.getDayMap(day);
@@ -535,7 +586,7 @@ public class MainController {
                 }
             }
         }
-
+        // Create a map to associate each activity
         Map<String, Integer> weeklyGoals = new HashMap<>();
         weeklyGoals.put("sleep", GoalSleep);
         weeklyGoals.put("exercise", GoalExercise);
@@ -546,37 +597,51 @@ public class MainController {
         int goalsAchieved = 0;
         int goalsNotAchieved = 0;
 
+        // Check each activity
         for (String activity : activities) {
+            // If the logged is bigger than the weekly goal
             if (totalLogged.get(activity) >= weeklyGoals.get(activity)) {
                 goalsAchieved++;
-            } else {
+            } else { // else not achived
                 goalsNotAchieved++;
             }
         }
-
+        // Build a formatted string
         String result = "Number of Goals Achieved and\nNot Achieved This Week:\n\n\n" +
                 "Goals Achieved: " + goalsAchieved + "\n\n" +
                 "Goals Not Achieved: " + goalsNotAchieved;
-
+        // Update the SpecialOutputs
         SpecialOutputs.setText(result);
     }
 
+    /**
+     * Shows the list of activities that went over the goal on a chosen day.
+     */
     @FXML
     private void handleGoalsExceeded() {
         String day = getDay(); // user input day
-        Map<String, Integer> actMap = data.getDayMap(day); // returns Map<String, Integer>
+        Map<String, Integer> actMap = data.getDayMap(day); // Look up the activity data for that day.
 
-        if (actMap != null) {
+        if (actMap != null) {// If there is activity data make output message.
             String output = "Activities over goal on " + capitalize(day) + ":\n\n\n" +
                     getActivityOverGoalDetails(actMap);
-            SpecialOutputs.setText(output);
-        } else {
+            SpecialOutputs.setText(output); // display result
+        } else { // otherwise show error msg
             showError("No data logged for " + capitalize(day) + ".");
         }
     }
 
+    /**
+     * Returns a message with the details of each activity that went over its goal.
+     *
+     * @param actMap a map with the logged hours for activities
+     * @return a string with details of activities over their goals, or a message if none are
+     */
     private String getActivityOverGoalDetails(Map<String, Integer> actMap) {
+        // List of activities we are checking.
         String[] labels = {"sleep", "exercise", "study", "work", "leisure"};
+
+        // Create a map to store each activity's goal.
         Map<String, Integer> goals = new HashMap<>();
         goals.put("sleep", Goals.getInstance().getSleep());
         goals.put("exercise", Goals.getInstance().getExercise());
@@ -585,38 +650,59 @@ public class MainController {
         goals.put("leisure", Goals.getInstance().getLeisure());
 
         StringBuilder sb = new StringBuilder();
+        // Go through each activity.
         for (String label : labels) {
             int actual = actMap.getOrDefault(label, 0);
             int goal = goals.getOrDefault(label, 0);
-
+            // If the logged hours are more than the goal, add details to the result.
             if (actual > goal) {
-                sb.append(capitalize(label))
-                        .append(": ")
-                        .append(actual)
-                        .append("h (Goal: ")
-                        .append(goal)
-                        .append("h)\n\n");
+                sb.append(capitalize(label));
+                sb.append(": ");
+                sb.append(actual);
+                sb.append("h (Goal: ");
+                sb.append(goal);
+                sb.append("h)\n\n");
             }
         }
-        return sb.toString().isEmpty() ? "No goals exceeded on this day." : sb.toString();
+        // If nothing was added to the result, return a default message.
+        if (sb.toString().isEmpty()) {
+            return "No goals exceeded on this day.";
+        } else {
+            return sb.toString();
+        }
     }
 
+    /**
+     * Shows how much time is left to meet the daily goals on a chosen day.
+     */
     @FXML
     private void handleRemainingTime() {
-        String day = getDay(); // Get user-inputted day
-        Map<String, Integer> actMap = data.getDayMap(day); // Fetch an activity map for the day
+        String day = getDay();
+        // Get the activity data for that day.
+        Map<String, Integer> actMap = data.getDayMap(day);
 
+        // If there is data for this day
         if (actMap != null) {
             String output = "Time remaining to achieve goals on " + capitalize(day) + ":\n\n\n" +
                     getTimeRemainingDetails(actMap);
+            // Show the message in interface.
             SpecialOutputs.setText(output);
         } else {
+            // If there is no data
             showError("No data logged for " + capitalize(day) + ".");
         }
     }
 
+    /**
+     * Computes and returns the remaining time needed to reach the goals for each activity.
+     *
+     * @param actMap a map that contains the logged hours for each activity
+     * @return a string with the remaining hours for each activity formatted for display
+     */
     private String getTimeRemainingDetails(Map<String, Integer> actMap) {
+        // List of activities we check
         String[] labels = {"sleep", "exercise", "study", "work", "leisure"};
+        // Create a map to store the goal for each activity.
         Map<String, Integer> goals = new HashMap<>();
         goals.put("sleep", Goals.getInstance().getSleep());
         goals.put("exercise", Goals.getInstance().getExercise());
@@ -625,20 +711,21 @@ public class MainController {
         goals.put("leisure", Goals.getInstance().getLeisure());
 
         StringBuilder sb = new StringBuilder();
+        // Iterate over the list of activities.
         for (String label : labels) {
             int actual = actMap.getOrDefault(label, 0);
             int goal = goals.getOrDefault(label, 0);
             int remaining = Math.max(0, goal - actual);
-
+            // format string
             sb.append(capitalize(label)).append(": ").append(remaining).append("h\n\n");
         }
+        // Return the details string.
         return sb.toString();
     }
 
-    private boolean isValidDay(String day) {
-        return List.of("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday").contains(day);
-    }
-
+    /**
+     * Lets the user edit their activity hours for a chosen day.
+     */
     @FXML
     private void handleEditActivities() {
         String day = getDay();
@@ -651,11 +738,13 @@ public class MainController {
         TextField workField = new TextField();
         TextField leisureField = new TextField();
 
+        // Set up a grid to arrange the labels and text fields.
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
+        // Add a label and a text field for each activity
         grid.add(new Label("Sleep hours:"), 0, 0);
         grid.add(sleepField, 1, 0);
 
@@ -671,17 +760,21 @@ public class MainController {
         grid.add(new Label("Leisure hours:"), 0, 4);
         grid.add(leisureField, 1, 4);
 
+        // Create a dialog to show the grid.
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Enter Activities");
         dialog.setHeaderText("Enter activity hours for " + capitalize(day));
         dialog.getDialogPane().setContent(grid);
 
+        // Add a Save button and cancel
         ButtonType saveButton = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButton, ButtonType.CANCEL);
 
+        // Show the dialog and wait for the user's response
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == saveButton) {
             try {
+                // Convert text input to int
                 int sleep = Integer.parseInt(sleepField.getText());
                 int exercise = Integer.parseInt(exerciseField.getText());
                 int study = Integer.parseInt(studyField.getText());
@@ -690,29 +783,35 @@ public class MainController {
 
                 int total = sleep + exercise + study + work + leisure;
 
+                // If the total hours exceed 24, show an error
                 if (total > 24) {
                     showError("Total hours cannot exceed 24. You entered: " + total);
                     return;
                 }
 
+                // Store the new data for the day.
                 data.storeNewDay(day, sleep, exercise, study, work, leisure);
                 ActivityDisplay.setText(data.displayAllActivitiesGUI());
-                status_label.setText("Activities updated for " + capitalize(day) + ".");
+                status_label.setText("Activities updated for " + capitalize(day) + "."); // show status
 
             } catch (NumberFormatException e) {
-                showError("Please enter valid numbers for all activity fields.");
+                showError("Please enter valid numbers for all activity fields."); // show error status
             }
         }
     }
 
+    /**
+     * Allows the user to edit their daily goals.
+     */
     @FXML
     private void HandleEditGoals() {
+        // Create text fields for entering hours for each goal
         TextField sleepField = new TextField();
         TextField exerciseField = new TextField();
         TextField studyField = new TextField();
         TextField workField = new TextField();
         TextField leisureField = new TextField();
-
+        // Get the current goals
         Goals current = Goals.getInstance();
         if (current != null) {
             sleepField.setText(String.valueOf(current.getSleep()));
@@ -721,12 +820,13 @@ public class MainController {
             workField.setText(String.valueOf(current.getWork()));
             leisureField.setText(String.valueOf(current.getLeisure()));
         }
-
+        // Create a grid to organize the labels and text fields.
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
 
+        // Add a label and a text field for each gaol
         grid.add(new Label("Sleep:"), 0, 0);
         grid.add(sleepField, 1, 0);
         grid.add(new Label("Exercise:"), 0, 1);
@@ -738,11 +838,14 @@ public class MainController {
         grid.add(new Label("Leisure:"), 0, 4);
         grid.add(leisureField, 1, 4);
 
+        // Create a dialog to show the grid.
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Edit Daily Goals");
+        // Add a Save button and cancel
         dialog.getDialogPane().setContent(grid);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
+        // Show the dialog
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
@@ -753,16 +856,18 @@ public class MainController {
                 int leisure = Integer.parseInt(leisureField.getText());
 
                 int sumTotal = sleep + exercise + study + work + leisure;
+                // Check that the total does not exceed 24 hours
                 if (sumTotal <= 24) {
                     Goals.initialize(sleep, exercise, study, work, leisure); // must exist in your Goals class
+                    // Display the updated goals
                     Goals currentGoals = Goals.getInstance();
                     GoalsDisplay.setText(currentGoals.toString());
-                    status_label.setText("Goals logged successfully.");
+                    status_label.setText("Goals logged successfully."); // show status
                 } else {
                     showError("The total of your goals must be less than or equal to 24 hours. Please try again.");
                 }
             } catch (NumberFormatException e) {
-                showError("Invalid input. Please enter valid whole numbers.");
+                showError("Invalid input. Please enter valid whole numbers."); // show error status
             }
         }
     }
@@ -805,23 +910,18 @@ public class MainController {
                 "Leisure  : " + leisure  + " hours";
 
 
-        SpecialOutputs.setText(output);
+        SpecialOutputs.setText(output); // set output
     }
 
 
     /**
      * Prompts the user to enter a day, then shows the total hours logged for that specific day.
-     *
-     * Asks for a day using a popup dialog.
-     * Find that day’s activity entry (if available).
-     * Sums and displays all activity hours in the SpecialOutputs TextArea.
-     *
-     * Notifies the user if no data is logged for the entered day.
      */
     @FXML
     private void handleTotalHoursLogged_Day() {
         String day = getDay();
 
+        // Check if the day is null
         if (day == null || day.trim().isEmpty()) {
             status_label.setText("Please select a valid day.");
             return;
@@ -830,9 +930,12 @@ public class MainController {
         day = day.toLowerCase(); // match backend format
 
         for (Day d : data.getDays()) {
+            // If the day matches and the Day is an instance of Activity
             if (d.getDay().equalsIgnoreCase(day) && d instanceof Activity act) {
+                // Calculate the total hours for day
                 int total = act.getSleep() + act.getExercise() + act.getStudy() + act.getWork() + act.getLeisure();
 
+                // Build a message string
                 String output = "Total Hours Logged for " + capitalize(day) + ":\n" +
                         "Total    : " + total           + " / 24 hours\n\n\n" +
                         "Sleep    : " + act.getSleep()  + " hours\n\n" +
@@ -841,23 +944,18 @@ public class MainController {
                         "Work     : " + act.getWork()   + " hours\n\n" +
                         "Leisure  : " + act.getLeisure() + " hours";
 
+                // Display the output
                 SpecialOutputs.setText(output);
                 return;
             }
         }
-
+        // If no data is found
         SpecialOutputs.setText("No data logged for " + capitalize(day) + ".");
     }
 
 
     /**
      * Handles the "Max and Min Activity" action.
-     *
-     * This function checks which activities took the most and least amount of time
-     * on a specific day entered by the user.
-     * It shows the results in the SpecialOutputs TextArea.
-     *
-     * If the day is invalid or no data is found, it displays an appropriate message.
      */
     @FXML
     private void handleMaxAndMinActivity() {
