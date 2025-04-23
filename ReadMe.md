@@ -74,6 +74,19 @@ compare them against their goals. It also provides detailed summaries and insigh
 - `FileSaver.java` - Handles saving data to file
 - `Goals.java` - Singleton class managing goal data
 - `Activity.java` - Represents a day's activity data
+- `Data.java` – Stores and manages weekly data internally
+- `Menu.java` – OLD UI interface
+
+## JUnit Testing
+Unit tests are written using **JUnit 5** to validate core functionality:
+- `ActivityTest.java` – Tests the `Activity` class (getters, setters, toString)
+- `GoalsTest.java` – Verifies proper initialization and retrieval of goal values
+- `FileLoaderTest.java` – Checks behavior of loading valid and invalid data
+- `FileSaverTest.java` – Ensures data is correctly saved to and read from `.csv` files
+- `DayTest.java` – Tests the `Day` class
+
+To run tests, ensure your IDE has:
+- JUnit 5
 
 JUNITSSSSSSSSS
 
