@@ -164,7 +164,7 @@
                                     <Font size="25.0" />
                                  </font>
                               </Label>
-                              <TextArea fx:id="SpecialOutputs" layoutX="8.0" layoutY="107.0" prefHeight="318.0" prefWidth="242.0" />
+                              <TextArea fx:id="SpecialOutputs" layoutX="8.0" layoutY="107.0" prefHeight="296.0" prefWidth="262.0" />
                            </children>
                         </AnchorPane>
                      </content>
