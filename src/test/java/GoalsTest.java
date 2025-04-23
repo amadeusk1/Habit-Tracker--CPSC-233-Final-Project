@@ -1,12 +1,5 @@
-package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
-
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +27,7 @@ public class GoalsTest {
      * have the same values. They should be considered equal.
      */
     @Test
-    void testEqualsSameValues() {
+    public void testEqualsSameValues() {
         Goals g1 = new Goals(6, 2, 4, 8, 3);
         Goals g2 = new Goals(6, 2, 4, 8, 3);
         assertEquals(g1, g2);
@@ -45,7 +38,7 @@ public class GoalsTest {
      * have different values. They should not be considered equal.
      */
     @Test
-    void testEqualsDifferentValues() {
+    public void testEqualsDifferentValues() {
         Goals g1 = new Goals(6, 2, 4, 8, 3);
         Goals g2 = new Goals(7, 2, 4, 8, 3);
         assertNotEquals(g1, g2);
@@ -57,7 +50,7 @@ public class GoalsTest {
      * contains all the expected fields and values in the correct format.
      */
     @Test
-    void testToStringIncludesFields() {
+    public void testToStringIncludesFields() {
         Goals g = new Goals(5, 1, 4, 9, 2);
         String str = g.toString();
 
@@ -69,7 +62,7 @@ public class GoalsTest {
      * This should always return true.
      */
     @Test
-    void testEquals_SameReference() {
+    public void testEquals_SameReference() {
         Goals goals = new Goals(8, 2, 4, 6, 4);
         assertTrue(goals.equals(goals)); // Same object
     }
@@ -79,7 +72,7 @@ public class GoalsTest {
      * This should return false.
      */
     @Test
-    void testEquals_Null() {
+    public void testEquals_Null() {
         Goals goals = new Goals(8, 2, 4, 6, 4);
         assertFalse(goals.equals(null)); // Null check
     }

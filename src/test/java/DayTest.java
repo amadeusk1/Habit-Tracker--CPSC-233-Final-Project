@@ -1,5 +1,3 @@
-package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
-
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +17,7 @@ public class DayTest {
      * Test to check the behavior of getDay() and toString()
      */
     @Test
-    void testGetDayAndToString() {
+    public void testGetDayAndToString() {
         DummyDay day = new DummyDay("saturday");
         assertEquals("saturday", day.getDay());
         assertEquals("Saturday: ", day.toString());

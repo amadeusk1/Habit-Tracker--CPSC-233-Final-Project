@@ -1,4 +1,4 @@
-package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test; /**
+/**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
  * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
  * @date 27 March 2025
@@ -7,7 +7,6 @@ package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test; /**
 
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data;
 import org.junit.Test;

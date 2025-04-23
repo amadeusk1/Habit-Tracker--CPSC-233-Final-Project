@@ -1,12 +1,5 @@
-package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
-
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,7 +30,7 @@ public class ActivityTest {
      * includes the correct day (capitalized) and all activity values.
      */
     @Test
-    void testSetters() {
+    public void testSetters() {
         Activity act = new Activity("tuesday", 0, 0, 0, 0, 0);
         act.setSleep(6);
         act.setExercise(1);
@@ -53,7 +46,7 @@ public class ActivityTest {
     }
 
     @Test
-    void testToStringIncludesAllFields() {
+    public void testToStringIncludesAllFields() {
         Activity act = new Activity("friday", 6, 1, 2, 8, 3);
         String output = act.toString();
 
@@ -69,7 +62,7 @@ public class ActivityTest {
      * Check if the getters work for Activity class
      */
     @Test
-    void ConstructorAndGettersTues() {
+    public void ConstructorAndGettersTues() {
         Activity act = new Activity("Tuesday", 5, 1, 1, 1, 10);
 
         assertEquals("Tuesday", act.getDay());
@@ -84,7 +77,7 @@ public class ActivityTest {
      * checks if setters work
      */
     @Test
-    void SetterBlank() {
+    public void SetterBlank() {
         Activity act = new Activity("tuesday", 0, 0, 0, 0, 0);
         act.setSleep(10);
         act.setExercise(0);
