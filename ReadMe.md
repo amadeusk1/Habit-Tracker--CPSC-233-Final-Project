@@ -89,4 +89,4 @@ To run tests, ensure your IDE has:
 - JUnit 5
 
 ## Demo Image
-![App Screenshot](resources/screenshots/main_view.png)
+![App Screenshot](src/main/resources/screenshots/main_view.PNG)
