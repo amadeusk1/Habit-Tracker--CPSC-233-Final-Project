@@ -88,3 +88,5 @@ Unit tests are written using **JUnit 5** to validate core functionality:
 To run tests, ensure your IDE has:
 - JUnit 5
 
+## Demo Image
+![App Screenshot](resources/screenshots/main_view.png)
