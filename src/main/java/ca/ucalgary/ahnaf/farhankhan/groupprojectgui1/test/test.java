@@ -1,16 +1,18 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
-
-import org.testng.annotations.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
 
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.GoalType;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-/**
- * Unit tests for the Activity class.
- */
-public class ActivityTest {
+public class test {
+
+    /**
+     * Unit tests for the Activity class.
+     */
 
     /**
      * Tests that the setter methods update all activity fields,
