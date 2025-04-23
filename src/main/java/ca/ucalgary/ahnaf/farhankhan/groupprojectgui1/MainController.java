@@ -21,8 +21,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.*;
 import javafx.scene.paint.Color;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
@@ -31,7 +29,6 @@ import org.slf4j.LoggerFactory;
  * @tutorial 05
  */
 public class MainController {
-    private static final Logger log = LoggerFactory.getLogger(MainController.class);
     // made for storing data
     private Data data = new Data();
 
