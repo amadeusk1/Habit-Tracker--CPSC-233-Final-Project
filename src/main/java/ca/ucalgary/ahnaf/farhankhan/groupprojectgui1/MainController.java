@@ -554,7 +554,7 @@ public class MainController {
             }
         }
 
-        String result = "Number of Goals Achieved / Not Achieved This Week:\n\n\n" +
+        String result = "Number of Goals Achieved and\nNot Achieved This Week:\n\n\n" +
                 "Goals Achieved: " + goalsAchieved + "\n\n" +
                 "Goals Not Achieved: " + goalsNotAchieved;
 
