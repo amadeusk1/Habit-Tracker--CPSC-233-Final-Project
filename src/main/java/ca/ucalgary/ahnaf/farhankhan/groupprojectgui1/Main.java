@@ -1,4 +1,4 @@
-package core;
+package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1;
 
 /**
  * CPSC 233 (Tut-05) Project: Habit Tracker
@@ -12,10 +12,12 @@ package core;
 
 
 /**
- * Function that starts the code running process
+ * class to start the code running process without UML
  */
 public class Main {
     public static void main(String[] args) {
+        Data data = new Data();
+        Menu Menu = new Menu(data);
         System.out.println("WELCOME TO THE DAILY HABIT TRACKER!\n");
         // Ask the user if they want to use saved data (menuUseSaved will be called)
         if (Menu.menuUseSaved()) {
