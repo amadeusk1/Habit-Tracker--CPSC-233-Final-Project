@@ -1,8 +1,10 @@
-package test;
+package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.fail;
+
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
 
 public class DayTest {

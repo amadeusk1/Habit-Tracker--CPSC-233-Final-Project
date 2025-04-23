@@ -1,11 +1,10 @@
-package test; /**
+package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test; /**
  * @author  Dominik Trzesicki, Ahnaf Farhan Khan, Amadeus Kaczmarek
  * @email dominik.trzesicki@ucalgary.ca, ahnaf.farhankhan@ucalgary.ca, amadeus.kaczmarek@ucalgary.ca
  * @date 27 March 2025
  * @tutorial 05
  */
 
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
@@ -14,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNull;
 
 /**
  * This class contains unit tests for the FileLoader class,
@@ -68,7 +69,7 @@ public class FileLoaderTest {
     public void testLoadInvalidFile() {
         File invalidFile = new File("invalidFile.csv");
 
-        // Attempt to load from non-existent file
+        // Attempt to load from a non-existent file
         Data loadedData = FileLoader.load(invalidFile);
         assertNull(loadedData, "Data loading from an invalid file should return null.");
     }
