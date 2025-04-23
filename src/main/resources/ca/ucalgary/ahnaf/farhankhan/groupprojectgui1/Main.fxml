@@ -75,9 +75,6 @@
                         <TextField fx:id="work" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField fx:id="leisure" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
-                     <cursor>
-                        <Cursor fx:constant="CROSSHAIR" />
-                     </cursor>
                   </GridPane>
                    <Button fx:id="confirm" layoutX="29.0" layoutY="463.0" mnemonicParsing="false" onAction="#confirmAction" prefHeight="42.0" prefWidth="112.0" style="-fx-background-radius: 10; -fx-background-color: #0078D7; -fx-text-fill: white;" text="CONFIRM" />
                   <ChoiceBox fx:id="DayChoice" layoutX="72.0" layoutY="78.0" prefHeight="25.0" prefWidth="96.0" />
