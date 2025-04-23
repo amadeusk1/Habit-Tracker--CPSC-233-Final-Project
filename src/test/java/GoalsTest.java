@@ -50,12 +50,16 @@ public class GoalsTest {
      * contains all the expected fields and values in the correct format.
      */
     @Test
-    public void testToStringIncludesFields() {
+    public void testToStringIncludesFieldsExact() {
         Goals g = new Goals(5, 1, 4, 9, 2);
-        String str = g.toString();
-
-        assertTrue(str.contains("{SLEEP=5, EXERCISE=1, STUDY=4, WORK=9, LEISURE=2}"));
+        String expected = "Sleep: 5 hours" +
+                "\n\nExercise: 1 hours" +
+                "\n\nStudy: 4 hours" +
+                "\n\nWork: 9 hours" +
+                "\n\nLeisure: 2 hours";
+        assertEquals(expected, g.toString(), "The toString() output didn't match the expected format.");
     }
+
 
     /**
      * Tests the equals method when comparing an object to itself.

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DayTest {
 
-    //A dummy subclass of Day for testing purposes (since Day is abstract)
+    //A dummy subclass of Day for testing purposes
     static class DummyDay extends Day {
         //constructor that passes the day string to the superclass (Day)
         public DummyDay(String day) {
