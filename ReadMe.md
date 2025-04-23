@@ -56,7 +56,7 @@ compare them against their goals. It also provides detailed summaries and insigh
 4. Then you can run it in three ways. 
    1. Run it in the IDE.
    2. Run using cmd line/terminal (stay in target → classes directory) using command like `java --module-path "C:\Program Files\Java\javafx-sdk-24\lib" --add-modules javafx.controls,javafx.fxml ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainGUI`
-   3. Run the .jar file using cmd line/terminal (stay in main project directory)  `java --module-path "C:\Program Files\Java\javafx-sdk-24\lib" --add-modules javafx.controls,javafx.fxml -jar GroupProjectGUI-1.jar`
+   3. Run the .jar file using cmd line/terminal (stay in the main project directory)  `java --module-path "C:\Program Files\Java\javafx-sdk-24\lib" --add-modules javafx.controls,javafx.fxml -jar GroupProjectGUI-1.jar`
 
 
 ## How It Works

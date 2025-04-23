@@ -436,7 +436,6 @@ public class MainController {
     /**
      * Displays an error message to the user using a JavaFX error alert.
      *
-     *
      * @param message the error message to display in the alert dialog
      */
     private void showError(String message) {
@@ -460,7 +459,7 @@ public class MainController {
         if (str == null || str.isEmpty()) {
             // Return the original string since there's nothing to capitalize.
             return str;
-        } else { // otherwise return capitalised
+        } else { // otherwise return capitalized
             return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
         }
     }
@@ -468,7 +467,6 @@ public class MainController {
 
     /**
      * Handles the event of checking daily goals complete.
-
      */
     @FXML
     private void handleDailyGoalsAchieved() {
@@ -599,7 +597,7 @@ public class MainController {
             // If the logged is bigger than the weekly goal
             if (totalLogged.get(activity) >= weeklyGoals.get(activity)) {
                 goalsAchieved++;
-            } else { // else not achived
+            } else { // else not archived
                 goalsNotAchieved++;
             }
         }
@@ -619,7 +617,7 @@ public class MainController {
         String day = getDay(); // user input day
         Map<String, Integer> actMap = data.getDayMap(day); // Look up the activity data for that day.
 
-        if (actMap != null) {// If there is activity data make output message.
+        if (actMap != null) {// If there is activity data, make an output message.
             String output = "Activities over goal on " + capitalize(day) + ":\n\n\n" +
                     getActivityOverGoalDetails(actMap);
             SpecialOutputs.setText(output); // display result
@@ -823,7 +821,7 @@ public class MainController {
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
 
-        // Add a label and a text field for each gaol
+        // Add a label and a text field for each goal
         grid.add(new Label("Sleep:"), 0, 0);
         grid.add(sleepField, 1, 0);
         grid.add(new Label("Exercise:"), 0, 1);
