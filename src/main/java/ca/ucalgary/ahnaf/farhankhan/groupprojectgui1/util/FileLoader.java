@@ -14,17 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-/**
- * class used to load files
- */
 public class FileLoader {
 
-    /**
-     * Loads data from a file and returns a filled Data object.
-     *
-     * @param file the file to load data from
-     * @return a Data object with the loaded activities and goals, or null if the file format is not as expected or an error occurs
-     */
+    // This method loads activity and goal data from a given file
     public static Data load(File file) {
         Data newData = new Data(); // Create a fresh data object to fill
 
@@ -65,7 +57,7 @@ public class FileLoader {
                 String goalLine = scanner.nextLine();
                 String[] goalParts = goalLine.split(",");
                 if (goalParts.length == 5) {
-                    try { // try to change into int
+                    try {
                         int gSleep = Integer.parseInt(goalParts[0]);
                         int gExercise = Integer.parseInt(goalParts[1]);
                         int gStudy = Integer.parseInt(goalParts[2]);
