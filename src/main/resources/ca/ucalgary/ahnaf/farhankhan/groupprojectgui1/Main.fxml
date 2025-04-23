@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="850.0" style="-fx-background-radius: 5; -fx-background-color: #EBD9EB;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="850.0" style="-fx-background-radius: 5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainController">
    <top>
       <MenuBar prefWidth="610.0" style="-fx-background-color: #62FF91; -fx-background-radius: 8;" BorderPane.alignment="CENTER">
         <menus>
