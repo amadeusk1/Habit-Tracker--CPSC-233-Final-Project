@@ -1,9 +1,11 @@
 # Habit Tracker—JavaFX Application
 
+
 ## Project Overview
 Habit Tracker is a simple JavaFX-based application designed to help users track their daily activities and goals.
 It allows users to log the number of hours they spend on various tasks (e.g., Sleep, Exercise, Study, Work, Leisure) and
 compare them against their goals. It also provides detailed summaries and insights into user habits and goal achievements.
+
 
 ## Features
 - Load previously saved schedule data from a `.csv` file
@@ -21,21 +23,24 @@ compare them against their goals. It also provides detailed summaries and insigh
     - Remaining Time (Day)
 - GUI built with JavaFX and styled using minimal custom CSS
 
+
 ## Technologies Used
 - Java 23
 - JavaFX 23.0.1 
-- Scene Builder 
-- Maven for dependency management and building
+- Scene Builder
+
 
 ## Authors
 - Dominik Trzesicki
 - Ahnaf Farhan Khan
 - Amadeus Kaczmarek
 
+
 ## Email Contacts
 - dominik.trzesicki@ucalgary.ca
 - ahnaf.farhankhan@ucalgary.ca
 - amadeus.kaczmarek@ucalgary.ca
+
 
 ## Getting Started
 ### Requirements
@@ -43,14 +48,23 @@ compare them against their goals. It also provides detailed summaries and insigh
 - JavaFX SDK 21.0.1 or later (configured in Maven)
 - Scene Builder (optional, for FXML editing)
 
+
 ### How to Run
 1. Clone the repository or download the source code
 2. Open the project in IntelliJ IDEA or another IDE
 3. Ensure Maven resolves dependencies
-4. Run using the JavaFX Maven Plugin:
-```
-mvn clean javafx:run
-```
+4. Then you can run it in three ways. 
+   1. Run it in the IDE.
+   2. Run using cmd line/terminal (stay in target → classes directory) using command like `java --module-path "C:\Program Files\Java\javafx-sdk-24\lib" --add-modules javafx.controls,javafx.fxml ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.MainGUI`
+   3. Run the .jar file using cmd line/terminal (stay in main project directory)  `java --module-path "C:\Program Files\Java\javafx-sdk-24\lib" --add-modules javafx.controls,javafx.fxml -jar GroupProjectGUI-1.jar`
+
+
+## How It Works
+- Users can load a previous `.csv` file or begin fresh
+- Enter hours for each activity and set corresponding goals
+- Confirm entries to save them
+- Use right-side tools to view summaries and analytics
+
 
 ## File Structure
 - `MainGUI.java` - Main class launching the JavaFX application
@@ -61,10 +75,5 @@ mvn clean javafx:run
 - `Goals.java` - Singleton class managing goal data
 - `Activity.java` - Represents a day's activity data
 
-## How It Works
-- Users can load a previous `.csv` file or begin fresh
-- Enter hours for each activity and set corresponding goals
-- Confirm entries to save them
-- Use right-side tools to view summaries and analytics
-
+JUNITSSSSSSSSS
 
