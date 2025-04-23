@@ -1,25 +1,27 @@
 package ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.test;
-import static org.junit.jupiter.api.Assertions.*;
 
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileLoader;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.util.FileSaver;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Activity;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Day;
-import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.GoalType;
 import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.objects.Goals;
+import ca.ucalgary.ahnaf.farhankhan.groupprojectgui1.Data;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-public class test {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-    /**
-     * Unit tests for the Activity class.
-     */
+/**
+ * Unit tests for the Activity class.
+ */
+public class ActivityTest {
 
     /**
      * Tests that the setter methods update all activity fields,
      * and that the corresponding getter methods return the updated values.
      */
     @Test
-    void testConstructorAndGetters() {
+    public void testConstructorAndGetters() {
         Activity act = new Activity("monday", 7, 2, 4, 8, 3);
 
         assertEquals("monday", act.getDay());
