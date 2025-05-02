@@ -92,5 +92,5 @@ To run tests, ensure your IDE has:
 ![App Screenshot](src/main/resources/screenshots/main_view.PNG)
 
 ## App Sketch
-[App Sketch]([Some title here](FILE_NAME.pdf))
+[GUI Sketch](GUI SKETCH + UML/Gui Sketch.pdf)
 
