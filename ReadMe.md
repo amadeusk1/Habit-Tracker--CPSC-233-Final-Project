@@ -1,5 +1,7 @@
 # Habit Tracker—JavaFX Application
 
+## GUI Explanation
+[GUI SKETCH Sketch.pdf](https://github.com/amadeusk1/Habit-Tracker--CPSC-233-Final-Project/blob/master/GUI%20SKETCH%20%2B%20UML/Gui%20Sketch.pdf)
 
 ## Project Overview
 Habit Tracker is a simple JavaFX-based application designed to help users track their daily activities and goals.
@@ -90,7 +92,3 @@ To run tests, ensure your IDE has:
 
 ## Demo Image
 ![App Screenshot](src/main/resources/screenshots/main_view.PNG)
-
-## App Sketch
-[GUI Sketch](GUI SKETCH + UML/Gui Sketch.pdf)
-
